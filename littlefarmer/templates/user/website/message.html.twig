@@ -1,0 +1,77 @@
+
+{% extends 'user/base.html.twig' %}
+    {% block body%}
+        <main>
+            <div id="farmIntroduction">
+                <div id="banner">
+                    <div class="photo">
+                        <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+                    </div>
+                    <div class="text">
+                        <h2>Message</h2>
+                        <h3>留言板</h3>
+                    </div>
+                </div>
+                <div class="wrapper container-fluid join">
+                    <div class="row slideUp wow">
+                        <div class="col-12 col-lg-4 offset-lg-4">
+                            <form method="post" action="{{ path('sendMessage') }}">
+
+                                <input required name="name" type="name" placeholder="請輸入姓名">
+                                <input required name="mobile" type="tel" placeholder="請輸入連絡電話">
+                                <input required name="email" type="email" placeholder="請輸入信箱">
+                                <textarea required name="content" placeholder="請輸入內容"></textarea>
+                                <div class="text-center">
+                                    <button type="submit">送出</button>
+                                </div>
+                            </form>
+                            <p>騰出空間以如果未來有相關法規或是注意事項需要放置提醒。騰出空間以如果未來有相關法規或是注意事項需要放置提醒</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quality" class="content">
+                <div class="wrapper">
+                    <div class="row slideUp wow">
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>10%高品質</h3>
+                            </div>
+                            <p>
+                                限量供應小農10%的外銷商品
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>QR碼身分證</h3>
+                            </div>
+                            <p>
+                                每項產品皆有完整QR碼身分履歷
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>紙箱回收</h3>
+                            </div>
+                            <p>
+                                友善環境，回收無污損包裝箱享折扣
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>無電子發票</h3>
+                            </div>
+                            <p>
+                                本站小農產品，不提供電子及紙本發票
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}

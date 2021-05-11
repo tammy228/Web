@@ -1,0 +1,130 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <main>
+        <div id="checkout">
+            <div class="wrapper slideUp wow">
+                <form id="idFormAioCheckOut" method="post" action="{{url('ECPay')}}">
+                    <div id="payment">
+                        <h3>填寫收件&付款方式</h3>
+                        <h4>填寫收件人資料</h4>
+                        <div class="data">
+                            <label for="name">收件人姓名:</label>
+                            <input name="name" type="name" placeholder="輸入收件人姓名">
+                        </div>
+                        <div class="data">
+                            <label for="tel">收件人電話:</label>
+                            <input name="mobile" type="tel" placeholder="輸入收件人電話">
+                        </div>
+                        <div class="data">
+                            <label for="email">E-MAIL:</label>
+                            <input name="email" type="email" placeholder="輸入收件人信箱">
+                        </div>
+                        <div class="address">
+                            <label for="text">收貨地址:</label>
+                            <div class="address_data" id="twzipcode">
+                                <div class="drag_menu"  data-role="county" data-style="Style Name" data-value="110"></div>
+                                <div class="drag_menu"  data-role="district" data-style="Style Name" data-value="臺北市"></div>
+                                <div style="display: none;" class="drag_menu" data-role="zipcode" data-style="Style Name" data-value="信義區"></div>
+                                <input name="street" type="text" placeholder="街道地址">
+                            </div>
+                        </div>
+                        <div class="delivery">
+                            <label class="title">送貨時段:</label>
+                            <div class="content">
+                                <label><input type="radio" name="delivery" value="morning"><span class="period">早上09:00~12:00</span></label>
+                                <label><input type="radio" name="delivery" value="afternoon"><span class="period">下午13:00~18:00</span></label>
+                                <label><input type="radio" name="delivery" value="allDay" checked><span class="period">整天</span></label>
+                            </div>
+                        </div>
+                         <div id="paymentMethod">
+                            <h4>請選擇付款方式</h4>
+                            <div class="transfer">
+                                <label class="title">付款方式:</label>
+                                <div class="content">
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="Credit" > 信用卡<br>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="WebATM"> 網路 ATM<br>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="ATM"> 自動櫃員機<br>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="CVS"> 超商代碼<br>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="BARCODE"> 超商條碼<br>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="ChoosePayment" value="ALL" checked> 不指定<br>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                        <textarea class="form-control" name="remark" cols="50" rows="5" placeholder="請輸入備註"></textarea>
+                        </div>
+                    </div>
+                    <div id="button">
+                        <a href="{{ path("cart.list") }}">上一頁</a>
+                        <button type="submit" class="btn btn-success">結帳</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="gray">
+            <div id="userProducts" class="wrapper">
+                <h3 class="text-center slideUp wow">熱門商品</h3>
+                <div class="row">
+
+                </div>
+                <button class="next"><i class="fas fa-chevron-circle-left"></i></button>
+                <button class="prev"><i class="fas fa-chevron-circle-right"></i></button>
+            </div>
+        </div>
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q1.png" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q4.png" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q3.png" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q2.png" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+

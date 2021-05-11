@@ -1,0 +1,109 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <main>
+        <div id="memberProfile">
+            <h2 class="text-center">訂單查詢</h2>
+            <div class="wrapper container-fluid">
+                <div class="row">
+                    <div class="col-xl-2">
+                        <div class="member_menu slideUp wow">
+                            <h3>我的帳號</h3>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('user.info',{'uuid':app.user.uuid}) }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-user"></i></span>
+                                            會員資訊<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user.order',{'uuid':app.user.uuid}) }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-server"></i></span>
+                                            訂單查詢<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user.follow.farmer.list') }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-heart"></i></span>
+                                            追蹤小農<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('user.resetPassword') }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-unlock-alt"></i></span>
+                                            密碼修改<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <h4><span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                                            登出<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="orderList" class="col-xl-10 slideUp wow">
+                        <ul>
+                            {% if orders %}
+                                {% for order in orders %}
+                            <li>
+                                <h3><i class="fas fa-caret-right"></i>訂單編號<span class="orderNumber">#{{ order.uuid|striptags|slice(0, 8) }}</span> </h3>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td>
+                                            訂購日期
+                                        </td>
+                                        <td>
+                                            付款方式
+                                        </td>
+                                        <td>
+                                            總金額
+                                        </td>
+                                        <td>
+                                            處理進度
+                                        </td>
+                                        <!-- <td>
+                                            訂單追蹤
+                                        </td> -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td data-th="訂購日期">
+                                            {{ order.createAt|date('Y-m-d H:i:s') }}
+                                        </td>
+                                        <td data-th="付款方式">
+                                            {{ order.payment }}
+                                        </td>
+                                        <td data-th="總金額">
+                                            {{ getTotalPrice(order) }}
+                                        </td>
+                                        <td data-th="處理進度">
+                                            {{ status(order.status) }}
+                                        </td>
+                                        <!-- <td>
+                                            <a href="">追蹤</a>
+                                        </td> -->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

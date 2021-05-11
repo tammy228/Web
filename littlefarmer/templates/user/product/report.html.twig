@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小農點點</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/index.css') }}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</head>
+<script>
+    $(function () {
+        $("#product-image-slick").slick({
+            dots: true,
+            appendDots: "#dots",
+            prevArrow: "#prev-arrow",
+            nextArrow: "#next-arrow",
+        });
+    });
+</script>
+
+<body class="no-scroll">
+<!-- 產品資訊modal -->
+<div id="product-modal" class="ui-modal show">
+    <div class="ui-modal__wrap full">
+        <div class="ui-modal__content product">
+            <div class="product-image">
+                <div class="product-text-gray">您購買的商品：</div>
+                <div class="product-text-title">摩天嶺－茂谷柑禮盒</div>
+                <div id="product-image-slick" class="product__container product-image__slick">
+                    {% for image in product.images %}
+                        <div>
+                            <div class="item__image" style="background-image: url({{ image }});"></div>
+                        </div>
+                    {% else %}
+                        <img src="{{ asset('img/noPhoto.png') }}" alt="小農點點">
+                    {% endfor %}
+
+                </div>
+                <div class="product-image__nav">
+                    <div id="prev-arrow" class="prev-arrow arrow"></div>
+                    <div id="dots" class="dots"></div>
+                    <div id="next-arrow" class="next-arrow arrow"></div>
+                </div>
+            </div>
+            <div class="product-content">
+                <div class="product__container">
+                    <div class="row">
+                        <div class="product-text-block">
+                            <span class="tag">摘種農友</span>
+                            <p>{{ farmer.instruction }}</p>
+                            <p>{{ farmer.farm ? '農園:'~farmer.farm : '' }}</p>
+                        </div>
+                        <div class="product-text-block">
+                            <div class="img" style="background-image: url({{ farmer.image ? farmer.image : asset('img/defaultUser.png') }});"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="product-text-block">
+                            <span class="tag">商品規格</span>
+                            <p>{{ product.detail }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#
+                        <div class="product-text-block">
+                            <span class="tag">配送資訊</span>
+                            <p>採收時間：2019/12/22 上午<br>寄送時間：2019/12/22 15:22（物流取貨）<br>到貨時間：2019/12/24 13:54（口已簽收
+                                口未簽收）<br>配送物流：黑貓宅急便（東勢物流所）編號 : 21734</p>
+                        </div>
+                        #}
+                    </div>
+                    <div class="row">
+                        <div class="product-text-block">
+                            <span class="tag">商品故障換貨</span>
+                            <p>請填入聯絡資訊，將有專人會為您進行聯絡。</p>
+                            <form id="product-form" class="ui-form" action="{{ path('user.product.report.up') }}" method="post">
+
+                                <div class="ui-form__row">
+                                    <label for="input-name">姓名：</label>
+                                    <input required name="name" type="text" id="input-name">
+                                </div>
+                                <div class="ui-form__row">
+                                    <label for="input-phone">電話：</label>
+                                    <input required name="mobile" type="tel" id="input-phone">
+                                </div>
+                                <div class="ui-form__row">
+                                    <label for="input-email">E-mail：</label>
+                                    <input required name="email" type="email" id="input-email">
+                                </div>
+                                <input name="x" type="text" value="{{ id }}" hidden>
+                                <input name="q" type="text" value="{{ number }}" hidden>
+                                <div class="ui-form__button-wrap">
+                                    <button class="ui-form__button" type="submit">確認送出</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row flex-wrap">
+                        <div class="certification">
+                            <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                            <h3>10%高品質</h3>
+                            <p>
+                                限量供應小農10%的外銷商品
+                            </p>
+                        </div>
+                        <div class="certification">
+                            <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                            <h3>QR碼身分證</h3>
+                            <p>
+                                每項產品皆有完整的QR碼身份履歷
+                            </p>
+                        </div>
+                        <div class="certification">
+                            <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                            <h3>紙箱回收</h3>
+                            <p>
+                                友善環境，回收無污損包裝箱可享折扣
+                            </p>
+                        </div>
+                        <div class="certification">
+                            <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                            <h3>無電子發票</h3>
+                            <p>
+                                本站小農產品不提供電子及紙本發票
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="product-modal-close" class="ui-modal__close"></div> -->
+    </div>
+</div>
+</body>
+
+</html>

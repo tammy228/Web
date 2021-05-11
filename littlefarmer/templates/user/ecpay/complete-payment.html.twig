@@ -1,0 +1,53 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <main>
+        <div id="checkoutCompleted" class="slideUp wow">
+            <h3>結帳完成</h3>
+            <p>謝謝您購買我們的商品，很高興為您服務！</p>
+            <p>歡迎使用手機號碼登入會員，追蹤訂單更方便！</p>
+            <a href="{{ url('user.index') }}">回首頁</a>
+        </div>
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="/dist/img/q1.png" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="/dist/img/q4.png" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="/dist/img/q3.png" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="/dist/img/q2.png" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

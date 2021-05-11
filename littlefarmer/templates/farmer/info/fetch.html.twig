@@ -1,0 +1,151 @@
+{% extends 'farmer/base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>小農資料</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("farmer.index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">小農資料</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    小農資料
+                                </h3>
+                            </div>
+
+                            <form method="post" enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>小農名稱</label><br>
+                                            {{ form_widget(form.name, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>hash_key(綠界支付)</label><br>
+                                            {{ form_widget(form.hash_key, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>hash_iv(綠界支付)</label><br>
+                                            {{ form_widget(form.hash_iv, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>merchant_id(綠界支付)</label><br>
+                                            {{ form_widget(form.merchant_id, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>關於我</label><br>
+                                            {{ form_widget(form.instruction, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...',
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>我的農場</label><br>
+                                            {{ form_widget(form.farm, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>性別</label><br>
+                                            {{ form_widget(form.sexual, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>圖片選擇</label><br>
+                                            {% if user.image %}
+                                                <img width="200" height="200" src= "{{ user.image }}">
+                                            {% else %}
+                                                沒有圖片
+                                            {% endif %}
+                                            {{ form_widget(form.image) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>聯絡電話</label><br>
+                                            {{ form_widget(form.mobile, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': ''
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>生日</label><br>
+                                            {{ form_widget(form.birthday, {'attr': {
+                                                'input': user.birthday|date("Y-m-d")
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <!-- /.form group -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info" onclick="submitXML()">儲存</button></br>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

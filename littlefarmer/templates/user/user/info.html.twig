@@ -1,0 +1,202 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+<main>
+    <div id="memberProfile">
+        <h2 class="text-center slideUp wow">會員資訊</h2>
+        <div class="wrapper container-fluid">
+            <div class="row">
+                <div class="col-xl-2">
+                    <div class="member_menu slideUp wow">
+                        <h3>我的帳號</h3>
+                        <ul>
+                            <li>
+                                <a href="{{ path('user.info',{'uuid':app.user.uuid}) }}">
+                                    <h4>
+                                        <span class="icon"><i class="fas fa-user"></i></span>
+                                        會員資訊<i class="fas fa-angle-right"></i>
+                                    </h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user.order',{'uuid':app.user.uuid}) }}">
+                                    <h4>
+                                        <span class="icon"><i class="fas fa-server"></i></span>
+                                        訂單查詢<i class="fas fa-angle-right"></i>
+                                    </h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user.follow.farmer.list') }}">
+                                    <h4>
+                                        <span class="icon"><i class="fas fa-heart"></i></span>
+                                        追蹤小農<i class="fas fa-angle-right"></i>
+                                    </h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('user.resetPassword') }}">
+                                    <h4>
+                                        <span class="icon"><i class="fas fa-unlock-alt"></i></span>
+                                        密碼修改<i class="fas fa-angle-right"></i>
+                                    </h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('auth.logout') }}">
+                                    <h4><span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                                        登出<i class="fas fa-angle-right"></i>
+                                    </h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="memberForm" class="col-xl-10">
+                    <form method="post" action="{{ path('user.update', {'uuid': user.uuid}) }}">
+                        <div class="row slideUp wow">
+                            <div class="col-12">
+                                <div class="row memberForm">
+                                    <label for="inputEmail" class="col-sm-2">會員信箱：</label>
+                                    <div class="col-sm-10">
+                                        <input name="email" type="email" value="{{ user.email }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="row memberForm">
+                                    <label for="inputName" class="col-sm-2">會員姓名：</label>
+                                    <div class="col-sm-10">
+                                        <input name="name" type="name" value="{{ user.name }}">
+                                    </div>
+                                </div>
+                                <div class="row memberForm">
+                                    <label for="inputLet" class="col-sm-2">會員電話：</label>
+                                    <div class="col-sm-10">
+                                        <input name="mobile" type="let" value="{{ user.mobile }}">
+                                    </div>
+                                </div>
+
+                                <div class="row memberForm">
+                                    <label for="inputEmail" class="col-sm-2">會員生日：</label>
+                                    {% if user.birthday %}
+                                        {% set birthday = user.birthday|date('Y-m-d')  %}
+                                        {% set birthday = birthday|split('-') %}
+                                    {% else %}
+                                        {% set birthday = ['2000','1','1']  %}
+                                    {% endif %}
+                                    <div class="col-sm-4">
+                                        <div class="drag_menu">
+                                            <select name="birthY">
+                                                {% for key in range(1920,2000) %}
+                                                    {% if birthday[0] == key %}
+                                                        <option selected>{{ key }}</option>
+                                                    {% else %}
+                                                        <option>{{ key }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="drag_menu">
+                                            <select name="birthM">
+                                                {% for key in range(01,12) %}
+                                                    {% if birthday[1] == key %}
+                                                        <option selected>{{ key }}</option>
+                                                    {% else %}
+                                                        <option>{{ key }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="drag_menu">
+                                            <select name="birthD">
+                                                {% for key in range(01,31) %}
+                                                    {% if birthday[2] == key %}
+                                                        <option selected>{{ key }}</option>
+                                                    {% else %}
+                                                        <option>{{ key }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row memberForm">
+                                    <label for="inputEmail" class="col-sm-2">會員性別：</label>
+                                    <div class="col-sm-10">
+                                        {% if user.sexual == "male" %}
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value=null>
+                                                <label for="exampleRadios0">
+                                                    不選擇
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="male" checked>
+                                                <label for="exampleRadios1">
+                                                    男
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="female">
+                                                <label for="exampleRadios2">
+                                                    女
+                                                </label>
+                                            </div>
+                                        {% elseif user.sexual == "female" %}
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value=null >
+                                                <label for="exampleRadios0">
+                                                    不選擇
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="male">
+                                                <label for="exampleRadios1">
+                                                    男
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="female" checked>
+                                                <label for="exampleRadios2">
+                                                    女
+                                                </label>
+                                            </div>
+                                        {% else%}
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value=null checked>
+                                                <label for="exampleRadios0">
+                                                    不選擇
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="male" >
+                                                <label for="exampleRadios1">
+                                                    男
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" name="sex" value="female">
+                                                <label for="exampleRadios2">
+                                                    女
+                                                </label>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="explanation">騰出空間以如果未來有相關法規或是注意事項需要放置提醒。騰出空間以如果未來有相關法規或是注意事項需要放置提醒</p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn" type="submit">儲存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

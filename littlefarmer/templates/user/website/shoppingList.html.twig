@@ -1,0 +1,87 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+
+    {% if not app.user %}
+        <script>alert('請先登入');window.location = '{{ path('auth.login') }}';</script>
+    {% elseif not app.user.emailValidated %}
+        <script>alert('請先驗證');window.location = '{{ path('user.verify') }}';</script>
+    {% else %}
+        {% set products = app.user.cart.products %}
+        {% set total = 0 %}
+        <main>
+        <div id="shoppingList">
+            <div class="wrapper slideUp wow">
+                <form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>圖片</td>
+                                <td>購買產品</td>
+                                <td>數量</td>
+                                <td>小計</td>
+                                <td>刪除</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>
+                                    <div class="photo">
+                                        <img src="{{ product.image[0] }}" alt="小農點點">
+                                    </div>
+                                </td>
+                                <td class="name">
+                                    {{ product.zhName }}
+                                    <span class="specification">{{ product.detail }}</span>
+                                </td>
+                                <td class="quantity">
+                                    <button>-</button>
+                                    <input type="text" placeholder="1">
+                                    <button>+</button>
+                                </td>
+                                <td class="price">
+                                    {{ product.price }}
+                                </td>
+                                <td class="delete">
+                                    <button>
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            {% set total = total + product.price %}
+                         {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div id="total">
+                        <ul>
+                            <li>
+                                <div class="title">
+                                    總計:
+                                </div>
+                                <div class="content">
+                                    NT$ {{ total }}
+                                </div>
+                            </li>
+                            <li id="sum">
+                                <div class="title">
+                                    消費總額:
+                                </div>
+                                <div class="content">
+                                    NT$ {{ total }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="button">
+                        <a href="{{ path('products.list') }}">繼續購物</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </main>
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+
+
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <main>
+        <div id="farmIntroduction">
+            <div id="banner">
+                <div class="photo">
+                    <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+                </div>
+                <div class="text">
+                    <h3>會員註冊</h3>
+                </div>
+            </div>
+            <div class="wrapper container-fluid join">
+                <div class="row slideUp wow">
+                    <div class="col-12 col-lg-4 offset-lg-4">
+                        <form method="post">
+                            <div class="card-body register-card-body ">
+                                {{ form_start(form) }}
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(form.name,
+                                            { "attr":{
+                                                'class': "form-control",
+                                                'placeholder': "輸入名字"}}) }}
+                                    </div>
+                                    {{ form_errors(form.name) }}
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(form.email,
+                                            { "attr":{
+                                                'class': "form-control",
+                                                'placeholder': "輸入信箱"}}) }}
+                                    </div>
+                                    {% if error %}
+                                        <li> {{ error }}</li>
+                                    {% endif %}
+                                    {{ form_errors(form.email) }}
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(form.plainPassword.first,
+                                            { "attr":{
+                                                'class': "form-control",
+                                                'placeholder': "輸入密碼"}}) }}
+                                    </div>
+                                    {{ form_errors(form.plainPassword.first) }}
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(form.plainPassword.second,
+                                            { "attr":{
+                                                'class': "form-control",
+                                                'placeholder': "確認密碼"}}) }}
+                                    </div>
+                                    {{ form_errors(form.plainPassword.second) }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary btn-block" style="margin: auto">註冊</button>
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                                <div>
+                                    已有帳號? <a href="{{ url('auth.login') }}">登入</a>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <p>騰出空間以如果未來有相關法規或是注意事項需要放置提醒。騰出空間以如果未來有相關法規或是注意事項需要放置提醒</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset("dist/js/imgLiquid-min.js") }}"></script>
+    <script src="{{ asset("dist/js/slick.min.js") }}"></script>
+    <script src="{{ asset("dist/js/ui.js") }}"></script>
+{% endblock %}

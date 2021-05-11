@@ -1,0 +1,133 @@
+{% extends 'farmer/base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm">
+                    <h1>產品</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("farmer.index") }}">首頁</a></li>
+                        <li class="breadcrumb-item active">{{ product.zhName }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <table class="table table-bordered">
+        <tbody>
+
+            <tr>
+                <th>產品名稱</th>
+                <td>{{ product.zhName }}</td>
+            </tr>
+
+
+            <tr>
+                <th>創建時間</th>
+                <td>{{ product.createAt ? product.createAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>更新時間</th>
+                <td>{{ product.updateAt ? product.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>圖片</th>
+                <td>
+                    {% for image in product.images %}
+                        <img width="200" height="200" src= "{{ image }}">
+                    {% else %}
+                        沒有圖片
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>說明</th>
+                <td>{{ product.zhDescription|raw }}</td>
+            </tr>
+            <tr>
+                <th>規格</th>
+                <td>{{ product.detail }}</td>
+            </tr>
+            <tr>
+                <th>價格</th>
+                <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>庫存</th>
+                <td>{{ product.stock }}</td>
+            </tr>
+            <tr>
+                <th>是否為團購品</th>
+                <td>
+                    {% if product.groupBuy == false %}
+                        否
+                    {% else %}
+                        是
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>是否為即期品</th>
+                <td>
+                    {% if product.expired == false %}
+                        否
+                    {% else %}
+                        是
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>是否為特價品</th>
+                <td>
+                    {% if product.onSale == false %}
+                        否
+                    {% else %}
+                        是
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>是否刪除</th>
+                <td>
+                    {% if product.deleted == false %}
+                        否
+                    {% else %}
+                        是
+                    {% endif %}
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('farmer.product.list',{'uuid': product.user.getUuid()}) }}">
+        <button class="btn btn-primary btn-xs" style="margin: 0 10px 0 0;">
+            <i class="fas fa-eye"></i> 產品列表
+        </button>
+    </a>
+    {#
+    <a href="{{ url("admin.product.update", {"id": product.getId()}) }}">
+        <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+            <i class="fas fa-edit"></i> 更新產品
+        </button>
+    </a>
+    <a href="{{ url("admin.product.delete", {"id": product.getId()}) }}">
+        <button onclick="return confirm('確定刪除嗎?');" class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+            <i class="fas fa-trash"></i> 刪除產品
+        </button>
+    </a>
+    #}
+    </td>
+
+</div>
+{% endblock %}

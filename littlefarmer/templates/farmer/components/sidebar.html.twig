@@ -1,0 +1,86 @@
+
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ url("user.index") }}" class="brand-link">
+        <img src="/img/logo.png"
+             alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">LittleFarmer Console</span><br/>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                {% if not app.user.hashKey or not app.user.merchantID or not app.user.hashIV %}
+                    <li class="nav-item">
+                        <a href="{{ path('farmer.info') }}" class="nav-link">
+                            <i class = "nav-icon"></i>
+                            <p>請填寫完整資料(綠界金流)</p>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>
+                                產品
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ path('farmer.product.list',{'uuid':app.user.uuid}) }}" class="nav-link">
+                                    <i class = "nav-icon fas fa-list-ul"></i>
+                                    <p>產品列表</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('farmer.product.create',{'uuid':app.user.uuid}) }}"  class="nav-link">
+                                    <i class = "nav-icon fas fa-plus"></i>
+                                    <p>新建產品</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a href="{{ path('farmer.order.list',{'uuid':app.user.uuid}) }}" class="nav-link">
+                            <i class = "nav-icon fas fa-file"></i>
+                            <p>訂單資料</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ path('farmer.report.list') }}" class="nav-link">
+                            <i class = "nav-icon fas fa-file"></i>
+                            <p>退換貨資料</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ path('farmer.info') }}" class="nav-link">
+                            <i class = "nav-icon fas fa-user"></i>
+                            <p>基本資料</p>
+                        </a>
+                    </li>
+
+
+
+
+
+                {% endif %}
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

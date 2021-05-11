@@ -1,0 +1,134 @@
+{% extends 'user/base.html.twig' %}
+{% block body%}
+    <div id="load"></div>
+    <main>
+        <div id="home">
+            <div id="banner" class="slick">
+                <div class="item">
+                    <div class="photo">
+                        <img src="https://scontent.frmq2-1.fna.fbcdn.net/v/t1.0-9/90207752_2816431461756289_6904739602876071936_n.jpg?_nc_cat=111&_nc_sid=825194&_nc_ohc=ymjDEE23Tu4AX9z1jF2&_nc_ht=scontent.frmq2-1.fna&oh=0f069d3c248636cc60dc40cc5640068d&oe=5ECB1E9E" alt="小農點點">
+                    </div>
+                    <div class="text fadeInUp wow">
+                        <h1>Good Tree Makes Good Fruit</h1>
+                        <h2>love is a fruit in season at all times, and within reach of every hand</h2>
+                        <a href="https://www.facebook.com/717612622/videos/10154747837917623">
+                            看完整影片<i class="fas fa-caret-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="photo">
+                        <img src="{{ asset('dist/img/banner.jpg') }}" alt="小農點點">
+                    </div>
+                    <div class="text">
+                        <h1>Good Tree Makes Good Fruit</h1>
+                        <h2>love is a fruit in season at all times, and within reach of every hand</h2>
+                        <a href="">
+                            看完整影片<i class="fas fa-caret-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sponsor" class="content">
+                <div class="wrapper">
+                    <h2 class="text-center slideUp wow">贊助廠商</h2>
+                    <div class="row slideUp wow">
+{#                        <div class="item col-xl-3 col-md-6 col-6">#}
+{#                            <img src="https://cell.moe.edu.tw/School/imgRead.ashx?schlid=99" alt="">#}
+{#                        </div>#}
+{#                        <div class="item col-xl-3 col-md-6 col-6">#}
+{#                            <img src="https://cell.moe.edu.tw/School/imgRead.ashx?schlid=99" alt="">#}
+{#                        </div>#}
+{#                        <div class="item col-xl-3 col-md-6 col-6">#}
+{#                            <img src="https://cell.moe.edu.tw/School/imgRead.ashx?schlid=99" alt="">#}
+{#                        </div>#}
+{#                        <div class="item col-xl-3 col-md-6 col-6">#}
+{#                            <img src="https://cell.moe.edu.tw/School/imgRead.ashx?schlid=99" alt="">#}
+{#                        </div>#}
+{#                        <div class="item col-xl-3 col-md-6 col-6">#}
+{#                            <img src="https://cell.moe.edu.tw/School/imgRead.ashx?schlid=99" alt="">#}
+{#                        </div>#}
+                    </div>
+                </div>
+
+            </div>
+            <div id="activity" class="content">
+                <div class="wrapper">
+                    <h2 class="text-center slideUp wow">活動快訊</h2>
+                    <div class="row slideUp wow">
+                        {% set news = getNews() %}
+                        {% for item in news %}
+                        <div class="item">
+                            {% set images = item.getImages() %}
+                            <div class="photo">
+                                <img src="{{ images[0] }}"
+                                     alt="小農點點">
+                            </div>
+                            <div class="text">
+                                <h3 class="text-center">{{ item.zhTitle}}</h3>
+                                <pre>{{ item.createAt|date('Y-m-d H:i:s') }}</pre>
+                                <p>
+                                    {{ item.zhContent|length > 30 ? content|raw|striptags|slice(0, 30) ~ '...' : item.zhContent|raw }}
+                                </p>
+                                <div class="text-center">
+                                    <a href="{{ path('news.fetch',{'uuid':item.uuid}) }}">MORE<i class="fas fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                    <button class="next"><i class="fas fa-chevron-circle-left"></i></button>
+                    <button class="prev"><i class="fas fa-chevron-circle-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q1.png" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q4.png" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q3.png" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="dist/img/q2.png" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+

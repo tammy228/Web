@@ -1,0 +1,65 @@
+
+
+{% extends 'user/base.html.twig' %}
+{% block body %}
+<main>
+    <div id="farmIntroduction">
+        <div id="banner">
+            <div class="photo">
+                <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+            </div>
+            <div class="text">
+                <h3>會員登入</h3>
+            </div>
+        </div>
+        <div class="wrapper container-fluid join">
+            <div class="row slideUp wow">
+                <div class="col-12 col-lg-4 offset-lg-4">
+                    <form method="post">
+                        <div id="third-party">
+                            <a href="{{ url("connect.facebook.start") }}">
+                                <button id="facebook" type="button">facebook帳號登入</button>
+                            </a>
+                            <a href="{{ url("connect.google.start") }}">
+                            <button id="google" type="button">google帳號登入</button>
+                            </a>
+                        </div>
+
+                        <label for="inputEmail">信箱</label>
+                        <input type="email" value="{{ last_username }}"
+                               name="email" id="inputEmail"
+                               class="form-control"
+                               placeholder="{{ '輸入信箱' }}"
+                               required autofocus></br>
+                        <label for="inputPassword">密碼</label>
+                        <input type="password" name="password"
+                               id="inputPassword"
+                               class="form-control"
+                               placeholder="{{ '輸入密碼' | trans }}"
+                               required></br>
+                        {% if error %}
+                            <div style="color: red">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br>
+                        {% endif %}
+                        <div>
+                            <a href="{{ url('auth.forgetPassword') }}">忘記密碼</a>
+                        </div>
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}">
+                        <div class="text-center evenlyDispersed">
+                            <button type="submit">登入</button>
+
+                            <a href="{{ url('auth.register') }}">
+                                <button type="button">註冊</button>
+                            </a>
+                        </div>
+                    </form>
+
+
+                    <p>騰出空間以如果未來有相關法規或是注意事項需要放置提醒。騰出空間以如果未來有相關法規或是注意事項需要放置提醒</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+

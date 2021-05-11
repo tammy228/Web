@@ -1,0 +1,120 @@
+{% extends 'user/base.html.twig' %}
+{% block body%}
+{#    <div id="load"></div>#}
+    <main>
+        <div id="products" class="products">
+            <h2 class="text-center">{{ title }}</h2>
+            <div class="wrapper container-fluid">
+                <div class="row">
+                    <div class="col-xl-2">
+                        <div class="products_menu slideUp wow">
+                            <h3>產品分類</h3>
+                            <ul>
+                                <li>
+                                    <h4>所有產品<i class="fas fa-angle-down"></i></h4>
+                                    <ol>
+                                        <li><a href="{{ url("products.list") }}"><i class="fas fa-caret-right"></i>所有產品</a></li>
+                                        {% set categories = getCategories() %}
+                                        {% if categories %}
+                                            {% for category in categories %}
+                                                <li><a href="{{ url("products.list.by.category",{'slug':category.getUuid()}) }}"><i class="fas fa-caret-right"></i>{{ category.getName() }}</a></li>
+                                            {% endfor %}
+                                        {% endif %}
+                                        {# for loop
+                                            <li><a href="./products.html"><i class="fas fa-caret-right"></i>蘋果</a></li>
+                                        #}
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="{{ url("products.list.by", {'slug':'groupBuy'}) }}">
+                                        <h4>團購<i class="fas fa-angle-down"></i></h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url("products.list.by", {'slug':'onSale'}) }}">
+                                        <h4>限時優惠<i class="fas fa-angle-down"></i></h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url("products.list.by", {'slug':'expired'}) }}">
+                                        <h4>即期品<i class="fas fa-angle-down"></i></h4>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-10">
+                        <div class="row slideUp wow">
+                            {% for product in products %}
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="item">
+                                        <a href="{{ url('product.fetch',{'uuid':product.uuid}) }}">
+                                            <div class="photo">
+                                                {% if product.images %}
+                                                    <img src="{{ product.images[0] }}" alt="小農點點">
+                                                {% else %}
+                                                    <img width="200" height="200" src= "{{ asset('/img/noPhoto.png') }}">
+                                                {% endif %}
+                                            </div>
+                                            <div class="text">
+                                                <h5>{{ product.getZhName() }}</h5>
+                                                <p>
+                                                    產地：{{ product.getOrigin() }}
+                                                </p>
+                                                <p>
+                                                    價格：{{ product.getPrice() }}元
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

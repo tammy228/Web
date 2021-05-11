@@ -1,0 +1,190 @@
+{% extends 'farmer/base.html.twig' %}
+
+{% block title %}更改產品{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更改產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("farmer.product.list",{'uuid': app.user.uuid }) }}">首頁</a></li>
+                            <li class="breadcrumb-item active">更改產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    產品
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {{ form_row(form._token) }}
+                                    <div class="card-body">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>產品名稱(中文)</label><br>
+                                                {{ form_widget(form.zhName, {'attr': {
+                                                    'class': 'form-control',
+                                                    'placeholder': '輸入...'
+                                                }}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>產品名稱(英文)</label><br>
+                                                {{ form_widget(form.enName, {'attr': {
+                                                    'class': 'form-control',
+                                                    'placeholder': '輸入...'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>產品敘述(中文)</label><br>
+                                            {{ form_widget(form.zhDescription, {'attr': {
+                                                'class': 'form-control',
+                                                'style': 'width:800px; height:300px'
+                                            }}) }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>產品敘述(英文)</label><br>
+                                            {{ form_widget(form.enDescription, {'attr': {
+                                                'class': 'form-control',
+                                                'style': 'width:800px; height:300px'
+                                            }}) }}
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>圖片選擇</label><br>
+                                                {% if product.images %}
+                                                    {% for image in product.images %}
+                                                        <img width="200" height="200" src= "{{ image }}">
+                                                    {% endfor %}
+                                                {% else %}
+                                                    沒有圖片
+                                                {% endif %}
+                                                {{ form_widget(form.image) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>規格</label><br>
+                                                {{ form_widget(form.detail, {'attr': {
+                                                    'class': 'form-control',
+                                                    'placeholder': 'EX:6顆/盒'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>庫存</label><br>
+                                                {{ form_widget(form.stock, {'attr': {
+                                                    'class': 'form-control',
+                                                    'empty_data' : '0'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>價格</label><br>
+                                                {{ form_widget(form.price, {'attr': {
+                                                    'class': 'form-control'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>是否為團購商品</label><br>
+                                                {{ form_widget(form.groupBuy, {'attr': {
+                                                    'class': 'form-control'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>是否為特價品</label><br>
+                                                {{ form_widget(form.onSale, {'attr': {
+                                                    'class': 'form-control'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>是否為即期品</label><br>
+                                                {{ form_widget(form.expired, {'attr': {
+                                                    'class': 'form-control'
+                                                }}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>分類</label><br>
+                                                <select class="form-control" name="category" style="font-size: 20px;width: auto">
+                                                    <option value="0">未分類</option>
+                                                    {% set categories = getCategories() %}
+                                                    {% for category in categories %}
+                                                        <option value="{{ category.uuid }}">{{ category.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form group -->
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-info" onclick="submitXML()">送出</button></br>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{#<button onclick="return confirm('確定刪除嗎?');"><a href="{{ path('admin.product.delete', {'id': product.id}) }}">delete</a></button>#}
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function more(){
+            nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length)
+            tn = nt.insertCell(0);
+            tt = nt.insertCell(1);
+            ta = nt.insertCell(2);
+            tn.innerHTML = "<input required type='text' name='format[]' placeholder=\"Ex:XL L 綠色...\"/>";
+            tt.innerHTML = "<input required type='number' name='price[]' placeholder=\"請輸入整數...\"/>";
+            ta.innerHTML = "<input required type='number' name='stock[]' placeholder=\"請輸入整數...\"/>";
+        }
+        function del(){
+            document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-1);
+        }
+    </script>
+
+    <script>
+        CKEDITOR.replace( 'product[zhDescription]' );
+        CKEDITOR.replace( 'product[enDescription]' );
+    </script>
+{% endblock %}
+
+

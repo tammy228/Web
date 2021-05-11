@@ -1,0 +1,104 @@
+{% extends 'user/base.html.twig' %}
+{% block body%}
+    <div id="load"></div>
+    <main>
+    <div id="farmIntroduction">
+        <div id="banner">
+            <div class="photo">
+                <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+            </div>
+            <div class="text">
+                <h2>team</h2>
+                <h3>團隊介紹</h3>
+            </div>
+        </div>
+        <div id="farmIntroduction_menu">
+            <div class="wrapper">
+                <ul>
+                    <li>
+                        <a href="{{ url("aboutUs") }}">關於我們</a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url("team") }}">團隊介紹</a>
+                    </li>
+                    <li>
+                        <a href="{{ url("join") }}">加入我們</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper container-fluid">
+            <div class="row introduction">
+                <div class="col-12 col-lg-6 photo slideUp wow">
+                    <img src="https://cdn.pixabay.com/photo/2019/09/12/22/45/farm-4472771_960_720.jpg" alt="">
+                </div>
+                <div class="col-12 col-lg-6 text slideUp wow">
+                    <h2>團隊夥伴</h2>
+                    <p>
+                        青山依舊在，幾度夕陽紅。慣看秋月春風。一壺濁酒喜相逢，浪花淘盡英雄。是非成敗轉頭空，滾滾長江東逝水，白髮漁樵江渚上，古今多少事，都付笑談中。
+                    </p>
+                </div>
+            </div>
+            <div class="row introduction">
+                <div class="col-12 col-lg-6 slideUp wow">
+                    <h2>團隊影片</h2>
+                    <p>
+                        青山依舊在，幾度夕陽紅。慣看秋月春風。一壺濁酒喜相逢，浪花淘盡英雄。是非成敗轉頭空，滾滾長江東逝水，白髮漁樵江渚上，古今多少事，都付笑談中。
+                    </p>
+                </div>
+                <div class="col-12 col-lg-6 slideUp wow">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/v9HAXmy-pXk" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

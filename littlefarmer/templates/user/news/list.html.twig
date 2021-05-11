@@ -1,0 +1,57 @@
+{% extends 'user/base.html.twig' %}
+
+{% block body %}
+
+<main>
+    <div id="new">
+        <div id="banner">
+            <div class="photo">
+                <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+            </div>
+            <div class="text">
+                <h2>Special Event</h2>
+                <h3>優惠活動</h3>
+            </div>
+        </div>
+        <div id="new_menu">
+            <div class="wrapper">
+                <ul>
+                    <li class="active">
+                        <a href="{{ path('news.list') }}">優惠活動</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('farmer.list') }}">新駐小農</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper container-fluid">
+            <div class="row list slideUp wow">
+                {% for new in news %}
+                    <div class="item col-xl-3 col-lg-4 col-md-6 col-12">
+                        <div class="photo">
+                            <img src="{{ new.images[0] }}" alt="小農點點">
+                        </div>
+                        <div class="text">
+                            <h4>{{ new.zhTitle }}</h4>
+                            <pre>{{ new.updateAt|date('Y-m-d H:i:s') }}</pre>
+                            <p>{{ new.zhContent }}</p>
+                            <div class="text-center"><a href="{{ path('news.fetch',{'uuid':new.uuid}) }}">more<i class="fas fa-angle-right"></i></a></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="wrapper">
+            <nav class="page">
+                <ul>
+                    <li class="disabled"><a href="#">上一頁</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">下一頁</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+{% endblock %}
+

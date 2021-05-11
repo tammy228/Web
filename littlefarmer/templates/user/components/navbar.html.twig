@@ -1,0 +1,181 @@
+<header id="header">
+    <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <a href="{{ url("user.index") }}">
+            <div id="logo">
+                <img src="{{ asset('dist/img/logo.png') }}" alt="小農點點">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li id="searchBar">
+                    <form method="post" action="{{ path('user.handleSearch') }}">
+                        <div class="wrapper">
+                            <input type="text" name="search">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                </li>
+                <li>
+                    <a href="{{ url("products.list") }}">購買</a>
+                </li>
+                <li>
+                    <a href="{{ path('news.list') }}">最新消息</a>
+                </li>
+                <li>
+                    <a href="{{ url("aboutUs") }}">關於我們</a>
+                </li>
+                <li class="mobile_menu">
+                    <h3>如何購買<i class="fas fa-angle-down"></i></h3>
+                    <ul>
+                        <li><a href="{{ url('memberFAQ') }}">會員常見問題</a></li>
+                        <li><a href="{{ url('productFAQ') }}">產品常見問題</a></li>
+                        <li><a href="{{ url('shoppingFAQ') }}">購物常見問題</a></li>
+                        <li><a href="{{ url('deliveryNote') }}">配送常見說明</a></li>
+                        <li><a href="{{ url('returnInstructions') }}">退貨退款說明</a></li>
+                    </ul>
+                </li>
+                <li class="mobile_menu">
+                    <h3>會員服務<i class="fas fa-angle-down"></i></h3>
+                    <ul>
+                        <li><a href="{{ url('terms') }}">使用條款</a></li>
+                        <li><a href="{{ url('privacy') }}">隱私權政策</a></li>
+                        <li><a href="{{ url('consumer') }}">消費者權益</a></li>
+                        <li><a href="{{ url('responsibility') }}">責任或免責說明</a></li>
+                        <li><a href="{{ url('platformTrading') }}">平台交易相關法規</a></li>
+                    </ul>
+                </li>
+                <li class="mobile_menu">
+                    <h3>小農招募<i class="fas fa-angle-down"></i></h3>
+                    <ul>
+                        <li><a href="{{ url('join') }}">加入小農行列</a></li>
+                        <li><a href="{{ url('message') }}">線上留言</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <ol>
+            <li id="user">
+                <i class="fas fa-user"></i>
+                <div class="content">
+                    {% if not app.user %}
+                        <ul>
+                            <li>
+                                <a href="{{ path('auth.logout') }}"><i class="fas fa-sign-out-alt"></i>登入</a>
+                            </li>
+                        </ul>
+
+                    {% else %}
+                        <ul>
+                            {% if app.user.roleCodes == 0 %}
+                                <li>
+                                    <a href="{{ path('admin.index') }}"><i class="fas fa-unlock-alt"></i>後台管理</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('auth.logout') }}"><i class="fas fa-sign-out-alt"></i>登出</a>
+                                </li>
+                            {% endif %}
+                            {% if app.user.roleCodes == 1 %}
+                            <li>
+                                <a href="{{ path('user.info',{'uuid':app.user.uuid}) }}"><i class="fas fa-user"></i>會員資訊</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user.order',{'uuid':app.user.uuid}) }}"><i class="fas fa-server"></i>訂單查詢</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user.follow.farmer.list') }}"><i class="fas fa-heart"></i>追蹤小農</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('farmer.index') }}"><i class="fas fa-unlock-alt"></i>後台管理</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('auth.logout') }}"><i class="fas fa-sign-out-alt"></i>登出</a>
+                            </li>
+                            {% endif %}
+                            {% if app.user.roleCodes == 2 %}
+                                <li>
+                                    <a href="{{ path('user.info',{'uuid':app.user.uuid}) }}"><i class="fas fa-user"></i>會員資訊</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user.order',{'uuid':app.user.uuid}) }}"><i class="fas fa-server"></i>訂單查詢</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user.follow.farmer.list') }}"><i class="fas fa-heart"></i>追蹤小農</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('auth.logout') }}"><i class="fas fa-sign-out-alt"></i>登出</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </li>
+            <li id="shopping-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <div class="content">
+                    <div class="checklist">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td>照片</td>
+                                <td>品項</td>
+                                <td>單位</td>
+                                <td>數量</td>
+                                <td>價格</td>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if  app.user %}
+                                {% set relations = getRelations(app.user.id) %}
+                                {% for relation in relations %}
+                                    <tr>
+                                        <td class="cart-photo">
+                                            {% set images = relation.getProduct().getImages() %}
+                                            {% if not images %}
+                                                <div class="photo">
+                                                    <img src= "{{ asset("img/defaultThumbnail.png")}}"  alt=""/>
+                                                </div>
+                                            {% else %}
+                                                <div class="photo">
+                                                    <img src="{{ images[0] }}" />
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="name" data-th="品名:">
+                                            <span class="text">{{ relation.getProduct().getZhName() }}</span>
+                                        </td>
+                                        <td class="unit" data-th="規格:">
+                                            <span class="text">{{ relation.getProduct().getDetail() }}</span>
+                                        </td>
+                                        <td class="quantity" data-th="數量:">
+                                            <span class="text">{{ relation.getQuantity() }}</span>
+                                        </td>
+                                        <td class="price" data-th="價格:">
+                                            <span class="text">{{ relation.getProduct().getPrice }}</span>
+                                        </td>
+                                        <td class="delete">
+                                            <a href="{{ url("cart.item.delete", {"id": relation.getProduct().getId()}) }}">
+                                            <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <span class="prompt">請向下滑動<i class="far fa-arrow-alt-circle-down"></i></span>
+                    <a class="go-shopping-cart" href="{{ path('cart.list') }}"><button>前往結帳</button></a>
+                </div>
+            </li>
+            <li id="openSearchBar">
+                <i class="fas fa-search"></i>
+            </li>
+        </ol>
+        <button id="menu">
+            <span class="icon"></span>
+        </button>
+    </div>
+    </body>
+</header>

@@ -1,0 +1,198 @@
+{% extends 'user/base.html.twig' %}
+    {% block body%}
+        <main>
+            <div id="product">
+                <div class="wrapper container-fluid">
+                    <div class="row slideUp wow">
+                        <div class="col-12 col-lg-6 photo">
+                            <div class="big">
+                                {% for image in product.images %}
+                                    <div class="item">
+                                        <img src="{{ image }}" alt="小農點點">
+                                    </div>
+                                {% else %}
+                                    <div class="item">
+                                        <img src="{{ asset('img/noPhoto.png') }}" alt="小農點點">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="thumbnail">
+                                {% for image in product.images %}
+                                    <div class="item">
+                                        <img src="{{ image }}" alt="小農點點">
+                                    </div>
+                                {% else %}
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 text">
+                            {#
+                            <div id="time">
+                                <div id="reciprocal">
+                                    倒數05天
+                                </div>
+                                <div id="quantity">
+                                    剩餘10組
+                                </div>
+                            </div>
+                            #}
+                            <div id="name">
+                                {{ product.getZhName() }}
+                            </div>
+                            <div id="origin">
+                                {{ product.user.name }} <a href="{{ url('instruction.farmer',{'uuid':product.user.uuid}) }}">認識小農</a>
+                            </div>
+                            <div id="price">
+                                {#<span id="original">原價：NT$ 500</span>#}
+                                <span id="selling">售價：NT$ {{ product.getPrice() }}</span>
+                            </div>
+                            {#
+                            <div id="integral">
+                                NT$ 300 + <span id="currency">F</span>8
+                            </div>
+                            #}
+                            <div id="introduction">
+                                {% if product.user.instruction %}
+                                <p>小農資訊:</p>
+                                <p>{{ product.user.instruction|raw }}</p>
+                                {% endif %}
+                                <p>產品介紹:</p>
+                                <p>{{ product.getZhDescription()|raw }}</p>
+                            </div>
+                            <div id="label">
+                                <span class="label_content">無農藥</span>
+                                <span class="label_content">無基改</span>
+                                <span class="label_content">有機種植</span>
+                                <span class="label_content">高品質</span>
+                            </div>
+                            <form class="row" method="post" action="{{ url("cart.item.add", {"id": product.getId()}) }}">
+                            <div id="operating">
+                                    <div class="row">
+                                        <div class="col-6 col-lg-5">
+                                            <label>價格</label>
+                                            <div class="drag_menu">
+                                                <select>
+{#                                                    <option selected>請選擇</option>#}
+                                                    <option value="1">NT$ {{ product.getPrice() }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-5">
+                                            <label>數量</label>
+                                            <div class="drag_menu input">
+                                                <input name="quantity" class="text-center" type="number" value="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-2 text-right inventory">
+                                            剩餘 {{ product.getStock() }}組
+                                        </div>
+                                        {% if product.getStock() != 0 %}
+                                            <div class="col-12 col-lg-6">
+                                                <button type="submit" id="button_addToCart">
+                                                    <i class="fas fa-shopping-cart"></i>加到購物車
+                                                </button>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-12 col-lg-6">
+                                                <button type="button" id="button_addToCart">
+                                                    <i class="far fa-times"></i>已售完
+                                                </button>
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="col-12 col-lg-6">
+                                            <a href="{{ url("user.follow.farmer", {"productId": product.getId()}) }}">
+                                                {% if app.user %}
+                                                    {% set relation = getRelation(app.user.id,product.getId()) %}
+                                                    {% if not relation %}
+                                                        <button type="button" id="button_forTracking" class="track">
+                                                            <i class="far fa-heart"></i>追蹤小農
+                                                        </button>
+                                                    {% else %}
+                                                        <button type="button" class="track">
+                                                            <i class="fas fa-heart"></i>已追蹤
+                                                        </button>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </a>
+                                                <a href="{{ url('auth.login') }}">
+                                                {% if not app.user %}
+                                                    <button type="button" id="button_forTracking" class="track">
+                                                        <i class="far fa-heart"></i>追蹤小農
+                                                    </button>
+                                                {% endif %}
+                                                </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    <div id="content_title" class="row">
+                        <div id="note_title" class="col-6">
+                            <h5 class="active">商品說明</h5>
+                        </div>
+                        <div id="explanation_title" class="col-6">
+                            <h5>注意事項</h5>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <div id="note" class="row active">
+                            {{ product.zhDescription }}
+                        </div>
+                        <div id="explanation" class="row">
+                            <p>無</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quality" class="content">
+                <div class="wrapper">
+                    <div class="row slideUp wow">
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>10%高品質</h3>
+                            </div>
+                            <p>
+                                限量供應小農10%的外銷商品
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>QR碼身分證</h3>
+                            </div>
+                            <p>
+                                每項產品皆有完整QR碼身分履歷
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>紙箱回收</h3>
+                            </div>
+                            <p>
+                                友善環境，回收無污損包裝箱享折扣
+                            </p>
+                        </div>
+                        <div class="item col-xl-3 col-md-6 col-6">
+                            <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                            <div class="title">
+                                <h3>無電子發票</h3>
+                            </div>
+                            <p>
+                                本站小農產品，不提供電子及紙本發票
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}
+

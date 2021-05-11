@@ -1,0 +1,185 @@
+{% extends 'farmer/base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>新建產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("farmer.product.list",{'uuid': app.user.uuid }) }}">首頁</a></li>
+                            <li class="breadcrumb-item active">新建產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    產品
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{{ url('farmer.product.create',{'uuid': app.user.uuid }) }}">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(中文)</label><br>
+                                            {{ form_widget(form.zhName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(英文)</label><br>
+                                            {{ form_widget(form.enName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>產品敘述(中文)</label><br>
+                                        {{ form_widget(form.zhDescription, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'width:800px; height:200px'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>產品敘述(英文)</label><br>
+                                        {{ form_widget(form.enDescription, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'width:800px; height:200px'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>圖片選擇</label><br>
+                                            {{ form_widget(form.image) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>規格</label><br>
+                                            {{ form_widget(form.detail, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': 'EX:6顆/盒'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>庫存</label><br>
+                                            {{ form_widget(form.stock, {'attr': {
+                                                'class': 'form-control'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>價格</label><br>
+                                            {{ form_widget(form.price, {'attr': {
+                                                'class': 'form-control'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產地</label><br>
+                                            {{ form_widget(form.origin, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>是否為團購商品</label><br>
+                                            {{ form_widget(form.groupBuy, {'attr': {
+                                                'class': 'form-control'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>是否為特價品</label><br>
+                                            {{ form_widget(form.onSale, {'attr': {
+                                                'class': 'form-control'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>是否為即期品</label><br>
+                                            {{ form_widget(form.expired, {'attr': {
+                                                'class': 'form-control'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-7">
+                                        <label>分類</label><br>
+                                        <select class="form-control" name="category" style="font-size: 20px;width: 150px">
+{#                                            　<option value="0">未分類</option>#}
+                                            {% set categories = getCategories() %}
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <!-- /.form group -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info" onclick="submitXML()">送出</button></br>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    function more(){
+        nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length-1)
+        tn = nt.insertCell(0);
+        tt = nt.insertCell(1);
+        ta = nt.insertCell(2);
+        tn.innerHTML = "<input required type='text' name='format[]'/>";
+        tt.innerHTML = "<input required type='number' name='price[]'/>";
+        ta.innerHTML = "<input required type='number' name='stock[]'/>";
+    }
+    function del(){
+        document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-2);
+    }
+</script>
+    <script>
+        CKEDITOR.replace( 'product[zhDescription]' );
+        CKEDITOR.replace( 'product[enDescription]' );
+    </script>
+{% endblock %}

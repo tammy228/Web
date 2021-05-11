@@ -1,0 +1,44 @@
+{% extends 'user/base.html.twig' %}
+{% block body%}
+    <main>
+        <div id="farmIntroduction">
+            <div id="banner">
+                <div class="photo">
+                    <img src="https://scontent.frmq2-2.fna.fbcdn.net/v/t1.0-9/23032413_349025782225549_3458009615510520244_n.jpg?_nc_cat=100&_nc_sid=b9115d&_nc_ohc=ufrv0WoWy4oAX-SY_Np&_nc_ht=scontent.frmq2-2.fna&oh=a0e3b8dfa73fcac590bba56e0f2e976e&oe=5ECA1AA9" alt="小農點點">
+                </div>
+                <div class="text">
+                    <h2>歡迎</h2>
+                    <h3>{{ user.name }}</h3>
+                </div>
+            </div>
+            <div class="wrapper container-fluid">
+                <div class="row introduction">
+                    <div class="col-12 col-lg-6 photo slideUp wow">
+                        <img src="{{ user.image }}" alt="">
+                    </div>
+                    <div class="col-12 col-lg-6 text slideUp wow">
+                        <h2>{{ user.farm }}</h2>
+                        <p>{{ user.instruction }}</p>
+                    </div>
+                </div>
+{#                <div id="tags" class="row">#}
+{#                    <div class="col-12 col-lg-6 slideUp wow">#}
+{#                        <h3>#}
+{#                            TAGS#}
+{#                        </h3>#}
+{#                        <ul>#}
+{#                            <li>吃得安心</li>#}
+{#                            <li>品質優良</li>#}
+{#                            <li>無農藥</li>#}
+{#                            <li>有機栽培</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="col-12 col-lg-6 slideUp wow">#}
+{#                        <img src="https://c.pxhere.com/photos/99/2e/children_love_friends_hand_flowers_meadow_forest_walk-775838.jpg!d"#}
+{#                             alt="小農點點">#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+        </div>
+    </main>
+{% endblock %}

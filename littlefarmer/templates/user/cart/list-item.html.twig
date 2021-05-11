@@ -1,0 +1,139 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+
+    {% if not app.user %}
+        <script>alert('請先登入');window.location = '{{ path('auth.login') }}';</script>
+    {% elseif not app.user.cart  %}
+        <script>window.location.reload()</script>
+    {% else %}
+        {% set total = 0 %}
+        <main>
+            <div id="shoppingList">
+                <div class="wrapper slideUp wow">
+                    <form  method="post" action="{{ url('cart.update') }}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td>圖片</td>
+                                <td>購買產品</td>
+                                <td>小農</td>
+                                <td>數量</td>
+                                <td>單價</td>
+                                <td>物品總計</td>
+                                <td>刪除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for relation in relations %}
+                                <tr>
+                                    <td>
+                                        {% set images = relation.getProduct().getImages() %}
+                                        {% if not images %}
+                                            <div class="photo">
+                                                <img src= "{{ asset("img/defaultThumbnail.png")}}"  alt=""/>
+                                            </div>
+                                        {% else %}
+                                            <div class="photo">
+                                                <img src="{{ images[0] }}" />
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="name">
+                                        {{ relation.getProduct().getZhName() }}
+                                        <span class="specification">{{ relation.getProduct().getDetail() }}</span>
+                                    </td>
+                                    <td class="name">
+                                        {{ relation.product.user.name }}
+                                    </td>
+                                    <td class="quantity">
+                                        <input  id="newQuantity"
+                                                name="newQuantity-{{ relation.getProduct().getId() }}"
+                                                value="{{ relation.getQuantity() }}"
+                                                type="number"
+                                                onchange="newStandard()">
+                                    </td>
+                                    <td class="price" id="unitPrice">
+                                        ${{ relation.getProduct().getPrice() }}
+                                    </td>
+                                    <td class="price" id="subtotal-{{ relation.getProduct().getId() }}">
+                                        ${{ relation.quantity * relation.product.price }}
+                                    </td>
+                                    <td class="delete">
+                                        <a href="{{ url("cart.item.delete", {"id": relation.getProduct().getId()}) }}">
+                                            <button onclick="return confirm('確定刪除嗎?');" type="button">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% set total = total + relation.getProduct().price * relation.quantity %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div id="total">
+                            <ul>
+{#                                <li>#}
+{#                                    <div class="title">#}
+{#                                        總計:#}
+{#                                    </div>#}
+{#                                    <div class="content">#}
+{#                                        NT$ {{ total }}#}
+{#                                    </div>#}
+{#                                </li>#}
+                                <li id="sum">
+                                    <div class="title">
+                                        消費總額:
+                                    </div>
+                                    <div id="finalPrice" class="content">
+                                        NT$ {{ total }}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="button">
+                            <a class="btn btn-success" href="{{ path('products.list') }}">繼續購物</a>
+                            {% if relations %}
+                                {% if app.user.isEmailValidated() == 0 %}
+                                    <a href="{{ path('user.verify') }}"><button type="button" class="btn btn-success" style="width: auto">下一步</button></a>
+                                {% else %}
+                                    <button type="submit"class="btn btn-success">下一步</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function newStandard() {
+            var elms = document.querySelectorAll("[id='newQuantity']");
+            var priceElms = document.querySelectorAll("[id='unitPrice']");
+            var total = 0;
+            var count = 0;
+
+            for(var i = 0; i < elms.length; i++)
+            {
+                count += parseInt(elms[i].value);
+
+
+                //onchange 物品總計
+                let unitPrice = priceElms[i].innerHTML.split("$")[1];
+                let subtotal = parseInt(elms[i].value) * parseInt(unitPrice);
+                total += subtotal;
+                document.getElementById("subtotal-" + elms[i].name.split("-")[1]).innerHTML = "$" + subtotal;
+            }
+
+            //onchange 總金額
+            // document.getElementById("total").value = total;
+            // console.log(document.getElementById("total").value)
+            document.getElementById("finalPrice").innerHTML ="NT$" + total;
+
+
+        }
+    </script>
+{% endblock %}

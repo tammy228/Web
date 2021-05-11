@@ -1,0 +1,47 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <main>
+        {% set images = news.images %}
+        <div id="farmIntroduction">
+            <div id="banner">
+                <div class="photo">
+                    <img src="{{ images[0] }}" alt="小農點點">
+                </div>
+                <div class="text">
+                    <h2>{{ news.enTitle }}</h2>
+                    <h3>{{ news.zhTitle }}</h3>
+                </div>
+            </div>
+            <div class="wrapper container-fluid">
+                <div class="row introduction slideUp wow">
+                    <div class="col-12 col-lg-6 photo">
+                        <img src="https://cdn.pixabay.com/photo/2019/09/12/22/45/farm-4472771_960_720.jpg" alt="">
+                    </div>
+                    <div class="col-12 col-lg-6 text">
+                        <h2>最新消息</h2>
+                        <p>
+                            {{ news.zhContent }}
+                        </p>
+                    </div>
+                </div>
+                <div id="tags" class="row">
+                    <div class="col-12 col-lg-6">
+                        <h3>
+                            TAGS
+                        </h3>
+                        <ul>
+                            <li>吃得安心</li>
+                            <li>品質優良</li>
+                            <li>無農藥</li>
+                            <li>有機栽培</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <img src="https://c.pxhere.com/photos/99/2e/children_love_friends_hand_flowers_meadow_forest_walk-775838.jpg!d"
+                            alt="小農點點">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

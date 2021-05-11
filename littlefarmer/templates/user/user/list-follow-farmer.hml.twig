@@ -1,0 +1,81 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+<main>
+        <div id="memberProfile">
+            <h2 class="text-center slideUp wow">追蹤小農</h2>
+            <div class="wrapper container-fluid">
+                <div class="row">
+                    <div class="col-xl-2">
+                        <div class="member_menu slideUp wow">
+                            <h3>我的帳號</h3>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('user.info',{'uuid':app.user.uuid}) }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-user"></i></span>
+                                            會員資訊<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user.order',{'uuid':app.user.uuid}) }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-server"></i></span>
+                                            訂單查詢<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url("user.follow.farmer.list") }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-heart"></i></span>
+                                            追蹤小農<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('user.resetPassword') }}">
+                                        <h4>
+                                            <span class="icon"><i class="fas fa-unlock-alt"></i></span>
+                                            密碼修改<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('auth.logout') }}">
+                                        <h4><span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                                            登出<i class="fas fa-angle-right"></i>
+                                        </h4>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="trackingList" class="col-xl-10">
+                        <div class="row slideUp wow">
+                            {% for farmer in farmers %}
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                <div class="item">
+                                    <a href="{{ url('instruction.farmer',{"uuid": farmer.uuid}) }}">
+                                        <div class="photo">
+                                            <img src="{{ farmer.image }}"
+                                                alt="">
+                                        </div>
+                                    </a>
+                                    <div class="text text-center">
+                                        <h3>歡歡農場<span class="name">{{ farmer.getName() }}</span></h3>
+                                        <div class="update">
+                                            <a href="{{ url('instruction.farmer',{"uuid": farmer.uuid}) }}">新品上市</a>
+                                        </div>
+                                        <button type="button"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

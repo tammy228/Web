@@ -1,0 +1,102 @@
+{% extends 'user/base.html.twig' %}
+{% block body%}
+    <main>
+        <div id="farmIntroduction">
+            <div id="banner">
+                <div class="photo">
+                    <img src="{{ asset('dist/img/product.jpg') }}" alt="小農點點">
+                </div>
+                <div class="text">
+                    <h3>產品常見問題</h3>
+                </div>
+            </div>
+            <div id="farmIntroduction_menu">
+                <div class="wrapper">
+                    <ul>
+                        <li>
+                            <a href="{{ url('memberFAQ') }}">會員常見問題</a>
+                        </li>
+                        <li class="active">
+                            <a href="{{ url('productFAQ') }}">產品常見問題</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('shoppingFAQ') }}">購物常見問題</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('deliveryNote') }}">配送常見說明</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('returnInstructions') }}">退貨退款說明</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper container-fluid faq">
+                <div class="row slideUp wow">
+                    <div class="col-12">
+                        <h3>Q1. 該如何加入會員呢？</h3>
+                        <p>您可先將欲購買的商品放進購物車開始結帳後，頁面中間即會顯示「新用戶註冊」按此註冊為會員，即可加入會員，您也可以點擊畫面右上角的「目錄」後按「新用戶註冊」成為會員。</p>
+                        <h3>Q2. 一定要登入/加入會員才能購買嗎？</h3>
+                        <p>為了提供您更快速便捷的購物流程，不登入/加入會員也能進行購買。※會員專屬優惠一定要登入會員才能使用※</p>
+                        <h3>Q3. 關於會員購物金？</h3>
+                        <p>我們會不定時舉辦活動發放購物金，結帳時會自動扣抵購物金，每筆訂單最高能扣抵訂單總金額的30%，未使用之購物金將會留存至會員帳戶中。</p>
+                        <h3>Q4. 忘記密碼怎麼辦？</h3>
+                        <p>若您忘記密碼，請點選「會員登入」後，請您先點選「忘記密碼」 再輸入註冊的電子郵件，系統即會自動將密碼重設通知寄至您預設的Email信箱中，請您收取郵件並點擊內文中的連結進行密碼重設即可。</p>
+                        <h3>Q5. 忘記第一次購物時所填寫的E-mail信箱？</h3>
+                        <p>麻煩請直接與客服中心聯繫。</p>
+                        <h3>Q6. 該如何修改個人資料及密碼？</h3>
+                        <p>請點選「會員登入」，輸入您的E-mail及密碼登入會員帳戶，點選「個人資訊」即可。您可由此變更您登入的E-mail帳號、密碼或寄送地址資料，如您需更新聯絡電話，請於下單時填入正確聯絡電話即可。更新E-mail帳號後，請留意您的新帳號信箱是否可正常收取GOSHOP相關訂單通知喔 。</p>
+                        <h3>Q7. 常收不到小農訂單確認信、商品到貨通知信？</h3>
+                        <p>為避免收不到小農訂單信函、商品到貨訊息及錯過優惠訊息的遺憾。您可將小農加入您的E-mail通訊錄，或是將小農的信件打開，設定『這不是垃圾信』即可喔。</p>
+                        <h3>Q8. 我不想收到小農的系統相關信件，該怎麼做？</h3>
+                        <p>因為小農系統信件並非電子報，所以沒有取消訂閱之功能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quality" class="content">
+            <div class="wrapper">
+                <div class="row slideUp wow">
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q1.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>10%高品質</h3>
+                        </div>
+                        <p>
+                            限量供應小農10%的外銷商品
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q4.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>QR碼身分證</h3>
+                        </div>
+                        <p>
+                            每項產品皆有完整QR碼身分履歷
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q3.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>紙箱回收</h3>
+                        </div>
+                        <p>
+                            友善環境，回收無污損包裝箱享折扣
+                        </p>
+                    </div>
+                    <div class="item col-xl-3 col-md-6 col-6">
+                        <img src="{{ asset('dist/img/q2.png') }}" alt="小農點點">
+                        <div class="title">
+                            <h3>無電子發票</h3>
+                        </div>
+                        <p>
+                            本站小農產品，不提供電子及紙本發票
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
