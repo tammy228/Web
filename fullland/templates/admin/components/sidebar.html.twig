@@ -1,0 +1,152 @@
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/admin/index" class="brand-link">
+        <img src="/img/logo.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        <span class="brand-text font-weight-light">FullLand</span>
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-bag"></i>
+                        <p>
+                            產品管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/product" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                產品列表
+                            </a>
+                        </li>
+                    </ul>
+{#                    <ul class="nav nav-treeview">#}
+{#                        <li class ="nav-item">#}
+{#                            <a href="/admin/product/create" class="nav-link">#}
+{#                                <i class="nav-icon fas fa-plus"></i>#}
+{#                                創建產品#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>
+                            產品分類管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/production-range" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                產品分類列表
+                            </a>
+                        </li>
+                    </ul>
+{#                    <ul class="nav nav-treeview">#}
+{#                        <li class ="nav-item">#}
+{#                            <a href="/admin/category/create" class="nav-link">#}
+{#                                <i class="nav-icon fas fa-folder-plus"></i>#}
+{#                                創建分類#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            消息管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/news" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                消息列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/news/create" class="nav-link">
+                                <i class="nav-icon fas fa-folder-plus"></i>
+                                創建消息
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-image"></i>
+                        <p>
+                            橫幅管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/banner" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                橫幅列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/banner/create" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i>
+                                新增橫幅
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            使用者管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/user" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                使用者列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/user/create" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                創建使用者
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ url('config.general') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            網站基本設定
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+            </ul>
+        </nav>
+    </div>
+</aside>

@@ -1,0 +1,101 @@
+{% if locale == 'zh_tw' %}
+    {% set twig = "zh_base.html.twig" %}
+    {% set css =  'assets/css/advantages.css'%}
+{% else %}
+    {% set twig = "en_base.html.twig" %}
+    {% set css =  'assets/en/css/advantages.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="header-wrap">
+            <p class="main__company-name">
+                <span class="chi">富蘭工業股份有限公司</span>
+                <span class="eng">Full Land Industrial Corp.</span>
+            </p>
+            <div class="main__social">
+                <div>FOLLOW US</div>
+                <a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a>
+            </div>
+            <div class="header__back"></div>
+            <!-- <div class="header__back-text">The Brand Carrier</div> -->
+            <!-- <ul class="header__map">
+              <li>TOP</li>
+              <li>Advantages</li>
+            </ul> -->
+            <div class="header__content">
+                <div class="column">
+                    <h1>Advantages</h1>
+                    {% if locale == 'zh_tw' %}
+                        <h2>競爭優勢</h2>
+                    {% endif %}
+                </div>
+                <div class="column">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="advantages">
+        <div class="main-wrap">
+            <section id="section1" class="section1 left">
+                <div class="column section__img-wrap">
+                    <div class="section__img" style="background-image: url({{ asset('assets/image/advantages/1.jpg') }});"></div>
+                </div>
+                <div class="column section__content-wrap">
+                    <div class="section__content">
+                        <div class="number">01</div>
+                        <div class="title">{{ 'Material Simplification'| trans }}</div>
+                        <p>{{ 'The advantage of automated machine-made paper bags is to eliminate the materials and processes which are hazardous to our environment.'| trans }}<br>
+                           {{ 'Using long fiber kraft paper meets the requirement of eco-friendliness and results in the largest economic benefits.'| trans }}</p>
+                    </div>
+                </div>
+            </section>
+            <section id="section2" class="section2 right">
+                <div class="column section__content-wrap">
+                    <div class="section__content">
+                        <div class="number">02</div>
+                        <div class="title">{{ 'Non-toxic Printing'| trans }}</div>
+                        <p>{{ 'We adopt advanced water-based flexographic printing equipment from Europe and bring in new sewage treatment system.  Not only the paper bag itself is 100% non-toxic, but also the ultimate goal is to achieve zero pollution after production.'| trans }}</p>
+                    </div>
+                </div>
+                <div class="column section__img-wrap">
+                    <div class="section__img" style="background-image: url({{ asset('assets/image/advantages/2.jpg') }});"></div>
+                </div>
+            </section>
+            <section id="section3" class="section3 left">
+                <div class="column section__img-wrap">
+                    <div class="section__img" style="background-image: url({{ asset('assets/image/advantages/3.jpg') }});"></div>
+                </div>
+                <div class="column section__content-wrap">
+                    <div class="section__content">
+                        <div class="number">03</div>
+                        <div class="title">{{ 'Automated production system'| trans }}</div>
+                        <p>{{ 'We employ Japan-NEW LONG high-speed bag forming machine which guarantees stable quality as well as maximum efficiency.'| trans }}</p>
+                    </div>
+                </div>
+            </section>
+            <section id="section4" class="section4 right">
+                <div class="column section__content-wrap">
+                    <div class="section__content">
+                        <div class="number">04</div>
+                        <div class="title">{{ 'Professional Service'| trans }}</div>
+                        <p>{{ 'Experienced sales representatives always offer the best solution for customers.'| trans }}</p>
+                    </div>
+                </div>
+                <div class="column section__img-wrap">
+                    <div class="section__img" style="background-image: url({{ asset('assets/image/advantages/4.jpg') }});"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/js/advantages.js') }}"></script>
+{% endblock %}

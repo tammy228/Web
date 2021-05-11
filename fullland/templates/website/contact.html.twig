@@ -1,0 +1,159 @@
+{% if locale == 'zh_tw' %}
+  {% set twig = "zh_base.html.twig" %}
+  {% set css =  'assets/css/contact.css'%}
+{% else %}
+  {% set twig = "en_base.html.twig" %}
+  {% set css =  'assets/en/css/contact.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+  <header>
+    <div class="header-wrap">
+      <p class="main__company-name">
+        <span class="chi">富蘭工業股份有限公司</span>
+        <span class="eng">Full Land Industrial Corp.</span>
+      </p>
+      <div class="main__social">
+        <div>FOLLOW US</div>
+        <a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a>
+      </div>
+      <div class="header__back"></div>
+      <!-- <div class="header__back-text">The Brand Carrier</div> -->
+      <!-- <ul class="header__map">
+        <li>TOP</li>
+        <li>Contact</li>
+      </ul> -->
+      <div class="header__content">
+        <div class="column">
+          <h1>Contact</h1>
+          {% if locale == 'zh_tw' %}
+            <h2>聯絡我們</h2>
+          {% endif %}
+        </div>
+        <div class="column">
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="contact">
+    <div class="main-wrap">
+      <section id="section1" class="section1">
+        <div class="section1__title">
+          <span>CONTACT US</span>
+        </div>
+        <ul class="section1__list">
+          <li id="section1-item1" class="section1__list__item-wrap right">
+            <div class="section1__list__item">
+              <div class="section1__list__content-wrap">
+                <div class="title-eng">TAIPEI OFFICE</div>
+                {% if locale == 'zh_tw' %}
+                  <div class="title-chi">台北辦事處</div>
+                {% endif %}
+                <div class="h2-wrap">
+                  {% if locale == 'zh_tw' %}
+                    <h2 class="address">台北市內湖路一段308號9樓之2</h2>
+                  {% endif %}
+                  <h2>9F-2, No. 308, Sec. 1, Nei Hu Road, Taipei, Taiwan.</h2>
+                </div>
+                <div class="h3-wrap">
+                  <h3>TEL +886-2-2627-5616</h3>
+                  <h3>FAX +886-2-2627-5716</h3>
+                </div>
+                <div class="row">
+                  <div class="column">
+                    <h1 class="tw">{{ 'Taiwan'| trans }}</h1>
+                    <h3>sales@fullland.com.tw</h3>
+                  </div>
+                  <div class="column">
+                    <h1>Overseas</h1>
+                    <h3>export@fullland.com.tw</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="section1__list__map-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.587429740588!2d121.56665791500723!3d25.08196898394989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ac6f1bde0beb%3A0xffc0a539b38e04e9!2zMTE05Y-w5YyX5biC5YWn5rmW5Y2A5YWn5rmW6Lev5LiA5q61MzA46Jmf!5e0!3m2!1szh-TW!2stw!4v1580822955353!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+              </div>
+            </div>
+            <div class="section1__list__item-wrap-back">
+              <a href="https://goo.gl/maps/GUfkU8sV9uHjh74X6" target="_blank">
+                <span>Google map</span>
+                <span class="arrow"></span>
+              </a>
+            </div>
+          </li>
+          <li id="section1-item2" class="section1__list__item-wrap left">
+            <div class="section1__list__item">
+              <div class="section1__list__content-wrap">
+                <div class="title-eng">HK OFFICE</div>
+                {% if locale == 'zh_tw' %}
+                  <div class="title-chi">香港分公司</div>
+                {% endif %}
+                <div class="h2-wrap">
+                  {% if locale == 'zh_tw' %}
+                    <h2 class="address">富蘭 (香港) 有限公司</h2>
+                  {% endif %}
+                  <h2>Full Land(H.K.) Ltd</h2>
+                </div>
+                <div class="h3-wrap">
+                  <h3>TEL +852-2-321-3686</h3>
+                  <h3>FAX +852-2-321-6001</h3>
+                </div>
+                <div class="row">
+                  <div class="column">
+                    <h3>export@fullland.com.tw</h3>
+                  </div>
+                  <div class="column">
+                    <h3>hk@fullland.com.tw</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="section1__list__map-wrap">
+                <div class="section1__list__map" style="background-image: url({{ asset('assets/image/contact/1.jpg') }});"></div>
+              </div>
+            </div>
+            <div class="section1__list__item-wrap-back"></div>
+          </li>
+          <li id="section1-item3" class="section1__list__item-wrap right">
+            <div class="section1__list__item">
+              <div class="section1__list__content-wrap">
+                <div class="title-eng">FACTORY</div>
+                {% if locale == 'zh_tw' %}
+                  <div class="title-chi">工廠</div>
+                {% endif %}
+                <div class="h2-wrap">
+                  {% if locale == 'zh_tw' %}
+                    <h2 class="address">苗栗縣竹南鎮仁愛路1407號</h2>
+                  {% endif %}
+                  <h2>No. 1407. Jen Ai Road, Chunan Town, Miao Li Hsien, Taiwan</h2>
+                </div>
+                <div class="h3-wrap">
+                  <h3>TEL +886-37-583-188</h3>
+                  <h3>FAX +886-37-584-085</h3>
+                </div>
+              </div>
+              <div class="section1__list__map-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1812.200808300532!2d120.87825167600292!3d24.713088696011404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3469b35924a881e7%3A0x45114508a5c7a593!2z5a-M6Jit5YWs5Y-4!5e0!3m2!1szh-TW!2stw!4v1595991154315!5m2!1szh-TW!2stw"  width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+              </div>
+            </div>
+            <div class="section1__list__item-wrap-back">
+               <a href="https://goo.gl/maps/m1i5RKpmsaMpxsm16" target="_blank">
+                <span>Google map</span>
+                <span class="arrow"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/contact.js') }}"></script>
+{% endblock %}

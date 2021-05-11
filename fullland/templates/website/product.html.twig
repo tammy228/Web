@@ -1,0 +1,710 @@
+{% if locale == 'zh_tw' %}
+  {% set twig = "zh_base.html.twig" %}
+  {% set css =  'assets/css/products.css'%}
+{% else %}
+  {% set twig = "en_base.html.twig" %}
+  {% set css =  'assets/en/css/products.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+  <header>
+    <div class="header-wrap">
+      <p class="main__company-name">
+        <span class="chi">富蘭工業股份有限公司</span>
+        <span class="eng">Full Land Industrial Corp.</span>
+      </p>
+      <div class="main__social">
+        <div>FOLLOW US</div>
+        <a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a>
+      </div>
+      <div class="header__back"></div>
+      <!-- <div class="header__back-text">The Brand Carrier</div> -->
+      <!-- <ul class="header__map">
+        <li>TOP</li>
+        <li>Products</li>
+      </ul> -->
+      <div class="header__content">
+        <div class="column">
+          <h1>Products</h1>
+          {% if locale == "zh_tw" %}
+            <h2>產品介紹</h2>
+          {% endif %}
+        </div>
+        <div class="column">
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="products">
+    <div class="main-wrap">
+      <!-- 製袋各特點 -->
+      <section id="section1" class="section1">
+        <div class="section__solgan"><span>WHAT WE CAN DO</span></div>
+        <div class="section__title"><span>{{ 'Automated machine made paper bag'| trans }}</span></div>
+
+        <ul class="section1__bag-list">
+          <li>
+            <h1>A</h1>
+            <h2>{{ 'Flat Handle / Serrated Top'| trans }}</h2>
+            <img src="{{ asset('assets/image/products/1.png') }}">
+          </li>
+          <li>
+            <h1>B</h1>
+            <h2>{{ 'Twisted Handle'| trans }}</h2>
+            <img src="{{ asset('assets/image/products/2.png') }}">
+          </li>
+          <li>
+            <h1>C</h1>
+            <h2>{{ 'Twisted Handle / Turnover top'| trans }}</h2>
+            <img src="{{ asset('assets/image/products/3.png') }}">
+          </li>
+        </ul>
+        <ul id="section1-message-list" class="section1__message-list">
+          <li>
+            <div class="item" style="background-image: url({{ asset('/assets/image/icon/message1.svg') }})">
+              {% if locale == 'zh_tw' %}
+                <h1>扁把提繩<br>袋口鋸齒</h1>
+              {% endif %}
+              <h2>{{ 'Handle folded inside save more space for stock room'| trans | raw }}</h2>
+              <h3>SHOW CASE</h3>
+            </div>
+          </li>
+          <li>
+            <div class="item" style="background-image: url({{ asset('assets/image/icon/message2.svg') }})">
+              {% if locale == 'zh_tw' %}
+                <h1>捲把提繩<br>袋口鋸齒</h1>
+              {% endif %}
+              <h2>{{ 'Grab and go'| trans| raw }}</h2>
+              <h3>SHOW CASE</h3>
+            </div>
+          </li>
+          <li>
+            <div class="item" style="background-image: url({{ asset('assets/image/icon/message3.svg') }})">
+              {% if locale == 'zh_tw' %}
+                <h1>捲把提繩<br>袋口反摺</h1>
+              {% endif %}
+              <h2>{{ 'Slick turnover'| trans| raw }}</h2>
+              <h3>SHOW CASE</h3>
+            </div>
+          </li>
+        </ul>
+        <div class="digital"></div>
+      </section>
+      <!-- 產品各尺寸 -->
+      <section class="section-wrap section2 end">
+        <div class="section-left">
+          <div class="section-left-content">
+            <div class="section__solgan up"><span>REGULAR SIZES</span></div>
+            {% if locale == 'zh_tw' %}
+              <div class="section__title up"><span>常用規格</span></div>
+            {% endif %}
+            <p class="up">{{ 'regular size'| trans| raw }}</p>
+            <div class="level-title">
+              <!-- <h1>一號袋</h1>
+              <h2>Bag Number One</h2> -->
+            </div>
+            <div id="section2-level-wrap" class="level-wrap up">
+              <div id="section2-level-text" class="row text-row">
+                <div class="column">
+                  <h1>No.01</h1>
+                  <!-- <h2>Bag Number One</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.02</h1>
+                  <!-- <h2>Bag Number Two</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.03</h1>
+                  <!-- <h2>Bag Number Three</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.04</h1>
+                  <!-- <h2>Bag Number Four</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.05</h1>
+                  <!-- <h2>Bag Number Five</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.06</h1>
+                  <!-- <h2>Bag Number Six</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.07</h1>
+                  <!-- <h2>Bag Number Seven</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.08</h1>
+                  <!-- <h2>Bag Number Eight</h2> -->
+                </div>
+                <div class="column">
+                  <h1>No.09</h1>
+                  <!-- <h2>Bag Number Nine</h2> -->
+                </div>
+              </div>
+              <div class="row line-row">
+                <div class="line-row-inner">
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                  <div class="column"></div>
+                </div>
+                <div id="section2-level-arrow" class="arrow">
+                  <div id="section2-level-title" class="level-title">
+                    <h1>No.01</h1>
+                    <!-- <h2>Bag Number One</h2> -->
+                  </div>
+                </div>
+                <div id="section2-level-line" class="line"></div>
+              </div>
+            </div>
+            <div id="section2-level-number" class="level-number-wrap">
+              <div class="item"></div>
+            </div>
+          </div>
+          <div class="level-slick-wrap">
+            <div id="section2-slick" class="level-slick">
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size1.png') }});"></div>
+                <div class="item__content">
+                  <h1>01</h1>
+                  <h2>No.01</h2>
+                  <p>{{ '180 x 295 x 80 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size2.png') }});"></div>
+                <div class="item__content">
+                  <h1>02</h1>
+                  <h2>No.02</h2>
+                  <p>{{ '220 x 235 x 120 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size3.png') }});"></div>
+                <div class="item__content">
+                  <h1>03</h1>
+                  <h2>No.03</h2>
+                  <p>{{ '220 x 275 x 100 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size4.png') }});"></div>
+                <div class="item__content">
+                  <h1>04</h1>
+                  <h2>No.04</h2>
+                  <p>{{ '220 x 280 x 120 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size5.png') }});"></div>
+                <div class="item__content">
+                  <h1>05</h1>
+                  <h2>No.05</h2>
+                  <p>{{ '260 x 280 x 150 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size6.png') }});"></div>
+                <div class="item__content">
+                  <h1>06</h1>
+                  <h2>No.06</h2>
+                  <p>{{ '300 x 325 x 180 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size7.png') }});"></div>
+                <div class="item__content">
+                  <h1>07</h1>
+                  <h2>No.07</h2>
+                  <p>{{ '320 x 320 x 115 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size8.png') }});"></div>
+                <div class="item__content">
+                  <h1>08</h1>
+                  <h2>No.08</h2>
+                  <p>{{ '320 x 420 x 115 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item__img" style="background-image: url({{ asset('assets/image/products/bag_size9.png') }});"></div>
+                <div class="item__content">
+                  <h1>09</h1>
+                  <h2>No.09</h2>
+                  <p>{{ '440 x 420 x 180 mm'| trans }}</p>
+                  <div class="link-wrap">
+                    <div class="link-text">SHOW CASE</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="section2-slick-count" class="section2-slick-count">
+              <span class="count"></span>
+              <span class="amount"></span>
+            </div>
+          </div>
+        </div>
+        <div class="section-right">
+          <div class="section-right-inner"></div>
+        </div>
+      </section>
+      <section class="section-wrap section3 center">
+        <div class="section-left">
+          <div class="row title">
+            {% if locale == 'zh_tw' %}
+              <h2><span class="production_ranger bigger">製造範圍</span></h2>
+            {% endif %}
+            <h1 class="production_ranger">PRODUCTION<br>RANGE</h1>
+          </div>
+          <ul class="info-list">
+            <li>
+              <div class="item__column title">{{ 'Flat Handle / Serrated Top'| trans }}</div>
+              <div class="item__column">{{ 'Bag Width'| trans }}<br>18cm~54cm</div>
+              <div class="item__column">{{ 'Bag Height'| trans }}<br>18cm~58cm</div>
+              <div class="item__column">{{ 'Bag Gusset'| trans }}<br>6cm~21cm</div>
+              <div class="item__column">{{ 'Cutting Length'| trans }}<br>21cm~77cm</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'Twisted Handle'| trans }}</div>
+              <div class="item__column">{{ 'Bag Width'| trans }}<br>20cm~54cm</div>
+              <div class="item__column">{{ 'Bag Height'| trans }}<br>26cm~58cm</div>
+              <div class="item__column">{{ 'Bag Gusset'| trans }}<br>7cm~25cm</div>
+              <div class="item__column">{{ 'Cutting Length'| trans }}<br>34cm~65cm</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'Twisted Handle / Turnover top'| trans }}</div>
+              <div class="item__column">{{ 'Bag Width'| trans }}<br>18cm~38cm</div>
+              <div class="item__column">{{ 'Bag Height'| trans }}<br>21cm~51cm</div>
+              <div class="item__column">{{ 'Bag Gusset'| trans }}<br>7cm~17cm</div>
+              <div class="item__column">{{ 'Cutting Length'| trans }}<br>33cm~62cm</div>
+            </li>
+          </ul>
+          <div class="info-list-text">*{{ 'Cutting Length = Height + Bottom Flap'| trans }}</div>
+        </div>
+        <div class="section-right">
+          <div class="section-right-inner"></div>
+        </div>
+      </section>
+      <section class="section-wrap section4 center">
+        <div class="section-left">
+          <div class="row title">
+            {% if locale == 'zh_tw' %}
+              <h2><span class="bigger features">產品特色</span></h2>
+            {% endif %}
+            <h1 class="features">FEATURES OF<br>OUR PRODUCT</h1>
+          </div>
+          <ul class="info-list">
+            <li>
+              <div class="item__column title">{{ 'BAG TYPE'| trans }}</div>
+              <div class="item__column">{{ 'BAG TYPE DES'| trans| raw }}</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'PAPER MATERIAL'| trans }}</div>
+              <div class="item__column">{{ 'White kraft, Brown kraft, Machine glazed white kraft, etc.'| trans }}</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ "PRINTING PROCESS"| trans }}</div>
+              <div class="item__column">{{ 'Flexographic printing with water-based ink, Offset printing with soy ink'| trans }}</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'VARNISH'| trans }}</div>
+              <div class="item__column">{{ 'According to request'| trans }}</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'LINES PER INCH'| trans }}</div>
+              <div class="item__column">60~90 LPI</div>
+            </li>
+            <li>
+              <div class="item__column title">{{ 'MONTHLY PRODUCTION CAPACITY'| trans }}</div>
+              <div class="item__column">{{ '10 million pcs'| trans }}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="section-right">
+          <div class="section-right-inner"></div>
+        </div>
+      </section>
+      <!-- 產品各分類 -->
+      <section class="section-wrap section5 start">
+        <div class="section-left">
+          <div class="row title">
+            {% if locale == 'zh_tw' %}
+              <h2><span class="bigger production_rang">產品分類</span></h2>
+            {% endif %}
+            <h1 class="production_rang">INDUSTRY<br>CATEGORY</h1>
+          </div>
+          <ul id="section5-img-list" class="img-list">
+            {% for product in products %}
+            <li class="item">
+              <div class="item__img" style="background-image: url({{ asset(product.getThumbNail()) }});"></div>
+              <div class="item__content">
+                <h2>{{ product.getEnName }}</h2>
+                {% if locale == 'zh_tw' %}
+                  <h1>{{ product.getZhName }}</h1>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="section-right">
+          <div class="section-right-inner"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- 製袋各特點的modal -->
+  <div id="feature-modal" class="modal-wrap">
+    <div class="modal-inner">
+      <div class="modal-img-wrap">
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/feature1.jpg') }})"></div>
+        </div>
+      </div>
+      <div class="modal-content-wrap">
+        <div class="modal-content">
+          <div class="modal-sub-title"></div>
+          <div class="modal-content-inner-wrap">
+            <div class="modal-content-inner">
+              <h1 class="page-name">扁把提繩 袋口鋸齒</h1>
+              <h3 class="number">Flat Folded Paper Handle</h3>
+              <h2>設計自己的圖案<br>創造多元性</h2>
+              <div class="share-wrap">
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner">
+              <h1 class="page-name">捲把提繩 袋口鋸齒</h1>
+              <h3 class="number">Flat Folded Paper Handle</h3>
+              <h2>設計自己的圖案<br>創造多元性</h2>
+              <div class="share-wrap">
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner">
+              <h1 class="page-name">捲把提繩 袋口反摺</h1>
+              <h3 class="number">Flat Folded Paper Handle</h3>
+              <h2>特殊反摺袋型<br>更顯品牌個性</h2>
+              <div class="share-wrap">
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="modal-arrow-wrap">
+            <li class="item">
+              <div class="modal-next-arrow">
+                <span class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="modal-prev-arrow">
+                <span class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-close-button"></div>
+    </div>
+  </div>
+  <!-- 產品各尺寸的modal -->
+  <div id="size-modal" class="modal-wrap">
+    <div class="modal-inner">
+      <div class="modal-img-wrap">
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+        <div class="modal-img-slick">
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+          <div class="modal-img" style="background-image: url({{ asset('assets/image/products/product1.jpg') }})"></div>
+        </div>
+      </div>
+      <div class="modal-content-wrap">
+        <div class="modal-content">
+          <div class="modal-sub-title"></div>
+          <div class="modal-content-inner-wrap">
+            <div class="modal-content-inner number">
+              <h1>01</h1>
+              <!-- <h3 class="number page-name">Bag Number One</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>180 x 295 x 80 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>02</h1>
+              <!-- <h3 class="number page-name">Bag Number Two</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>220 x 235 x 120 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>03</h1>
+              <!-- <h3 class="number page-name">Bag Number Three</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>220 x 275 x 100 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>04</h1>
+              <!-- <h3 class="number page-name">Bag Number Four</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>220 x 280 x 120 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>05</h1>
+              <!-- <h3 class="number page-name">Bag Number Five</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>260 x 280 x 150 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>06</h1>
+              <!-- <h3 class="number page-name">Bag Number Six</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>300 x 325 x 180 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>07</h1>
+              <!-- <h3 class="number page-name">Bag Number Seven</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>320 x 320 x 115 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>08</h1>
+              <!-- <h3 class="number page-name">Bag Number Eight</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>320 x 420 x 115 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-content-inner number">
+              <h1>09</h1>
+              <!-- <h3 class="number page-name">Bag Number Nine</h3> -->
+              <h2>袋寬 x 袋高 x 底（側）寬<br>440 x 420 x 180 mm</h2>
+              <div class="share-wrap">
+                <div class="info-wrap">
+                  <div class="area-chi">優衣庫台灣區</div>
+                  <div class="area-eng">UNIQLO Taiwan</div>
+                </div>
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="modal-arrow-wrap">
+            <li class="item">
+              <div class="modal-next-arrow">
+                <span id="next-text" class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="modal-prev-arrow">
+                <span id="prev-text" class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-close-button"></div>
+    </div>
+  </div>
+  <!-- 產品各分類的modal -->
+  <div id="category-modal" class="modal-wrap">
+    <div class="modal-inner">
+      <div class="modal-img-wrap">
+        {% for product in products %}
+          <div class="modal-img-slick">
+            {% set images = product.getImages() %}
+            {% for image in images %}
+              <div class="modal-img" style="background-image: url({{ asset(image) }})"></div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="modal-content-wrap">
+        <div class="modal-content">
+          <div class="modal-sub-title"></div>
+          <div class="modal-content-inner-wrap">
+            {% for product in products %}
+            <div class="modal-content-inner">
+              <h1 class="page-name">{{ product.zhName }}</h1>
+              <h3 class="number">{{ product.enName }}</h3>
+              <h2>{{ product.zhDescription }}</h2>
+              <div class="share-wrap">
+                <div class="share-link">
+                  <span class="share-link-button">SHARE</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <ul class="modal-arrow-wrap">
+            <li class="item">
+              <div class="modal-next-arrow">
+                <span class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="modal-prev-arrow">
+                <span class="text"></span>
+                <div class="arrow"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-close-button"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/products.js') }}"></script>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+{% endblock %}

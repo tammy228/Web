@@ -1,0 +1,362 @@
+{% if locale == 'zh_tw' %}
+    {% set twig = "zh_base.html.twig" %}
+    {% set css =  'assets/css/index.css'%}
+{% else %}
+    {% set twig = "en_base.html.twig" %}
+    {% set css =  'assets/en/css/index.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+    <header class="up">
+        <div class="header__slick-wrap">
+            <div id="header-slick" class="header__slick">
+                {% for banner in banners %}
+                    <div class="item-wrap" style="background-image: url({{ banner.getImages[0] }});">
+                        <div class="item text-column">
+                            <div>
+                                {% if locale == "zh_tw" %}
+                                    <h1>{{ banner.getZhTitle() }}</h1>
+                                {% else %}
+                                    <h1>{{ banner.getEnTitle() }}</h1>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="header__company-name-wrap">
+            <div class="header__company-name">
+                <p id="header-company-name">
+                    <span class="chi">富蘭工業股份有限公司</span>
+                    <span class="eng">Full Land Industrial Corp.</span>
+                </p>
+            </div>
+        </div>
+        <div class="header__news">
+            <div id="header-news" class="header__news-wrap">
+                <div class="column">NEWS</div>
+                <div class="column">
+                    <div id="header-list" class="header__list">
+                        <div class="item">
+              <span>
+                <!--本公司獲得ISO 9001 2015 證照殊榮--></span>
+                            <a class="more-button" href="{{ url('news.list') }}">
+                                <span>more</span>
+                                <svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="76.3px" height="10.9px" viewBox="0 0 76.3 10.9" enable-background="new 0 0 76.3 10.9" xml:space="preserve">
+                  <polyline fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0,10.4 75,10.4 64,0.4 " />
+                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="header-scorll" class="header__scorll">
+            <div class="column">
+                <div id="header-scroll-button" class="header__scorll-button">
+                    <div class="scroll-text">SCROLL DOWN</div>
+                    <div class="scroll-icon"></div>
+                </div>
+            </div>
+            <!-- <div class="column">
+              <ul class="header__scorll-social">
+                <li><a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a></li>
+                <li><span>©fullland All Rights Reserved.</span></li>
+              </ul>
+            </div> -->
+        </div>
+    </header>
+    <main class="index">
+        <section class="section1 up">
+            <div class="section__title">
+                <div class="column">
+                    <div class="column__inner">
+                        <h1>01</h1>
+                        <h2>About Us</h2>
+                        {% if locale == "zh_tw" %}
+                            <h4>關於富蘭</h4>
+                        {% endif %}
+                        <!-- <h3>Full Land Industrial Corp. Ltd.</h3> -->
+                    </div>
+                </div>
+                <div class="column">
+                    <p>{{ 'Full Land Industrial Corp. is proud of its historic and professional background since 1976. As leading manufacturer of machine-made paper bags in Asia, we are not only concerned about clients’ best interests, but also pay close attention to environmental issues. Using long fiber kraft paper bag meets the requirement of eco-friendliness and results in the largest economic benefits.'| trans }}</p>
+                </div>
+            </div>
+            <div id="section1-content" class="section__content">
+                <div class="column">
+                    <div class="company-name">
+                        <span id="section-back-text1">Fullland</span>
+                    </div>
+                    <div id="section1-content-wrap" class="section1-content-wrap">
+                        <div class="item">
+                            <h1>{{ 'Connect with the world'| trans }}</h1>
+                            <p>{{ 'In order to connect with the global market, we have been continuously updating our facilities and improving our quality to meet or even exceed global standards, and demands. We believe that high quality, fast deliver, and competitive prices are not just our slogans, but the results of our constant hard work and never-ending improvement.'| trans }}</p>
+                        </div>
+                        <div class="item">
+                            <h1>{{ 'Sustainability'| trans }}</h1>
+                            <p>{{ 'Full Land Industrial Corp. was founded on December 11th, 1976 by Mr. River Yang in Chunan Town, Miao Li Hsien. The early business activities were manufacturing and exporting venetian blinds and roller blinds to the USA. Later due to the offshore migration of the blinds industry and the appreciation of the NT dollar against the US dollar, in 1988, Full Land converted the business focus to automated production of paper bags. Today Full Land has become one of the leading paper bag manufacturers in Asia, and offers to major international name brands all over the world.'| trans }}</p>
+                        </div>
+                        <div class="item">
+                            <h1>{{ 'Product Development'| trans }}</h1>
+                            <p>{{ 'In 2018, we invented “EASY TAKE” the world\'s first machine made cup holder with handle. It\'s a brand new eco-friendly packaging that tailor to take out beverage industry. Easy Take is suitable for cold and hot dink cups; special water repellent treatment absolutely ensures the ability of wet resistance. We can also provide small amount of custom printing based on your promotional needs.'| trans }}</p>
+                        </div>
+                    </div>
+                    <div class="more-button-wrap">
+                        <a class="more-button" href="{{ url('about') }}">READ MORE</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="section1-slick-wrap">
+                        <div id="section1-slick" class="section1-slick">
+                            <div class="item" style="background-image: url({{ asset('assets/image/index/1_2.jpg') }});"></div>
+                            <div class="item" style="background-image: url({{ asset('assets/image/index/1_3.jpg') }});"></div>
+                            <div class="item" style="background-image: url({{ asset('assets/image/index/1_1.jpg') }});"></div>
+                        </div>
+                    </div>
+                    <!-- <div id="section1-slick-count" class="section1-slick-count">
+                      <span class="count"></span>
+                      <span class="amount"></span>
+                    </div> -->
+                </div>
+                <div id="main-bag" class="main__bag-wrap">
+                    <div class="main__bag">
+                        <img src="{{ asset('assets/image/bag/01.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/02.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/03.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/04.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/05.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/06.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/07.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/08.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/09.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/10.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/11.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/12.png') }}" class="bag-image">
+                        <img src="{{ asset('assets/image/bag/13.png') }}" class="bag-image">
+                        <div id="main-bag-button" class="button-wrap"></div>
+                    </div>
+                </div>
+                <!-- <div id="roll"><p></p></div> -->
+            </div>
+        </section>
+        <section id="section2" class="section2">
+            <div id="section2-title" class="section__title">
+                <div class="column">
+                    <div class="column__inner">
+                        <h1>02</h1>
+                        <h2>Advantages</h2>
+                        {% if locale == "zh_tw" %}
+                            <h4>競爭優勢</h4>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="column">
+                    <p>{{ 'In order to serve our customers, Full Land Industrial Corp. has always been at the forefront, regardless of technology or environmental awareness. Every bag you carry is the best product that went through numerous commitments to quality.'| trans }}</p>
+                </div>
+            </div>
+            <div class="section__content">
+                <!-- <div id="section2-column1-1"></div> -->
+                <div id="section2-column1" class="column">
+                    <div class="column-inner">
+                        <div class="section2-slick-container">
+                            <div class="wrap">
+                                <div id="section2-column-slick1" class="section2-slick left">
+                                    <div class="item" style="background-image: url({{ asset('assets/image/index/2_1.jpg') }});">
+                                        <div class="item__text">
+                                            <h1>Material Simplification</h1>
+                                            {% if locale == "zh_tw" %}
+                                                <h2>材質簡化</h2>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section2-slick-count">
+                                <span class="count">01</span>
+                                <span class="amount">04</span>
+                            </div>
+                            <div id="section2-column1-slick-next-arrow" class="section2-slick-next-arrow"></div>
+                        </div>
+                    </div>
+                    <div class="column-back competitive-text">
+                        <div id="section-back-text2">Competitive</div>
+                    </div>
+                    <div class="column-back advantages-text1">Advantages</div>
+                </div>
+                <div id="section2-column2" class="column">
+                    <div class="column-inner">
+                        <div class="section2-slick-container">
+                            <div class="wrap">
+                                <div id="section2-column-slick2" class="section2-slick left">
+                                    <div class="item" style="background-image: url({{ asset('assets/image/index/2_2.jpg') }});">
+                                        <div class="item__text">
+                                            <h1>Flexographic water-based ink</h1>
+                                            {% if locale == "zh_tw" %}
+                                                <h2>柔版水墨印刷</h2>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="section2-column2-slick-prev-arrow" class="section2-slick-prev-arrow"></div>
+                            <div class="section2-slick-count">
+                                <span class="count">02</span>
+                                <span class="amount">04</span>
+                            </div>
+                            <div id="section2-column2-slick-next-arrow" class="section2-slick-next-arrow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="section2-column3" class="column">
+                    <div class="column-inner">
+                        <div class="section2-slick-container">
+                            <div class="wrap">
+                                <div id="section2-column-slick3" class="section2-slick left">
+                                    <div class="item" style="background-image: url({{ asset('assets/image/index/2_3.jpg') }});">
+                                        <div class="item__text">
+                                            <h1>High-speed automated production equipments</h1>
+                                            {% if locale == "zh_tw" %}
+                                                <h2>高速自動化生產系統</h2>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="section2-column3-slick-prev-arrow" class="section2-slick-prev-arrow"></div>
+                            <div class="section2-slick-count">
+                                <span class="count">03</span>
+                                <span class="amount">04</span>
+                            </div>
+                            <div id="section2-column3-slick-next-arrow" class="section2-slick-next-arrow"></div>
+                        </div>
+                    </div>
+                    <div class="column-back advantages-text2">
+                        <span id="section-back-text3" class="text">Advantages</span>
+                        <span class="back"></span>
+                    </div>
+                </div>
+                <div id="section2-column4" class="column">
+                    <div id="section2-column4" class="column-inner">
+                        <div class="section2-slick-container">
+                            <div class="wrap">
+                                <div id="section2-column-slick4" class="section2-slick right">
+                                    <div class="item" style="background-image: url({{ asset('assets/image/index/2_4.jpg') }});">
+                                        <div class="item__text">
+                                            <h1>Professional consultation</h1>
+                                            {% if locale == "zh_tw" %}
+                                                <h2>專業諮詢</h2>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="section2-column4-slick-prev-arrow" class="section2-slick-prev-arrow last"></div>
+                            <div class="section2-slick-count last">
+                                <span class="count">04</span>
+                                <span class="amount">04</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-back banner-image"></div>
+                    <div class="column-back banner-image-back"></div>
+                </div>
+                <div id="section2-column5" class="column">
+                    <div id="section2-certification-back" class="section2__certification-back"></div>
+                    <ul id="section2-certification-list" class="section2__certification-list">
+                        <li>
+                            <div class="certification-name">FSC<br>Certificate</div>
+                            <img src="{{ asset('assets/image/index/2_6.jpg') }}">
+                        </li>
+                        <li>
+                            <div class="certification-name">ISO 9001<br>2015</div>
+                            <img src="{{ asset('assets/image/index/2_7.jpg') }}">
+                        </li>
+                        <li>
+                            <div class="certification-name">ISO 14001<br>2015</div>
+                            <img src="{{ asset('assets/image/index/2_8.jpg') }}">
+                        </li>
+                    </ul>
+                    <div id="section2-certification-bag" class="section2__certification-bag"></div>
+                </div>
+            </div>
+        </section>
+        <section id="section3" class="section3">
+            <div class="section3__certification-bag">
+                <img src="{{ asset('assets/image/bag/01.png') }}" class="bag">
+                <!-- <img src="./image/logo1.svg" alt="fullland logo" class="logo"> -->
+            </div>
+            <div class="section__title text-white">
+                <div class="column">
+                    <div class="column__inner">
+                        <h1>03</h1>
+                        <h2>Products</h2>
+                        {% if locale == "zh_tw" %}
+                            <h4>產品介紹</h4>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="button-wrap">
+                        <a class="button" href="./products">
+                            <span class="vertical-line"></span>
+                            <span>VIEW PRODUCTS</span>
+                            <span class="horizontal-line"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="section__title-back"></div>
+            </div>
+            <div class="section__content up">
+                <div class="column">
+                    <ul id="section3-list" class="section3-list">
+                        <li class="section3-list__item">
+                            <div class="img" style="background-image: url({{ asset('assets/image/index/3_2.jpg') }});"></div>
+                            <div class="content">
+                                <div class="content__title">
+                                    <h2>TAIPEI OFFICE</h2>
+                                    {% if locale == "zh_tw" %}
+                                        <h1>服務據點</h1>
+                                    {% endif %}
+                                </div>
+                                <div class="more-button-wrap">
+                                    <a class="more-button" href="./contact/#section1-item1">MORE</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="section3-list__item">
+                            <div class="img" style="background-image: url({{ asset('assets/image/index/3_3.jpg') }});"></div>
+                            <div class="content">
+                                <div class="content__title">
+                                    <h2>FACTORY</h2>
+                                    {% if locale == "zh_tw" %}
+                                        <h1>專業工廠</h1>
+                                    {% endif %}
+                                </div>
+                                <div class="more-button-wrap">
+                                    <a class="more-button" href="./contact/#section1-item3">MORE</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="section3-contact-text">Contact</div>
+                </div>
+            </div>
+        </section>
+        <!--<div id="test" style="position:fixed;top:100px;right:20px"></div>-->
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.mousewheel.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/index.js') }}"></script>
+{% endblock %}

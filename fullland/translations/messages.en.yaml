@@ -1,0 +1,32 @@
+#header.html.twig
+關於富蘭: About us
+最新消息: News
+競爭優勢: Advantages
+相關認證: Certificates
+機器設備: Equipment
+產品介紹: Products
+聯絡我們: Contact
+
+#footer.html.twig
+台灣: Taiwan
+
+#news/list.html.twig
+#最新消息: Latest News
+品牌消息: Brand News
+
+BAG TYPE DES: |
+    Flat handle bag/Serrated top/Handle folded inside,<br>
+    Twisted handle bag/Serrated top,<br>
+    Twisted handle bag/Turnover top
+
+regular size: |
+  We have various regular sizes that are<br>
+  suitable for different industries.
+
+
+Slick turnover: |
+  Slick turnover top<br>
+  State who you are
+
+
+

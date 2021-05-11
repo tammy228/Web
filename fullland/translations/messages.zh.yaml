@@ -1,0 +1,153 @@
+#header.html.twig
+About us: 關於富蘭
+News: 最新消息
+Advantages: 競爭優勢
+Certificates: 相關認證
+Equipment: 機器設備
+Products: 產品介紹
+Contact: 聯絡我們
+
+#footer.html.twig
+Taiwan: 台灣
+
+#news/list.html.twig
+Latest News: 最新消息
+Brand News: 品牌消息
+
+#website/index.html.twig
+Full Land Industrial Corp. is proud of its historic and professional background since 1976. As leading manufacturer of machine-made paper bags in Asia, we are not only concerned about clients’ best interests, but also pay close attention to environmental issues. Using long fiber kraft paper bag meets the requirement of eco-friendliness and results in the largest economic benefits.: 自1976年成立至今，一直以優異的品質與大量快速的交貨能力聞名於業界，做為亞洲自動化手提紙袋的領導者，我們不僅以客戶利益為優先，更隨時關注全球相關的環保議題。更全程以長纖牛皮紙製作，完全符合環保要求與最大經濟效益。
+Connect with the world: 接軌國際
+In order to connect with the global market, we have been continuously updating our facilities and improving our quality to meet or even exceed global standards, and demands. We believe that high quality, fast deliver, and competitive prices are not just our slogans, but the results of our constant hard work and never-ending improvement.: 為了與國際市場接軌，我們持續不斷地更新設備與提昇品質，使我們的產品能夠符合並超越國際的標準與要求。我們深信品質卓越、交貨迅速與價格低廉絕非僅是口號，而是我們長期努力與持續改善的成果。
+Sustainability: 永續經營
+Full Land Industrial Corp. was founded on December 11th, 1976 by Mr. River Yang in Chunan Town, Miao Li Hsien. The early business activities were manufacturing and exporting venetian blinds and roller blinds to the USA. Later due to the offshore migration of the blinds industry and the appreciation of the NT dollar against the US dollar, in 1988, Full Land converted the business focus to automated production of paper bags. Today Full Land has become one of the leading paper bag manufacturers in Asia, and offers to major international name brands all over the world.: 富蘭工業股份有限公司為楊鐤河 先生於民國65年(1976) 12月11日創立於苗栗縣竹南鎮竹南工業區，早期以生產塑膠窗簾為主，並以美國為主要出口市場。民國75年前後，因相關產業外移及台幣升值等諸多不利因素影響下，公司開始籌畫轉型，民國77年(1988)正式投入環保手提紙袋之生產與銷售迄今。1988年正式投入環保手提紙袋之生產與銷售。自成立至今，一直以優異的品質與大量快速的交貨能力聞名。作為亞洲自動化手提紙袋的領導者，我們不僅以客戶利益為優先，更隨時關注全球環保議題。
+Product Development: 產品開發
+In 2018, we invented “EASY TAKE” the world's first machine made cup holder with handle. It's a brand new eco-friendly packaging that tailor to take out beverage industry. Easy Take is suitable for cold and hot dink cups; special water repellent treatment absolutely ensures the ability of wet resistance. We can also provide small amount of custom printing based on your promotional needs.: 繼紙袋事業之後，更於民國107年(2018)首創全機器製造手提紙杯套EASY TAKE，專為外帶飲料產業開發全新綠色包材。可適用於冷，熱飲料杯上，具有防潑水處理確保其絕對的抗潮能力。依據各種促銷活動需求，亦提供快速與少量的印刷服務。
+In order to serve our customers, Full Land Industrial Corp. has always been at the forefront, regardless of technology or environmental awareness. Every bag you carry is the best product that went through numerous commitments to quality.: 富蘭工業為了服務我們的顧客，一直走在最前面；無論在技術或是對環保的意識始終是站在領導著產業的龍頭上，您手上的每一個提袋都是我們嚴謹把關的最佳產品。
+
+#website/about.html.twig
+Full Land Industrial Corp. was founded on December 11th, 1976 by Mr. River Yang in Chunan Town, Miao Li Hsien. The early business activities were manufacturing and exporting venetian blinds and roller blinds to the USA. Later due to the offshore migration of the blinds industry and the appreciation of the NT dollar against the US dollar, in 1988, Full Land Industrail Crop. converted the business focus to automated production of paper bags. In 2018, we invented a new green packaging, “EASY TAKE” the world's first machine made cup holder with handle, to tailor take out beverage industry after our core business-paper shopping bag.: 富蘭工業股份有限公司為楊鐤河 先生於民國65年(1976) 12月11日創立於苗栗縣竹南鎮竹南工業區，早期以生產塑膠窗簾為主，並以美國為主要出口市場。民國75年前後，因相關產業外移及台幣升值等諸多不利因素影響下，公司開始籌畫轉型，民國77年(1988)正式投入環保手提紙袋之生產與銷售迄今。繼紙袋事業之後，更於民國107年(2018)首創全機器製造手提紙杯套EASY TAKE，專為外帶飲料產業開發全新綠色包材。
+As leading manufacturer of machine-made paper bags in Asia, we are not only concerned about clients’ best interests, but also pay close attention to environmental issues.: 自成立至今，一直以優異的品質與大量快速的交貨能力聞名於業界，做為亞洲自動化手提紙袋的領導者，我們不僅以客戶利益為優先，更隨時關注全球相關的環保議題。
+In order to connect with the global market, we have been continuously updating our facilities and improving our quality to meet or even exceed global standards, and demands. We believe that high quality, fast delivery, and competitive prices are not just our slogans, but the results of our constant hard work and never-ending improvement.: 為了與國際市場接軌，我們持續不斷的更新設備與提昇品質，使產品能夠符合並超越國際的標準與要求。我們深信品質卓越，交貨迅速與價格低廉絕非僅是口號，而是我們長期努力與持續改善的成果。
+Manufactured venetian blinds and roller blinds and exported to the USA and Japan; main customers are K Mart、J.C. Penny、Sears, etc.: 生產塑膠窗簾與百葉窗，並出口至美國、日本等地，主要客戶為K Mart、J. C. Penney、Sears…等。
+Transformed the business scope to fully automated paper bag production. Since 1989, Full Land has been collaborating with SUPERBAG CO., LTD (日本スーパーバッグ株式会社). The main focus was on the domestic market during this period.: 轉型投入全自動手提紙袋生產，並於民國78年（1989）與日本スーパーバッグ株式会社（SUPERBAG CO.， LTD）合作至今，此階段主要市場以國內為主。
+Brought in advanced printing and manufacturing equipment from Europe and Japan. Acquired ISO and FSC certification, and in the meantime proactively developed the export market. In March 2010, Full Land (H.K.) Limited was founded.: 陸續引進歐洲及日本之先進印刷與製袋設備，完成ISO及FSC等各項國際認證，並積極拓展海外市場，並於2010年3月成立香港分公司。
+We have been working in alliance with Singapore Tech-Pak (Asia) Pte Ltd. to develop Singapore market. At the same time, we start to employ sales representatives abroad and prepare to approach ASEAN (The Association of Southeast Asian nation), the Middle East, and the North American market.: 與新加坡Tech-pak共同開發新加坡市場，同時著手派遣海外業務人員，進軍東協、中東及北美市場。
+Continue to update the most advanced machineries, and develop the world's first machine made cup holder with handle.: 持續引進最先進製袋與印刷設備，並研發全球首部全自動手提杯套機。
+Main market: 主要銷售區域
+Taiwan, Hong Kong, Singapore,: 台灣，香港，新加坡，澳洲，
+Australia, New Zealand, USA Canada, Middle East, etc.: 紐西蘭，北美，中東...等地。
+Honest and integrity: 誠信正直
+Strive for excelsior: 精益求精
+Embrace your dream: 懷抱夢想
+Respect for nature , love for mankind: 敬天愛人
+
+#website/advantages.html.twig
+Material Simplification: 材質簡化
+The advantage of automated machine-made paper bags is to eliminate the materials and processes which are hazardous to our environment.: 簡化加工程序，剔除塑化等原物料。
+Using long fiber kraft paper meets the requirement of eco-friendliness and results in the largest economic benefits.: 全程以長纖牛皮紙製作，完全符合環保要求與最大經濟效益。
+Non-toxic Printing: 柔版水墨印刷
+We adopt advanced water-based flexographic printing equipment from Europe and bring in new sewage treatment system.  Not only the paper bag itself is 100% non-toxic, but also the ultimate goal is to achieve zero pollution after production.: 採用歐洲最先進之柔版無毒水墨印刷設備及電腦配墨系統，搭配最新的汙水處理系統，不僅產品本身100%無毒，更達到汙水排放零汙染的目標。
+Automated production system: 高速自動化生產設備
+We employ Japan-NEW LONG high-speed bag forming machine which guarantees stable quality as well as maximum efficiency.: 採用日本NEW LONG高速製袋機（平均速度120pcs/ min），產能及品質皆能有效控管。
+Professional Service: 專業諮詢
+Experienced sales representatives always offer the best solution for customers.: 本公司的業務團隊能針對不同產業與需求之客戶提供最適合且多樣化的解決方案。
+
+#website/certificates.html.twig
+What is FSC?: 何謂FSC？
+Forest Stewardship Council， FSC: 森林管理委員會(Forest Stewardship Council， FSC)
+The Forest Stewardship Council (FSC) is an independent non-governmental organization founded in 1993. It was established by stakeholders from environmental organizations, forest managers, forest product processors, and social organizations from 25 countries. FSC is the most widely recognized forest certification system worldwide.: 是創立於1993年的獨立非政府組織(NGO) ，由來自25個國家的代表組成，包含環保團體、木材貿易組織、林業工作者、以及當地居民和驗證機構。FSC是目前全球最被認可的森林驗證標準之一。
+Purpose: FSC的目的
+FSC promotes environmentally and socially beneficial forest management. By supporting FSC certified products, consumers can prevent products from illegally harvested forests from entering the market. Also, business selling FSC certified products can create a powerful link with responsible productions, thus enhancing the corporate image. Together the consumer and business join to work towards sustainable forest management.: 紙類及木材之生產者，可透過FSC認證來確保森林永續經營並提升企業形象。紙類及木材之使用者，可透過購買FSC認證之產品，杜絕非法砍伐森林之紙類或木材製品流入市場。
+Environmental Management System Certification: 環境管理系統認證
+ISO 14001 is a voluntary standard that provides an organization a framework to establish suitable environmental management system. It includes preventing negative impacts on the environment, fulfilling compliance obligations, and enhancing corporate’s internal and external environmental performance.: ISO 14001:2004旨在引導全球企業自發性建立其本身適用之環境管理系統,以污染預防及資源節約為手段,進行企業內環境的改善。
+International Quality Management System Certification: 國際品質管理系統認證
+ISO 9001 is the international standard for quality management. In order to be certified, a corporate must comply to the standard set forth in the ISO9001 to demonstrate the ability to consistently provide products and services that meet customer and regulatory requirements.: ISO 9001:2008的標準是以流程為導向的,這也就意味著它能確定和反映出企業的特定需求。它幫助企業關注那些非常關鍵性的活動來達到滿足客戶需求的目的。
+AFTA Award: 印刷金牌獎
+Full Land Industrial Corp. won the Asian Flexographic Technical Association (AFTA) gold award for four consecutive years. This achievement not only demonstrates our leading position in printing technology and production facilities, but also shows our ambition to pursue outstanding performance.: 富蘭工業股份有限公司連續四年榮獲亞洲柔版印刷技術協會(AFTA)印刷金牌獎的肯定，不僅凸顯我們在設備與技術上的領先與優勢，更充分展現出我們追求卓越與永續發展的企圖心。
+D&B Elite SME Award: 鄧白氏中小企業菁英
+
+#website/equipment.html.twig
+Ink-dispensing system: 電腦自動配墨系統
+8 color flexo press: 8色柔版印刷機
+6 color flexo press: 6色柔版印刷機
+4 color flexo press: 4色柔版印刷機
+Flat paper handle bag machine: 扁平紙提把製袋機
+Twisted handle bag machine: 捲式提把製袋機
+Sheet-Feed paper bag machine: 平版製袋機
+Paper Sheeter: 裁紙機
+Shrink / Flow Wrapping Machine: 包裝機
+We adopt advanced water-based flexographic printing technology, so our bags are non-toxic and 100% compostable.  Our facility is equipped with most advanced sewage treatment system; printing wastewater was treated by multiple purification processes in order to reach pollutant free discharge.: 富蘭採用柔版無毒水墨印刷，產品皆無毒無味，可自然分解。另外搭配最先進的汙水處理系統，讓印刷廢水經多道淨化程序處理後達到排放無汙染，環境零負擔之成效。
+
+#website/product.html.twig
+
+Automated machine made paper bag: 自動化製袋
+Flat Handle / Serrated Top: 扁把提袋 / 袋口鋸齒
+Twisted Handle: 捲把提袋 / 袋口鋸齒
+Twisted Handle / Turnover top: 捲把提袋/ 袋口反折
+
+Handle folded inside save more space for stock room: |
+  內藏式提把<br>
+  空間我最大
+Grab and go: |
+  隨興生活<br>
+  即拿即GO
+
+Slick turnover: |
+  特殊反摺袋型<br>
+  更顯品牌個性
+
+regular size: |
+  富蘭工業股份有公司有多種常用規格袋型，<br>
+  可依貴公司行業類別提供最合適的紙袋尺寸。
+
+180 x 295 x 80 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>180 x 295 x 80 mm
+220 x 235 x 120 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>220 x 235 x 120 mm
+220 x 275 x 100 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>220 x 275 x 100 mm
+220 x 280 x 120 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>220 x 280 x 120 mm
+260 x 280 x 150 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>260 x 280 x 150 mm
+300 x 325 x 180 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>300 x 325 x 180 mm
+320 x 320 x 115 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>320 x 320 x 115 mm
+320 x 420 x 115 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>320 x 420 x 115 mm
+440 x 420 x 180 mm:
+  message: |
+    袋寬 x 袋高 x 底（側）寬<br>440 x 420 x 180 mm
+Bag Width: 袋寬
+Bag Height: 袋長
+Bag Gusset: 底(側)寬
+Cutting Length: 切斷長
+Cutting Length = Height + Bottom Flap: 切斷長＝袋長＋糊底
+BAG TYPE: 紙袋類型
+BAG TYPE DES: 扁把提袋/ 袋口鋸齒/ 提把內折、捲把提袋/ 袋口鋸齒、捲把提袋/ 袋口反折
+PAPER MATERIAL: 紙質
+White kraft, Brown kraft, Machine glazed white kraft, etc.: 白牛皮紙、赤牛皮紙、單光白牛皮紙…等
+PRINTING PROCESS: 印刷方式
+Flexographic printing with water-based ink, Offset printing with soy ink: 柔版無毒水墨印刷、平版印刷
+VARNISH: 上光方式
+According to request: 一般光油，防潑水光油
+LINES PER INCH: 印刷線數
+MONTHLY PRODUCTION CAPACITY: 每月產量
+10 million pcs: 一千萬只
+
+
+
+
+
+
+
+

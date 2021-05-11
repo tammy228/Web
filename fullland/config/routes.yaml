@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+contact :
+  path :       /{_locale}/news
+  controller : App\Controller\NewsController::index
+  requirements :
+    _locale : en|zh_tw

@@ -1,0 +1,10 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+    prefix:
+        zh_tw: '/'
+        en: '/en'
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

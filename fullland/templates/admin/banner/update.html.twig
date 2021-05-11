@@ -1,0 +1,117 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更新橫幅</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.banner.list") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">橫幅列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    橫幅
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{{ url('admin.banner.update', {"uuid": banner.getUuid()}) }}">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        <label>中文標題</label><br>
+                                        {{ form_widget(form.zhTitle, {'attr': {
+                                            'class': 'form-control',
+                                            'placeholder': '輸入...'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>英文標題</label><br>
+                                        {{ form_widget(form.enTitle, {'attr': {
+                                            'class': 'form-control',
+                                            'placeholder': 'Please Enter...'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>圖片選擇</label>
+
+                                        <div id="dropzoneID" class="dropzone"></div>
+                                        <input type="hidden" name="image">
+                                        <input type="hidden" name="image_name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>原橫幅</label><br>
+                                        {% for image in banner.getImages() %}
+                                            <img style="width: 300px ;" src="{{ image }}" />
+                                        {% endfor %}
+                                    </div>
+{#                                    <a href="{{ url('admin.banner-images.delete', {'uuid': banner.getUuid()}) }}">#}
+{#                                        <button onclick="return confirm('確定刪除嗎?');" type="button" class="btn btn-danger">刪除所有圖片</button>#}
+{#                                    </a>#}
+                                    <button  onclick="if (check()) check().returnValue = false; return false;" type="submit" class="btn btn-info">送出</button></br>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneID", {
+            url: '{{ path('admin.banner.update', {"uuid": banner.getUuid()} ) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "點擊此處或將檔案拉至此處上傳(僅限一張，建議大小 1780*908)",
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=image]').val(dataUrl);
+                    $('[name=image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=image]').val(dataUrl);
+                    $('[name=image_name]').val(name);
+                    // console.log(args);
+                });
+
+            }
+
+        });
+    </script>
+{% endblock %}

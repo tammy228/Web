@@ -1,0 +1,127 @@
+{% if locale == 'zh_tw' %}
+    {% set twig = "zh_base.html.twig" %}
+    {% set css =  'assets/css/news.css'%}
+{% else %}
+    {% set twig = "en_base.html.twig" %}
+    {% set css =  'assets/en/css/news.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="header-wrap">
+            <p class="main__company-name">
+                <span class="chi">富蘭工業股份有限公司</span>
+                <span class="eng">Full Land Industrial Corp.</span>
+            </p>
+            <div class="main__social">
+                <div>FOLLOW US</div>
+                <a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a>
+            </div>
+            <div class="header__back"></div>
+            <!-- <div class="header__back-text">The Brand Carrier</div> -->
+            <!-- <ul class="header__map">
+              <li>TOP</li>
+              <li>News</li>
+            </ul> -->
+            <div class="header__content">
+                <div class="column">
+                    <h1>News</h1>
+                    {% if locale == 'zh_tw' %}
+                        <h2>最新消息</h2>
+                    {% endif %}
+                </div>
+                <div class="column">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="news">
+        <div class="main-wrap">
+            <section id="section1" class="section1">
+                <ul class="section1__list">
+                    <li>
+                        <a href="{{ url('news.list') }}" class="active">ALL</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('news.latest.list') }}">{{ 'Latest News'| trans }}</a>
+                    </li>
+                    <li>
+                        <a href="">{{ 'Brand News'| trans }}</a>
+                    </li>
+                </ul>
+                <form class="section1__search-form">
+                    <input type="text" placeholder="SEARCH">
+                </form>
+            </section>
+            <section class="section2">
+                <div class="section2__title">
+                    <span>ALL NEWS</span>
+                </div>
+                <ul class="section2__list">
+                    {% for news in multipleNews %}
+                    <li class="section2__list__item">
+                        <a href="{{ url("news.fetch", {"id": news.id}) }}">
+                            <div class="img" style="background-image: url({{ asset('assets/image/news/7.jpg') }});"></div>
+                            {% if locale == "zh_tw" %}
+                                <p class="title">
+                                    {{ news.zhTitle }}
+                                </p>
+                            {% else %}
+                                <p class="title">
+                                    {{ news.enTitle }}
+                                </p>
+                            {% endif %}
+                            <div class="date-wrap">
+                                <div class="date">
+                                    <span class="year">{{ news.createAt() | date('Y') }}</span>
+                                    <span class="month">{{ news.createAt() | date('m') }}</span>
+                                </div>
+                                <div class="arrow"></div>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="section2__page">
+                    <div class="navigation">
+                        {{ knp_pagination_render(multipleNews) }}
+                    </div>
+                    <div class="number-wrap">
+                        <div class="start-number">01</div>
+                        <div class="end-number">03</div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <a class="prev-arrow disabled" href=""></a>
+                        <a class="next-arrow" href=""></a>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/js/new.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var current = $(".section2__page .navigation .pagination .current").html();
+            var page = $(".section2__page .navigation .pagination .page a").html();
+            $(".number-wrap .start-number").html(current);
+            $(".number-wrap .end-number").html({{ multipleNews.getPageCount }});
+            $(".section2__page .navigation").hide();
+
+            var prev = $(".section2__page .navigation .pagination .page a").attr('href');
+            var next = $(".section2__page .navigation .pagination .next a").attr('href');
+            $(".prev-arrow").attr('href', prev);
+            $(".next-arrow").attr('href', next);
+        });
+    </script>
+{% endblock %}

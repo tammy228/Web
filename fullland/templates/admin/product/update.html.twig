@@ -1,0 +1,181 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更新產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.product.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">更新產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    產品
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(中文)</label><br>
+                                            {{ form_widget(form.zhName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(英文)</label><br>
+                                            {{ form_widget(form.enName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>產品敘述(中文)</label><br>
+                                        {{ form_widget(form.zhDescription, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'width:800px; height:200px'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>產品敘述(英文)</label><br>
+                                        {{ form_widget(form.enDescription, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'width:800px; height:200px'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>圖片選擇</label>
+
+                                        <div id="dropzoneID" class="dropzone"></div>
+                                        <input type="hidden" name="image">
+                                        <input type="hidden" name="image_name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        {% for image in product.getImages() %}
+                                            <img style="width: 300px ;" src="{{ image }}" />
+                                        {% endfor %}
+                                    </div>
+                                    <a href="{{ url('admin.product-images.delete', {'uuid': product.getUuid()}) }}">
+                                        <button onclick="return confirm('確定刪除嗎?');" type="button" class="btn btn-danger">刪除所有圖片</button>
+                                    </a>
+                                    <!-- /.form group -->
+{#                                    <button type="button" onclick="check()">dddd</button>#}
+                                    <button  onclick="if (check()) check().returnValue = false; return false;" type="submit" class="btn btn-info">送出</button></br>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function more(){
+            nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length)
+            tn = nt.insertCell(0);
+            tt = nt.insertCell(1);
+            ta = nt.insertCell(2);
+            tn.innerHTML = "<input required type='text' name='size[]' placeholder=\"Ex: 8吋\"/>";
+            tt.innerHTML = "<input required type='number' name='price[]' placeholder=\"請輸入整數...\"/>";
+            ta.innerHTML = "<input required type='number' name='stock[]' placeholder=\"請輸入整數...\"/>";
+        }
+        function del(){
+            if(document.getElementById('tab').tBodies[0].rows.length > 1)
+                document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-1);
+        }
+
+        function check() {
+            var re = /\s|[ ]/g;  //[]裡面是一個全型空白
+            console.log(document.forms[0].product_zhName.value.replace(/[\s　]+/g, ""));
+            if(document.forms[0].product_zhName.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品名稱(中文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].product_enName.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品名稱(英文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].cke_1_contents.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品敘述(中文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].cke_2_contents.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品敘述(英文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].product_temperature.value.replace(/[\s　]+/g, "")==='') {
+                alert("溫度輸入空白");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <script>
+        CKEDITOR.replace( 'product[zhDescription]' );
+        CKEDITOR.replace( 'product[enDescription]' );
+    </script>
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneID", {
+            url: '{{ path('admin.product.update', {"uuid": product.getUuid()}) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "將檔案拉至此處上傳",
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=image]').val(dataUrl);
+                    $('[name=image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=image]').val(dataUrl);
+                    $('[name=image_name]').val(name);
+                    // console.log(args);
+                });
+
+            }
+
+        });
+    </script>
+{% endblock %}

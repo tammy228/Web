@@ -1,0 +1,218 @@
+{% extends  "admin/base.html.twig"%}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>更新消息</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                            <li class="breadcrumb-item active">更新消息</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-cyan shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">消息</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <div class="card-body">
+                                <form method="post"
+                                      action="{{ url('admin.news.update', {"uuid": news.getUuid()}) }}"
+                                      enctype="multipart/form-data">
+                                    {{ form_row(form._token) }}
+                                    <div class="form-group">
+                                        <label>英文標題</label>
+                                        {{ form_widget(form.enTitle, {'attr': {
+                                            'class': 'form-control',
+                                        }}) }}
+                                        {% for error in form.enTitle.vars['errors'] %}
+                                            <label class="col-form-label" for="inputError">{{ error.message }}</label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group has-error">
+                                        <label>中文標題</label>
+                                        {{ form_widget(form.zhTitle, {'attr': {
+                                            'class': 'form-control',
+                                        }}) }}
+                                        {% for error in form.zhTitle.vars['errors'] %}
+                                            <label class="col-form-label" for="inputError">{{ error.message }}</label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>英文內容</label>
+                                        {{ form_widget(form.enContent, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'height:300px;',
+                                        }}) }}
+                                        {% for error in form.enContent.vars['errors'] %}
+                                            <label class="col-form-label" for="inputError">{{ error.message }}</label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>中文內容</label>
+                                        {{ form_widget(form.zhContent, {'attr': {
+                                            'class': 'summernote',
+                                            'style': 'height:300px;',
+                                        }}) }}
+                                        {% for error in form.zhContent.vars['errors'] %}
+                                            <label class="col-form-label" for="inputError">{{ error.message }}</label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>抬頭圖選擇(僅限一張，建議大小 220*150)</label>
+                                            <div id="dropzoneThumbnail" class="dropzone"></div>
+                                        </div>
+                                        <input type="hidden" name="thumbnail_image">
+                                        <input type="hidden" name="thumbnail_image_name">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>原抬頭圖</label><br>
+                                            {% set image =  news.thumbNail %}
+                                            <img style="width: 200px ;" src="{{ asset(image) }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>內容圖選擇(僅限一張，建議大小 640*275)</label>
+                                            <div id="dropzoneContent" class="dropzone"></div>
+                                        </div>
+                                        <input type="hidden" name="content_image">
+                                        <input type="hidden" name="content_image_name">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>原內容圖</label><br>
+                                            {% for image in news.getImages() %}
+                                                <img style="width: 200px ;" src="{{ asset(image) }}" />
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+{#                                    <a href="{{ url('admin.news-images.delete', {'uuid': news.getUuid()}) }}">#}
+{#                                        <button onclick="return confirm('確定刪除嗎?');" type="button" class="btn btn-danger">刪除所有圖片</button>#}
+{#                                    </a>#}
+
+
+                                    <button type="submit" class="btn btn-info">更新消息</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        CKEDITOR.replace( 'news[zhContent]' );
+        CKEDITOR.replace( 'news[enContent]' );
+    </script>
+
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneThumbnail", {
+            url: '{{ path('admin.news.update', {'uuid': news.uuid}) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "點擊此處或將檔案拉至此處上傳",
+            maxFiles : 1,
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=thumbnail_image]').val(dataUrl);
+                    $('[name=thumbnail_image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+                    // console.log("test");
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=thumbnail_image]').val(dataUrl);
+                    $('[name=thumbnail_image_name]').val(name);
+                    // console.log(args);
+                    // console.log(dataUrl);
+                });
+
+            }
+
+        });
+    </script>
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneContent", {
+            url: '{{ path('admin.news.update', {'uuid': news.uuid}) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "點擊此處或將檔案拉至此處上傳",
+            maxFiles: 1,
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=content_image]').val(dataUrl);
+                    $('[name=content_image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+                    // console.log("test");
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=content_image]').val(dataUrl);
+                    $('[name=content_image_name]').val(name);
+                    // console.log(args);
+                    // console.log(dataUrl);
+                });
+
+            }
+
+        });
+    </script>
+{% endblock %}
+
+
+

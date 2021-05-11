@@ -1,0 +1,223 @@
+{% if locale == 'zh_tw' %}
+  {% set twig = "zh_base.html.twig" %}
+  {% set css =  'assets/css/certificates.css'%}
+{% else %}
+  {% set twig = "en_base.html.twig" %}
+  {% set css =  'assets/en/css/certificates.css'%}
+{% endif %}
+
+{% extends 'website/'~ twig %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset(css) }}">
+{% endblock %}
+
+{% block body %}
+  <header>
+    <div class="header-wrap">
+      <p class="main__company-name">
+        <span class="chi">富蘭工業股份有限公司</span>
+        <span class="eng">Full Land Industrial Corp.</span>
+      </p>
+      <div class="main__social">
+        <div>FOLLOW US</div>
+        <a class="icon-fb" href="https://www.facebook.com/paperbagfullland/" target="_blank"></a>
+      </div>
+      <div class="header__back"></div>
+      <div class="header__content">
+        <div class="column">
+          <h1>Certificates</h1>
+          {% if locale == 'zh_tw' %}
+            <h2>相關認證</h2>
+          {% endif %}
+        </div>
+        <div class="column">
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="certificates">
+    <div class="main-wrap">
+      <div class="parallax-img-wrap">
+        <div class="parallax-img" style="background-image: url({{ asset('assets/image/certificates/2.jpg') }})"></div>
+      </div>
+      <section id="section1" class="section1">
+        <div class="back-row"></div>
+        <div class="row">
+          <div id="section1-content-wrap" class="section1__content-wrap">
+            <img src="{{ asset('assets/image/certificates/1.svg') }}">
+            <ul class="section1__list">
+              <li>
+                <h1>{{ 'What is FSC?'| trans }}</h1>
+                <h2>{{ 'Forest Stewardship Council， FSC'| trans }}</h2>
+                <p>{{ 'The Forest Stewardship Council (FSC) is an independent non-governmental organization founded in 1993. It was established by stakeholders from environmental organizations, forest managers, forest product processors, and social organizations from 25 countries. FSC is the most widely recognized forest certification system worldwide.'| trans }}</p>
+              </li>
+              <li>
+                <h1>{{ 'Purpose'| trans }}</h1>
+                <p>{{ 'FSC promotes environmentally and socially beneficial forest management. By supporting FSC certified products, consumers can prevent products from illegally harvested forests from entering the market. Also, business selling FSC certified products can create a powerful link with responsible productions, thus enhancing the corporate image. Together the consumer and business join to work towards sustainable forest management.'| trans }}</p>
+              </li>
+            </ul>
+            <div class="parallax-img-wrap-m">
+              <div class="parallax-img" style="background-image: url({{ asset('assets/image/certificates/2.jpg') }})"></div>
+            </div>
+            <div class="section1__content-text">
+              {% if locale == "zh_tw" %}
+                <h2><span class="bigger">證書</span></h2>
+              {% endif %}
+              <h1>AWARDS &<br>CERTIFICATES</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section2">
+        <div class="section2-slick-wrap">
+          <div id="section2-slick" class="section2-slick">
+            <div class="section2-slick__item">
+              <h1>ISO 9001<br>2015</h1>
+              <img src="{{ asset('assets/image/certificates/A2.jpg') }}">
+            </div>
+            <div class="section2-slick__item">
+              <h1>ISO 14001<br>2015</h1>
+              <img src="{{ asset('assets/image/certificates/A3.jpg') }}">
+            </div>
+            <div class="section2-slick__item">
+              <h1>FSC<br>Certificate</h1>
+              <img src="{{ asset('assets/image/certificates/A1.jpg') }}">
+            </div>
+            <!-- <div class="section2-slick__item">
+              <h1>FSC<br>Chain of custody</h1>
+              <img src="../image/index/2_9.jpg">
+            </div> -->
+          </div>
+          <div id="section2-slick_number"></div>
+        </div>
+        <section class="section2-award">
+          <div class="row">
+            <div class="section2-award__img-wrap">
+              <div class="section2-award__img" style="background-image: url({{ asset('assets/image/certificates/3.jpg') }});"></div>
+            </div>
+            <div class="section2-award__content-wrap">
+              <img src="{{ asset('assets/image/certificates/4.svg') }}">
+              <ul class="section2-award__list">
+                <li>
+                  <h1>ISO 14001:2004</h1>
+                  <h2>{{ "Environmental Management System Certification"| trans }}</h2>
+                  <p>{{ "ISO 14001 is a voluntary standard that provides an organization a framework to establish suitable environmental management system. It includes preventing negative impacts on the environment, fulfilling compliance obligations, and enhancing corporate’s internal and external environmental performance."| trans }}</p>
+                </li>
+                <li>
+                  <h1>ISO 9001:2008</h1>
+                  <h2>{{ 'International Quality Management System Certification'| trans }}</h2>
+                  <p>{{ 'ISO 9001 is the international standard for quality management. In order to be certified, a corporate must comply to the standard set forth in the ISO9001 to demonstrate the ability to consistently provide products and services that meet customer and regulatory requirements.'| trans }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="section3">
+        <div class="row">
+          <div class="section3__content-wrap up">
+            <div class="inner">
+              <h1>AFTA</h1>
+              <h2>{{ 'AFTA Award'| trans }}</h2>
+              <p>{{ 'Full Land Industrial Corp. won the Asian Flexographic Technical Association (AFTA) gold award for four consecutive years. This achievement not only demonstrates our leading position in printing technology and production facilities, but also shows our ambition to pursue outstanding performance.'| trans }}</p>
+            </div>
+          </div>
+          <div class="section3__img-wrap">
+            <div class="section3__img" style="background-image: url({{ asset('assets/image/certificates/5.jpg') }})"></div>
+          </div>
+        </div>
+        <div class="section3__award-wrap">
+          <img src="{{ asset('assets/image/certificates/award2.png') }}" class="award1">
+          <img src="{{ asset('assets/image/certificates/award3.png') }}" class="award2">
+          <img src="{{ asset('assets/image/certificates/award4.png') }}" class="award3">
+        </div>
+        <div class="section3__award-wrap-m">
+          <div class="slick">
+            <div class="item"><img src="{{ asset('assets/image/certificates/award2.png') }}" class="award1"></div>
+            <div class="item"> <img src="{{ asset('assets/image/certificates/award3.png') }}" class="award2"></div>
+            <div class="item"><img src="{{ asset('assets/image/certificates/award4.png') }}" class="award3"></div>
+          </div>
+          <div class="digital"></div>
+        </div>
+        <div class="row">
+          <div class="section3__img-wrap up">
+            <div class="section3__img" style="background-image: url({{ asset('assets/image/certificates/6.jpg') }})"></div>
+          </div>
+          <div class="section3__content-wrap">
+            <div class="inner">
+              <h1>D&B</h1>
+              <h2>{{ 'D&B Elite SME Award'| trans }}</h2>
+              <!-- <p>富蘭工業股份有限公司連續四年榮獲亞洲凸版印刷技術協會(AFTA)印刷金牌獎的肯定，不僅凸顯我們在設備與技術上的領先與優勢，更充分展現出我們追求卓越與永續發展的企圖心。</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="section3__award-wrap m-show">
+          <img src="{{ asset('assets/image/certificates/award1.png') }}" class="award4">
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="section2-slick-windows">
+    <div class="slick">
+      <div class="section2-slick__item">
+        <img src="{{ asset('assets/image/certificates/A2.jpg') }}">
+      </div>
+      <div class="section2-slick__item">
+        <img src="{{ asset('assets/image/certificates/A3.jpg') }}">
+      </div>
+      <div class="section2-slick__item">
+        <img src="{{ asset('assets/image/certificates/A1.jpg') }}">
+      </div>
+    </div>
+    <div class="text">
+      <div id="digital">
+        <span></span>
+      </div>
+      <div class="text_slick">
+        
+        <div class="item">
+          <h1>ISO 9001 2015</h1>
+          <h2>AWARDS & CERTIFICATES</h2>
+          {% if locale == 'zh_tw' %}
+            <h3>FSC證書</h3>
+          {% endif %}
+        </div>
+        <div class="item">
+          <h1>ISO 14001 2015</h1>
+          <h2>AWARDS & CERTIFICATES</h2>
+          {% if locale == 'zh_tw' %}
+            <h3>FSC證書</h3>
+          {% endif %}
+        </div>
+        <div class="item">
+          <h1>FSC Certificate</h1>
+          <h2>AWARDS & CERTIFICATES</h2>
+          {% if locale == 'zh_tw' %}
+            <h3>FSC證書</h3>
+          {% endif %}
+        </div>
+        <!-- <div class="item">
+          <h1>FSC Chain of custody</h1>
+          <h2>AWARDS & CERTIFICATES</h2>
+          <h3>FSC證書</h3>
+        </div> -->
+      </div>
+      <div class="text_arrow">
+        <div class="prev">
+          <span></span>
+          <img src="{{ asset('assets/image/icon/arrow2-right.svg') }}">
+        </div>
+        <div class="next">
+          <span></span>
+          <img src="{{ asset('assets/image/icon/arrow2-right.svg') }}">
+        </div>
+      </div>
+      <div class="modal-close-button"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/certificates.js') }}"></script>
+{% endblock %}
