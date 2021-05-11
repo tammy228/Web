@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style>
+		.products_fetch .section1 .content-list .text4 input {
+			width: 48px;
+			font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 300;
+			letter-spacing: 1.3px;
+			border: 0;
+			border-radius: 0;
+			background: transparent;
+			border-bottom: 1px solid #979797;
+			padding: 7px 25px 5px 0;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+
+		.products_fetch .section1 .content-list .text4 .number{
+			position: relative;
+			margin-top: 5px;
+		}
+
+		.products_fetch .section2 p img{
+			width: 100%;
+		}
+	</style>
+	<script>
+		$(function() {
+			$('#relatedProducts').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 2,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            dots: false,
+							arrows: true,
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            dots: true,
+							arrows: false,
+                            slidesToShow: 2,
+                        }
+                    },
+                ]
+            });
+			//個別產品照片點擊
+			$('.photo_show').click(function (e) {
+				e.preventDefault();
+				var img= $(this).attr("data-images");
+				// console.log({"background":"url(../img/"+img+") center no-repeat"});
+				$('.photo-main').css({"background":"url("+img+") center no-repeat","background-size":"cover"});
+			});
+		})
+	</script>
+    <main class="products_fetch activePage" id="about">
+		<div class="background">
+			<p>Store</p>
+		</div>
+		<div class="section1">
+			<div class="photo-list">
+				<div class="wrap">
+					{% set images = product.getImages() %}
+					{% if images %}
+						<div class="photo_turn">
+							<ul>
+								{% for key in images|keys %}
+								<li class="photo_show"
+									data-images='{{ images[key] }}'
+									style="background: url('{{ images[key] }}') center no-repeat; background-size: cover;">
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="photo-main"
+							 style="background: url('{{ images[0] }}') center no-repeat; background-size: cover;">
+						</div>
+					{% else %}
+						<div class="photo-main"
+							 style="background: url('/img/noPhoto.png') center no-repeat; background-size: cover;">
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="content-list">
+				<ul>
+					<li class="text1">
+						{% set category = getCategory(product.id) %}
+						{% if category.getParent() %}
+						<p>{{ category.getParent().getZhName() }}<span>/</span></p>
+						{% endif %}
+						<p>{{ category.zhName }}<span>/</span></p>
+						<p>{{ product.getZhName() }}</p>
+					</li>
+					<li class="text2">
+						<p>{{ product.getZhName() }}  {{ product.getEnName() }}<span>{{ product.getTemperature }}</span></p>
+					</li>
+					<li class="text3">
+						<p>{{ product.zhDescription|raw }}</p>
+
+					</li>
+					<li class="text4">
+						<div class="size">
+							<p>尺寸</p>
+							<div class="size-select">
+								<select name="size" id="sizeSelect" onchange="changePrice()">
+									{% for key in product.size|keys %}
+									<option value="{{ key }}">{{ product.size[key] }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="price" >
+							<p>售價:</p>
+							<span id="price">${{ product.price[0] }}</span>
+						</div>
+
+						<div class="price">
+							<p>庫存:</p>
+							<span id="stock">{{product.getStock()[0]}}</span>
+						</div>
+
+						<div class="price">
+							<p>數量:</p>
+							<input class="number" type="number" name="quantity" value="1">
+						</div>
+					</li>
+					<li class="text5">
+						<div class="add_side">
+							<div class="button addToBag" id="addToCart">Add To Bag</div>
+						</div>
+						<div class="social">
+							<a href="#" class="icon icon_fb"></a>
+							<a href="#" class="icon icon_twitter"></a>
+							<a href="#" class="icon icon_ig"></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="section2">
+			<ul>
+				<li>
+					{{ product.enDescription|raw }}
+				</li>
+			</ul>
+		</div>
+		<div class="section3">
+            <div class="wrap">
+				<div class="subtitle">
+					<ul class="subtitle_dot">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+					<h4>Related Products</h4>
+					<ul class="subtitle_dot">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+                <div id="relatedProducts" class="productList">
+					{% set fiveProducts = getFiveProducts() %}
+					{% for product in fiveProducts %}
+                    <div class="product">
+						{% if product.thumbNail %}
+							<a href="{{ url('user.product.fetch', {"uuid": product.uuid}) }}"
+							   class="img featured"
+							   style="background: url('{{ product.thumbNail }}')no-repeat center;background-size: cover;"></a>
+						{% else %}
+							<a href="{{ url('user.product.fetch', {"uuid": product.uuid}) }}"
+							   class="img featured"
+							   style="background: url('/colette/img/featured/2.png')no-repeat center;background-size: cover;"></a>
+						{% endif %}
+                        <div class="caption">{{ product.zhName }}</div>
+						{% set rangePrice = getRangePrice(product.id) %}
+						<div class="price">{{ rangePrice }}</div>
+                    </div>
+					{% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+<script>
+	function changePrice(){
+		var x = document.getElementById("sizeSelect").value;
+		var price = {{ product.price|json_encode|raw }};
+		var stock = {{ product.stock|json_encode|raw }}
+
+		document.getElementById("price").innerHTML = "$" + price[x];
+		document.getElementById("stock").innerHTML = stock[x];
+
+	}
+</script>
+<script>
+	$(document).ready(function() {
+		$('#addToCart').click(function () {
+			$.ajax({
+				url:'{{ url("cart.item.add", {"id": product.getId()}) }}',
+				type : "POST",
+				success : function(data)
+				{
+					alert("加入成功");
+					$("#shopcart").load(location.href + " #shopcart");
+
+				},error: function(data)
+				{
+					alert("加入失敗");
+					console.log('無法送出');
+				}
+			})
+		})
+	})
+</script>
+<script>
+	$(".products_fetch .section2 p img").css("width","100%")
+</script>
+
+
+{% endblock %}

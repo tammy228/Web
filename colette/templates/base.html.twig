@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="">
+    <title>{{ getConfig(0) }}</title>
+    <meta name="description" content="{{ getConfig(1) }}">
+    <meta name="keywords" content="{{ getConfig(2) }}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900|Noto+Serif:400,400i,700,700i&display=swap&subset=chinese-traditional" rel="stylesheet">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <!-- slick CDN -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("/colette/css/main.css") }}">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{{ asset("colette/js/jquery.waitforimages.min.js") }}"></script>
+    <script src="{{ asset("colette/js/jquery.twzipcode.min.js") }}"></script>
+    <script src="{{ asset("colette/js/jquery.page.js") }}"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script type="text/javascript" src="{{ asset("colette/js/main.js") }}"></script>
+
+    <!-- by home -->
+
+</head>
+    <body>
+    {% include 'components/svg.html.twig'  %}
+    {% include 'components/navbar.html.twig' %}
+        {% block body %}{% endblock %}
+    {% include 'components/footer.html.twig' %}
+        {% block javascripts %}{% endblock %}
+
+    </body>
+</html>

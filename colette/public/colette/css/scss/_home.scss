@@ -1,0 +1,776 @@
+@keyframes fadeInBigToNormal {
+    0% {transform: scale(1.5,1.5)}
+    100% {transform: scale(1,1)}
+}
+
+.main_home {
+    font-size: 0;
+    // banner
+    .bannerAll {
+        position: relative;
+        .bannerArea {
+            width: 100%;
+            .img {
+                width: 100%;
+                padding-bottom: 35%;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                animation: unset;
+                &.slick-active {
+                    animation: fadeInBigToNormal 2s;
+                }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(#000,0.2);
+                    z-index: 2;
+                }
+                img {
+                    position: absolute;
+                    width: 200%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    z-index: 1;
+                }
+            }
+            .slick-dots {
+                position: absolute;
+                z-index: 3;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10%;
+                li {
+                    opacity: 0.6;
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    background: #fff;
+                    border-radius: 50%;
+                    margin-right: 1.3rem;
+                    transition: 0.3s;
+                    transform: scale(0.8,0.8);
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &.slick-active {
+                        opacity: 1;
+                        transform: scale(1,1);
+                    }
+                }
+            }
+        }
+        .learnMore {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            a {
+                letter-spacing: 1.1px;
+                font-family: 'PT Sans', sans-serif;
+                font-weight: bold;
+                color: #413d3a;
+                font-size: 1.2rem;
+                background: #fff;
+                border-radius: 50px;
+                padding: 0.85rem 1.7rem;
+            }
+        }
+        .title {
+            position: absolute;
+            top: 29%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: Bakery;
+            font-size: 6.4rem;
+            white-space: nowrap;
+            color: #fff;
+            z-index: 2;
+        }
+        .activityContent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            letter-spacing: 0.7px;
+            font-size: 0.8rem;
+            color: #fff;
+            z-index: 2;
+        }
+    }
+    // productShow
+    .productShow {
+        width: 100%;
+        background: linear-gradient(to right, rgba(#edb8b8,0.15) 50%,rgba(#ee86a1,0.15) 0%);
+        background-size: 12px 100%;
+        padding-bottom: 4%;
+        .wrap {
+            box-sizing: border-box;
+            padding: 0 4%;
+        }
+        .productList {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 8%;
+            transform: translateY(-15%);
+            .slick-list {
+                padding-bottom: 6%;
+            }
+            // 前一個
+            .slick-prev {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translate(0%,-50%);
+                background: url('../img/arrow.svg')no-repeat left center;
+                background-color: #fff;
+                background-size: 200%;
+                width: 2.1rem;
+                height: 2.1rem;
+                border-radius: 50%;
+                border: 1px solid #e9e9e9;
+            }
+            // 下一個
+            .slick-next {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(0%,-50%);
+                background: url('../img/arrow.svg')no-repeat right center;
+                background-color: #fff;
+                background-size: 200%;
+                width: 2.1rem;
+                height: 2.1rem;
+                border-radius: 50%;
+                border: 1px solid #e9e9e9;
+            }
+            .product {
+                position: relative;
+                box-sizing: border-box;
+                padding: 0.8% 0 0.6% 0;
+                background: #fff;
+                margin: 0 0.25%;
+                box-shadow: 0 15px 10px -8px rgba(#000,0.3);
+                svg {
+                    display: block;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    margin: 0 auto;
+                    fill: #ee86a1;
+                }
+                .title-en {
+                    font-family: Helena;
+                    color: #706b66;
+                    font-size: 1rem;
+                    letter-spacing: 0.3px;
+                    text-align: center;
+                    margin-top: 0.8rem;
+                }
+                .title-zh {
+                    font-family: 'Noto Sans TC', sans-serif;
+                    color: #706b66;
+                    font-size: 1rem;
+                    letter-spacing: 2.4px;
+                    text-align: center;
+                    margin-top: 0.2rem;
+                }
+            }
+        }
+        .subtitle {
+            font-size: 3.6rem;
+            font-family: Bakery;
+            color: #706b66;
+            letter-spacing: 0.9px;
+            text-align: center;
+        }
+        .icon-totem {
+            display: block;
+            width: 5rem;
+            height: 2rem;
+            margin: 0 auto;
+            fill: #ee86a1;
+            padding-bottom: 0.5rem;
+        }
+        .textArea {
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            font-size: 1.2rem;
+            color: #706b66;
+            text-align: center;
+            line-height: 2;
+            letter-spacing: 2.3px;
+        }
+        .learnMore {
+            text-align: center;
+            padding: 5% 0;
+            .btn {
+                display: inline-block;
+                letter-spacing: 1.1px;
+                font-family: 'PT Sans', sans-serif;
+                font-weight: 500;
+                color: #fff;
+                font-size: 1.2rem;
+                background: #ee86a1;
+                border-radius: 50px;
+                padding: 0.85rem 1.7rem;
+            }
+        }
+    }
+    // wedding cake
+    .reserveWeddingCake {
+        position: relative;
+        .bannerArea {
+            width: 100%;
+            .img {
+                width: 100%;
+                padding-bottom: 30%;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                animation: unset;
+                &.slick-active {
+                    animation: fadeInBigToNormal 2s;
+                }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(#000,0.2);
+                    z-index: 2;
+                }
+                img {
+                    position: absolute;
+                    width: 200%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    z-index: 1;
+                }
+            }
+            .slick-dots {
+                position: absolute;
+                z-index: 3;
+                left: 50%;
+                li {
+                    opacity: 0.6;
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    background: #fff;
+                    border-radius: 50%;
+                    margin-right: 1.3rem;
+                    transition: 0.3s;
+                    transform: scale(0.8,0.8);
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &.slick-active {
+                        opacity: 1;
+                        transform: scale(1,1);
+                    }
+                }
+            }
+        }
+        .textForWeb {
+            display: none;
+        }
+    }
+    .weddingCakeTextArea {
+        width: 100%;
+        background: #ee86a1;
+        padding: 10% 0 15% 0;
+        .wrap {
+            box-sizing: border-box;
+            padding: 0 4%;
+        }
+        .subtitle {
+            font-size: 3.6rem;
+            font-family: Bakery;
+            color: #fff;
+            letter-spacing: 0.9px;
+            text-align: center;
+        }
+        .textArea {
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2;
+            letter-spacing: 1.8px;
+        }
+        .seeMore {
+            text-align: center;
+            padding: 5% 0;
+            .btn {
+                display: inline-block;
+                letter-spacing: 1.1px;
+                font-family: 'PT Sans', sans-serif;
+                color: #413d3a;
+                font-size: 1.2rem;
+                background: #fff;
+                border-radius: 50px;
+                padding: 0.85rem 2.5rem;
+            }
+        }
+    }
+    // Featured Products
+    .featuredProducts {
+        padding: 8% 0;
+        .wrap {
+            box-sizing: border-box;
+            padding: 0 4%;
+        }
+        .subtitle {
+            font-size: 3.6rem;
+            font-family: Bakery;
+            color: #706b66;
+            letter-spacing: 0.9px;
+            text-align: center;
+        }
+        .icon-totem {
+            display: block;
+            width: 6rem;
+            height: 2rem;
+            margin: 0 auto;
+            fill: #ee86a1;
+            padding-bottom: 8%;
+        }
+        .productList {
+            width: 100%;
+            box-sizing: border-box;
+            .product {
+                width: 48%;
+                margin: 0 1%;
+                .img {
+                    width: 100%;
+                    padding-bottom: 113%;
+                    background: #000;
+                }
+                .caption {
+                    margin-top: 0.5rem;
+                    font-size: 1.5rem;
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    color: #ee86a1;
+                    text-align: center;
+                }
+                .price {
+                    margin-top: 0.2rem;
+                    font-size: 1.2rem;
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    color: #706b66;
+                    text-align: center;
+                }
+            }
+            .slick-dots {
+                padding: 8% 0 4% 0;
+                text-align: center;
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    background: #d3d2d2;
+                    border-radius: 50%;
+                    margin-right: 1.3rem;
+                    transition: 0.3s;
+                    transform: scale(0.8,0.8);
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &.slick-active {
+                        background: #ee86a1;
+                        transform: scale(1,1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .main_home {
+        // banner
+        .bannerAll {
+            .bannerArea {
+                .img {
+                    padding-bottom: 18%;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .slick-dots {
+                    bottom: 13%;
+                    li {
+                        width: 0.8rem;
+                        height: 0.8rem;
+                    }
+                }
+            }
+            .learnMore {
+                top: 63%;
+            }
+            .title {
+                font-size: 6.4rem;
+            }
+        }
+        // productShow
+        .productShow {
+            padding-bottom: 3%;
+            .productList {
+                padding: 0 6%;
+                .slick-list {
+                    padding-bottom: 3%;
+                }
+                // 前一個
+                .slick-prev {
+                    top: 35%;
+                }
+                // 下一個
+                .slick-next {
+                    top: 35%;
+                }
+                .product {
+                    padding: 0.6% 0 0.4% 0;
+                    svg {
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                    .title-en {
+                        font-size: 0.8rem;
+                        margin-top: 0.5rem;
+                    }
+                    .title-zh {
+                        font-size: 0.6rem;
+                    }
+                }
+            }
+            .learnMore {
+                padding: 3% 0 5% 0;
+            }
+        }
+        // wedding cake
+        .reserveWeddingCake {
+            .bannerArea {
+                .img {
+                    padding-bottom: 18%;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .slick-dots {
+                    left: 10%;
+                    bottom: 50%;
+                    li {
+                        width: 0.8rem;
+                        height: 0.8rem;
+                    }
+                }
+            }
+            .textForWeb {
+                display: block;
+                position: absolute;
+                z-index: 2;
+                top: 50%;
+                left: 10%;
+                transform: translateY(-50%);
+                .subtitle {
+                    font-size: 3.6rem;
+                    font-family: Bakery;
+                    color: #fff;
+                    letter-spacing: 0.9px;
+                    text-align: center;
+                }
+                .textArea {
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    font-size: 0.6rem;
+                    color: #fff;
+                    text-align: center;
+                    letter-spacing: 1.8px;
+                }
+                .seeMore {
+                    text-align: center;
+                    padding-top: 5%;
+                    .btn {
+                        display: inline-block;
+                        letter-spacing: 1.1px;
+                        font-family: 'PT Sans', sans-serif;
+                        color: #413d3a;
+                        font-size: 0.6rem;
+                        background: #fff;
+                        border-radius: 50px;
+                        padding: 0.9rem 2.5rem;
+                    }
+                }
+            }
+        }
+        .weddingCakeTextArea{
+            display: none;
+        }
+        // Featured Products
+        .featuredProducts {
+            padding: 5% 0 8% 0;
+            .icon-totem {
+                padding-bottom: 0;
+            }
+            .productList {
+                padding: 0 6%;
+                .product {
+                    .img {
+                        padding-bottom: 105%;
+                    }
+                }
+                // 前一個
+                .slick-prev {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translate(0%,-50%);
+                    background: url('../img/icon2.svg')no-repeat left center;
+                    background-color: #fff;
+                    background-size: 200%;
+                    width: 3.4rem;
+                    height: 3.4rem;
+                }
+                // 下一個
+                .slick-next {
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translate(0%,-50%);
+                    background: url('../img/icon2.svg')no-repeat right center;
+                    background-color: #fff;
+                    background-size: 200%;
+                    width: 3.4rem;
+                    height: 3.4rem;
+                }
+            }
+        }
+    }
+}
+
+
+
+@media (min-width: 1200px) {
+    .main_home {
+        // banner
+        .bannerAll {
+            .bannerArea {
+                .img {
+                    padding-bottom: 18.6%;
+                }
+                .slick-dots {
+                    bottom: 16%;
+                    li {
+                        width: 0.6rem;
+                        height: 0.6rem;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+            .activityContent {
+                font-size: 1.4rem;
+                margin-top: 2.5%;
+            }
+            .learnMore {
+                top: 58%;
+                transition: 0.3s;
+                margin-top: 5.3%;
+                cursor: pointer;
+                a {
+                    padding: 1.5rem 4rem;
+                }
+                &:hover {
+                    transform: translateX(-50%) scale(1.1,1.1);
+                }
+            }
+            .title {
+                top: 38%;
+            }
+        }
+        // productShow
+        .productShow {
+            padding-bottom: 4%;
+            background-size: 24px 100%;
+            .wrap {
+                padding: 0 8%;
+            }
+            .subtitle {
+                font-size: 4.8rem;
+            }
+            .productList {
+                padding: 0 4%;
+                transform: translateY(-25%);
+                .slick-list {
+                    padding-top: 2%;
+                    padding-bottom: 2%;
+                }
+                // 前一個
+                .slick-prev {
+                    top: 42.5%;
+                    width: 3.4rem;
+                    height: 3.4rem;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        transform: translateY(-50%)scale(1.2,1.2);
+                    }
+                }
+                // 下一個
+                .slick-next {
+                    top: 42.5%;
+                    width: 3.4rem;
+                    height: 3.4rem;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        transform: translateY(-50%)scale(1.2,1.2);
+                    }
+                }
+                .product {
+                    cursor: pointer;
+                    transition: 0.5s;
+                    &:hover {
+                        transform: translateY(-10%);
+                    }
+                    svg {
+                        width: 6rem;
+                        height: 6rem;
+                    }
+                    .title-en {
+                        font-size: 1rem;
+                        margin-top: 1rem;
+                    }
+                    .title-zh {
+                        margin-top: 0.5rem;
+                        font-size: 0.7rem;
+                    }
+                }
+            }
+            .icon-totem {
+                width: 8rem;
+                height: 2.7rem;
+                padding: 0;
+                margin: 2% auto;
+            }
+            .textArea {
+                font-size: 1.4rem;
+            }
+            .learnMore {
+                padding: 2% 0;
+                .btn {
+                    padding: 1.5rem 4rem;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        transform: scale(1.1,1.1);
+                    }
+                }
+            }
+        }
+        // wedding cake
+        .reserveWeddingCake {
+            .bannerArea {
+                .img {
+                    padding-bottom: 14%;
+                }
+                .slick-dots {
+                    left: 15%;
+                    bottom: 42%;
+                    li {
+                        width: 0.6rem;
+                        height: 0.6rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .textForWeb {
+                left: 15%;
+                .subtitle {
+                    font-size: 6.4rem;
+                }
+                .textArea {
+                    font-size: 1.4rem;
+                }
+                .seeMore {
+                    padding-top: 10%;
+                    .btn {
+                        padding: 1.5rem 4rem;
+                        cursor: pointer;
+                        transition: 0.3s;
+                        &:hover {
+                            transform: scale(1.1,1.1);
+                        }
+                    }
+                }
+            }
+        }
+        // Featured Products
+        .featuredProducts {
+            padding: 4% 0 8% 0;
+            .wrap {
+                padding: 0 8%;
+            }
+            .subtitle {
+                font-size: 4.8rem;
+            }
+            .icon-totem {
+                width: 8rem;
+                height: 2.7rem;
+                padding: 0;
+                margin: 2% auto;
+            }
+            .productList {
+                padding: 0 4%;
+                // 前一個
+                .slick-prev {
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        transform: translateY(-50%)scale(1.2,1.2);
+                    }
+                }
+                // 下一個
+                .slick-next {
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        transform: translateY(-50%)scale(1.2,1.2);
+                    }
+                }
+                .product {
+                    margin: 0 0.75%;
+                    padding-top: 0.2%;
+                    .img {
+                        cursor: pointer;
+                        transition: 0.3s;
+                        &:hover {
+                            transform: scale(1.1,1.1) translateY(-5%);
+                        }
+                    }
+                    .caption {
+                        font-size: 1.5rem;
+                        margin-top: 3.5rem;
+                    }
+                    .price {
+                        margin-top: 1.5rem;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

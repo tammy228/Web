@@ -1,0 +1,105 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm">
+                    <h1>訂單</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">首頁</a></li>
+                        <li class="breadcrumb-item active">訂單內容</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>客戶名稱</th>
+                <td>{{ order.user.name }}</td>
+            </tr>
+            <tr>
+                <th>產品</th>
+                {% set products = getAllProducts(order) %}
+                <td>{{ products|raw }}</td>
+            </tr>
+            <tr>
+                <th>收件人名稱</th>
+                <td>{{ order.recipientName }}</td>
+            </tr>
+            <tr>
+                <th>收件人電話</th>
+                <td>{{ order.recipientMobile }}</td>
+            </tr>
+            <tr>
+                <th>收件人Email</th>
+                <td>{{ order.recipientEmail }}</td>
+            </tr>
+            <tr>
+                <th>收件人地址</th>
+                <td>{{ order.recipientAddress }}</td>
+            </tr>
+            <tr>
+                <th>應收金額</th>
+                <td>${{ order.totalPrice }}</td>
+            </tr>
+            {% if order.couponMessage %}
+            <tr>
+                <th>優惠</th>
+                <td>{{ order.couponMessage }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>創建時間</th>
+                <td>{{ order.createAt ? order.createAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>付款方式</th>
+                <td>{{ order.payment }}</td>
+            </tr>
+            <tr>
+                <th>備註</th>
+                <td>{{ order.remark }}</td>
+            </tr>
+
+            <tr>
+                <th>狀態</th>
+                <td>
+                    <div class="container-fluid">
+                        <form method="post" enctype="multipart/form-data" action="{{ url('admin.order.update', {"uuid": order.getUuid()}) }}">
+                            <select name="status">
+                                {% for i in 0..4 %}
+                                    {% if i == order.status %}
+                                        <option selected value="{{ i }}" >{{ status(i) }}</option>
+                                    {% else %}
+                                        <option value="{{ i }}" >{{ status(i) }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-warning btn-sm" style="margin: 0 10px 0 0;" type="submit">改變狀態</button>
+                        </form>
+                    </div>
+
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('admin.order.list',{'uuid': order.getUuid()}) }}">
+        <button class="btn btn-primary " style="margin: 0 10px 0 0;">
+            <i class="fas fa-eye"></i> 訂單列表
+        </button>
+    </a>
+    </td>
+
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+@import 'common/reset';
+@import 'common/loading';
+@import 'common/nav';
+@import 'home';
+@import 'about';
+@import 'news';
+@import 'news_fetch';
+@import 'product';
+@import 'products_fetch';
+@import 'cart';
+@import 'orders';
+@import 'register';
+@import 'reset-password';
+@import 'common/footer';
+
+.text-right {
+    text-align: right;
+}
+
+.apply_btn {
+    cursor: help;
+    &.active {
+        cursor: pointer;
+        background: #ee86a1 !important;
+    }
+}
+
+.step_next_btn {
+    background: #ccc !important;
+    cursor: help;
+    &.active {
+        cursor: pointer;
+        background: #ee86a1 !important;
+    }
+}
+
+#memberProfile_edit,#information_recipient,#purchase_information,#memberProfile_registered {
+
+    .email,
+    .add {
+        width: 100%;
+    }
+
+    #twzipcode,#purchase_information_twzipcode,#information_recipient_twzipcode {
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .county,
+        .township {
+            position: relative;
+            width: 35%;
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 30%;
+                right: 9%;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 4px 4.5px 0 4.5px;
+                border-color: #000000 transparent transparent transparent;
+            }
+        }
+
+        .postalCode {
+            width: 22%;
+        }
+    }
+}
+
+.floating {
+    animation-name: floating;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0%);
+    }
+
+    50% {
+        transform: translateY(12%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}

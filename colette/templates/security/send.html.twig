@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main class="memberProfile memberProfile_edit activePage" id="memberProfile_edit">
+        <ul class="member">
+            <li>
+                <h4>{{ message }}</h4>
+            </li>
+
+            {% if message == '已發送驗證碼' %}
+            <li class="tip1 tip2">
+                <a href="{{ url('user.forgetPassword') }}">
+                    <div class="button change_btn" >去驗證</div>
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </main>
+
+{% endblock %}

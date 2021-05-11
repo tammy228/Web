@@ -1,0 +1,101 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Create Category{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更新優惠碼</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">更新優惠碼</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div calss="row">
+                    <div class="col-md-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    分類
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{{ url('admin.coupon.update', {'uuid': coupon.getUuid()} ) }}">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>折扣類型</label>
+                                        {{ form_widget(form.type, {'attr': {
+                                            'class': 'form-control',
+                                        }}) }}
+                                    </div>
+                                    <div class="form-group has-error">
+                                        <label>折扣對象</label>
+                                        {{ form_widget(form.target, {'attr': {
+                                            'class': 'form-control',
+                                        }}) }}
+                                    </div>
+                                    <div class="form-group" id="arrival_dt">
+                                        <label>折扣價格</label>
+                                        {{ form_widget(form.number, {'attr': {
+                                            'class': 'form-control',
+                                        }}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>到期時間</label>
+                                        {{ form_widget(form.expireAt, {'attr': {
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>優惠碼</label><br>
+                                        {{ form_widget(form.code, {'attr': {
+                                            'class': 'form-control demo',
+                                        }}) }}
+                                    </div>
+                                    <p class="btn btn-default" onclick="myrandomstring()">按我產生隨機亂數(前2碼英文小寫,後6碼數字)</p>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info" onclick="submitXML()">送出</button></br>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    function randomusefloor(min,max) {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+
+    // 亂數英文字
+    function makerandomletter(max) {
+        var text = "";
+        var possible = "abcdefghijkmnpqrstuvwxyz";
+
+        for (var i = 0; i < max; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    }
+
+    // 前兩碼英文小寫,後6碼數字
+    function myrandomstring() {
+        document.getElementById("coupon_code").value = makerandomletter(2)+randomusefloor(1,999999);
+    }
+
+</script>
+{% endblock %}

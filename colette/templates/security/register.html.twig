@@ -1,0 +1,99 @@
+
+
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main class="memberProfile memberProfile_registered activePage" id="memberProfile_registered">
+        <ul class="member">
+            <li>
+                <h4>註冊會員</h4>
+            </li>
+            <form method="post">
+                {{ form_widget(form._token) }}
+            <li class="information information_registered">
+                <ol>
+                    <li class="name">
+                        <p>姓名</p>
+                        {{ form_widget(form.name,
+                            { "attr":{
+                                'class': "name",
+                                'placeholder': "輸入名字"}}) }}
+                        {{ form_errors(form.name) }}
+                    </li>
+                    <li class="phone">
+                        <p>電話號碼</p>
+                        {{ form_widget(form.mobile,
+                            { "attr":{
+                                'class': "tel",
+                                'placeholder': "輸入電話"}}) }}
+                        {{ form_errors(form.mobile) }}
+                        {{ error_mobile }}
+                    </li>
+                    <li class="email">
+                        <p>EMAIL</p>
+                        {{ form_widget(form.email,
+                            { "attr":{
+                                'class': "email",
+                                'placeholder': "輸入信箱"}}) }}
+                        {{ form_errors(form.email) }}
+                        {{ error }}
+                    </li>
+                    <div id="twzipcode">
+                        <div data-role="county" data-name="county" class="county">
+                            <p>城市</p>
+                        </div>
+                        <div data-role="district" data-name="township" class="township">
+                            <p>鄉鎮市區</p>
+                        </div>
+                        <div data-role="zipcode" data-name="postalCode" class="postalCode">
+                            <p>郵遞區號</p>
+                        </div>
+                    </div>
+                    <li class="add">
+                        <p>詳細地址</p>
+                        {{ form_widget(form.address,
+                            { "attr":{
+                                'class': "add",
+                                'placeholder': "住址"}}) }}
+                        {{ form_errors(form.address) }}
+                    </li>
+                    <li class="newpassword">
+                        <p>密碼</p>
+                        {{ form_widget(form.plainPassword.first,
+                            { "attr":{
+                                'class': "newpassword",
+                                'placeholder': "輸入密碼"}}) }}
+                        {{ form_errors(form.plainPassword.first) }}
+                    </li>
+                    <li class="confirm_newpassword">
+                        <p>確認密碼</p>
+                        {{ form_widget(form.plainPassword.second,
+                            { "attr":{
+                                'class': "confirm_newpassword",
+                                'placeholder': "確認密碼"}}) }}
+                        {{ form_errors(form.plainPassword.second) }}
+                    </li>
+                </ol>
+            </li>
+            <li class="tip1">
+                <button id="register" type="submit" class="btn btn-primary btn-block " style="background-color: transparent"><div class="button registered_btn">註冊</div></button>
+            </li>
+            </form>
+        </ul>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $('#register').click(function(e){
+            var form = $('form');
+            var formData = new FormData(form);
+            console.log(formData);
+        })
+    </script>
+    <script src="{{ asset('colette/js/jquery.twzipcode.min.js') }}"></script>
+    <script>
+        $("#twzipcode").twzipcode({
+        });
+    </script>
+{% endblock %}

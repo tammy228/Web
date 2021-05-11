@@ -1,0 +1,90 @@
+{% extends 'baseIndex.html.twig' %}
+
+{% block body %}
+
+    <main class="main_home active">
+        <!-- index banner -->
+        <div class="bannerAll">
+            <div id="bannerArea" class="bannerArea">
+                {% set images = getBanner(0) %}
+                {% for image in images %}
+                    <div class="img"><img src="{{ image }}"></div>
+{#                <div class="img" style="background: url({{ image }}) center center / cover no-repeat;"></div>#}
+                {% endfor %}
+            </div>
+            <div class="learnMore"><a href="./news">LEARN MORE</a></div>
+            <div class="title">News Title</div>
+            <div class="activityContent">行銷活動內容ＸＸＸ</div>
+        </div>
+        <!-- productShow -->
+
+        <div class="productShow">
+            <div class="wrap">
+                <div id="productShow" class="productList">
+                    {% set fatherCategories = getFatherCategories() %}
+                    {% for fatherCategory in fatherCategories %}
+                    <a href="{{ url("user.child-category.list" , {"id": fatherCategory.id}) }}" class="product">
+                        <svg class="icon-cake">
+                            <use xlink:href="#icon-cake" /></svg>
+                        <div class="title-en">{{ fatherCategory.enName }}</div>
+                        <div class="title-zh">{{ fatherCategory.zhName }}</div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="subtitle">Philosophy of Colett</div>
+                <svg class="icon-totem">
+                    <use xlink:href="#icon-totem" /></svg>
+                <div class="textArea">格蕾朵用愛和祝福<br>賦予每ㄧ個蛋糕和甜點生命力<br>希望在您每ㄧ個難忘的日子<br>陪您ㄧ起Make a wish!</div>
+                <div class="learnMore"><a href="./about" class="btn">LEARN MORE</a></div>
+            </div>
+        </div>
+        <!-- wedding cake -->
+        <div class="reserveWeddingCake">
+            <div id="bannerArea-WeddingCake" class="bannerArea">
+                {% set images = getBanner(1) %}
+                {% for image in images %}
+                    <div class="img" style="background: url({{ image }}) center center / cover no-repeat;"></div>
+                {% endfor %}
+            </div>
+            <!-- for web -->
+            <div class="textForWeb">
+                <div class="subtitle">Wedding Cake</div>
+                <div class="textArea">客製化蛋糕請參考我們facebook 圖片，<br>或是將您想要的蛋糕圖片請電洽或私訊我們，<br>將會有專人儘快與您聯絡</div>
+                <div class="seeMore"><a href="#" class="btn">SEE MORE</a></div>
+            </div>
+        </div>
+        <div id="weddingCakeTextArea" class="weddingCakeTextArea">
+            <div class="wrap">
+                <div class="subtitle">Wedding Cake</div>
+                <div class="textArea">客製化蛋糕請參考我們facebook 圖片，<br>將您想要的蛋糕圖片請電洽或私訊我們，<br>將會有專人儘快與您聯絡</div>
+                <div class="seeMore"><a href="#" class="btn">SEE MORE</a></div>
+            </div>
+        </div>
+        <!-- Featured Products -->
+        <div class="featuredProducts">
+            <div class="wrap">
+                <div class="subtitle">Featured Products</div>
+                <svg class="icon-totem">
+                    <use xlink:href="#icon-totem" /></svg>
+                <div id="featuredProducts" class="productList">
+                    {% set products = getFiveProducts() %}
+                    {% for product in products %}
+                    <div class="product">
+                        <a href="{{ url("user.product.fetch", {"uuid": product.getUuid()} ) }}">
+                            {% if product.getImages() %}
+                                <div class="img featured" style="background: url('{{ product.getImages()[0] }}')no-repeat center;background-size: cover;"></div>
+                            {% else %}
+                                <div class="img featured" style="background: url(./colette/img/featured/2.png)no-repeat center;background-size: cover;"></div>
+                            {% endif %}
+                            <div class="caption">{{ product.zhName }}</div>
+                            {% set rangePrice = getRangePrice(product.id) %}
+                            <div class="price">{{ rangePrice }}</div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

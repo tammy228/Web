@@ -1,0 +1,816 @@
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: transparent;
+    box-sizing: border-box;
+    padding: 0 1.4rem;
+    height: 64px;
+    z-index: 99;
+    transition: 0.8s;
+    display: flex;
+    align-items: center;
+    .wrap {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .menuForWeb,.loginStatusPc {
+        display: none;
+    }
+    .icon-hamburger {
+        width: 1.7rem;
+        height: 1.3rem;
+        fill: #fff;
+        cursor: pointer;
+    }
+    .logo {
+        width: 3.4rem;
+        padding-bottom: 3.4rem;
+        background: url(../img/logo.png)no-repeat;
+        background-size: 100%;
+    }
+    .icon-buy {
+        width: 1.8rem;
+        height: 1.6rem;
+        fill: #fff;
+        cursor: pointer;
+    }
+    &.rolling {
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(#000,0.2);
+        .icon-hamburger, .icon-buy {
+            fill: #706b66;
+        }
+        .menuForWeb,.loginStatusPc {
+            color: #706b66;
+        }
+    }
+    // hamburger
+    .hamburgerList {
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 100vh;
+        background: #F9F4F4;
+        font-size: 0;
+        box-shadow: 3px 0 10px rgba(#000,0.2);
+        transform: translateX(-100%);
+        transition: 0.3s;
+        &.active {
+            opacity: 1;
+            transform: translateX(0%);
+        }
+        .topSpace {
+            box-sizing: border-box;
+            padding: 1.35rem;
+            background: linear-gradient(to right, rgba(#edb8b8,0.15) 50%,rgba(#ee86a1,0.15) 0%);
+            background-size: 12px 100%;
+            .icon-delete {
+                width: 1rem;
+                height: 1rem;
+                fill: #706b66;
+            }
+        }
+        .listStyle {
+            position: relative;
+            box-sizing: border-box;
+            padding: 2rem 1.35rem;
+            a,p {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+                color: #000;
+                cursor: pointer;
+            }
+            &:before {
+                content: '';
+                position: absolute;
+                left: 1.35rem;
+                bottom: 0;
+                width: 1.2rem;
+                height: 1px;
+                background: #ee86a1;
+            }
+            &:last-child {
+                &:before {
+                    display: none;
+                }
+            }
+        }
+        .loginStatus {
+            display: none;
+            &.active {
+                display: block;
+            }
+            &.show-memberZone {
+                #loginStatus-text {
+                    color: #ee86a1;
+                }
+                .memberZone {
+                    display: block;
+                }
+            }
+            .memberZone {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+                color: #000;
+                padding-top: 7%;
+                display: none;
+                li {
+                    padding: 7% 0;
+                }
+                a {
+                    font-size: 1.2rem;
+                    letter-spacing: 3px;
+                    color: #000;
+                }
+            }
+        }
+    }
+    .shopcart {
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 100%;
+        width: 81%;
+        max-width: 340px;
+        height: 100vh;
+        background: #f9f4f4;
+        transform: translateX(0%);
+        transition: 0.3s;
+        &.active {
+            opacity: 1;
+            transform: translateX(-100%);
+        }
+        .wrap {
+            width: calc(100% - (20px * 2));
+            margin: 0 auto 0 7%;
+            padding-top: 8%;
+        }
+        .shopcartInner_Quantity {
+            display: flex;
+            width: 100%;
+            padding-left: 5%;
+            box-sizing: border-box;
+            p {
+                padding-left: 18px;
+            }
+            p,span {
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                font-size: 1.5rem;
+                font-weight: 300;
+                letter-spacing: 1.13px;
+                color: #706b66;
+            }
+            span {
+                font-weight: 500;
+                letter-spacing: 0.94px;
+                color: #ee86a1;
+            }
+        }
+        .icon-buy-close {
+            width: 1.8rem;
+            height: 1.6rem;
+            fill: #706b66;
+        }
+        .shopcartInner_content {
+            width: 100%;
+            padding-top: 3%;
+        }
+        .contentList {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(#979797, 0.37);
+            padding: 6% 0;
+            .contentList-photo {
+                width: 23%;
+            }
+            .photo {
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                width: 100%;
+                padding-bottom: 100%;
+            }
+            .contentList-content {
+                width: 60%;
+                .price {
+                    padding-top: 8%;
+                }
+                p {
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    font-size: 1.3rem;
+                    font-weight: 300;
+                    letter-spacing: 0.98px;
+                }
+                span {
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    letter-spacing: 0.98px;
+                    &:nth-child(2) {
+                        font-weight: 300;
+                    }
+                }
+            }
+            .delete_btn {
+                opacity: 0.54;
+                color: #d1ac98;
+                font-size: 2rem;
+            }
+        }
+        .prompt {
+            width: 100%;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.83;
+            letter-spacing: 1.33px;
+            color: #9b9b9b;
+            padding-top: 5%;
+            span {
+                color: #ee86a1;
+            }
+        }
+        .final {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10%;
+        }
+        .total-price {
+            p {
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                font-size: 1.2rem;
+                font-weight: 600;
+                line-height: 1.83;
+                letter-spacing: 1.33px;
+                color: #9b9b9b;
+            }
+            span {
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                font-size: 1.6rem;
+                font-weight: 600;
+                line-height: 1.38;
+                letter-spacing: 1.33px;
+            }
+        }
+        .checkout-btn {
+            width: 71%;
+            max-width: 190px;
+            height: 35px;
+            border-radius: 24px;
+            background: #ee86a1;
+            a {
+                width: 100%;
+                height: 100%;
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+                line-height: 35px;
+                text-align: center;
+                color: #ffffff;
+            }
+        }
+    }
+}
+.header2 {
+    background: #fff;
+    .icon-hamburger {
+        fill: #706b66;
+    }
+    .icon-buy {
+        fill: #706b66;
+    }
+}
+.header-white {
+    background: #fff;
+    .icon-hamburger {
+        fill: #706b66;
+    }
+    .icon-buy {
+        fill: #706b66;
+    }
+}
+//會員登入
+.member-logIn {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    font-family: PingFangTC, 'Noto Sans TC', sans-serif;;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    &.active {
+        display: block;
+    }
+    ul {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        background: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 6.5% 0;
+        box-sizing: border-box;
+    }
+    ol {
+        padding: 9% 5.5% 1% 5.5%;
+        box-sizing: border-box;
+        li {
+           margin-bottom: 6.5%;
+           &:nth-child(1) {
+            margin-bottom: 4.5%;
+           }
+           &:last-child {
+               margin-bottom: 0;
+           }
+        }
+    }
+    h4 {
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+        text-align: center;
+        color: #000000;
+        padding-bottom: 7%;
+    }
+    p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.83;
+        letter-spacing: 1px;
+    }
+    label {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 2.67;
+        letter-spacing: -0.1px;
+        color: #8d8d8d;
+    }
+    span {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 2.67;
+        letter-spacing: -0.1px;
+        text-align: right;
+        color: #8d8d8d;
+    }
+    .linkStyle {
+        display: inline-block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        text-align: right;
+        color: #ee86a1;
+        border-bottom: 1px solid #ee86a1;
+        cursor: pointer;
+    }
+    input[type="text"] {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #e5e5e5;
+        margin-top: 8px;
+        padding-left: 5%;
+        box-sizing: border-box;
+        font-size: 1.6rem;
+    }
+    .signIn_btn {
+        height: 35px;
+        border-radius: 24px;
+        background: #ee86a1;
+        font-family: PingFangTC, 'Noto Sans TC', sans-serif;;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.83;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+    }
+    .tip1 {
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .tip2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .tip3 {
+        text-align: center;
+    }
+}
+.forgetPassword {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    font-family: PingFangTC, 'Noto Sans TC', sans-serif;;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    &.active {
+        display: block;
+    }
+    ul {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        background: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 6.5% 0;
+        box-sizing: border-box;
+    }
+    ol {
+        padding: 9% 5.5% 1% 5.5%;
+        box-sizing: border-box;
+        li {
+           margin-bottom: 6.5%;
+           &:nth-child(1) {
+            margin-bottom: 4.5%;
+           }
+           &:last-child {
+               margin-bottom: 0;
+           }
+        }
+    }
+    h4 {
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+        text-align: center;
+        color: #000000;
+        padding-bottom: 7%;
+    }
+    p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.83;
+        letter-spacing: 1px;
+    }
+    input[type="text"] {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #e5e5e5;
+        margin-top: 8px;
+        padding-left: 5%;
+        box-sizing: border-box;
+        font-size: 1.6rem;
+    }
+    .sendOut_btn {
+        height: 35px;
+        border-radius: 24px;
+        background: #ee86a1;
+        font-family: PingFangTC, 'Noto Sans TC', sans-serif;;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.83;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+    }
+    .tip1 {
+        border-bottom: 1px solid #e5e5e5;
+    }
+}
+.connection {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    font-family: PingFangTC, 'Noto Sans TC', sans-serif;;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    &.active {
+        display: block;
+    }
+    .wrap {
+        width: calc(100% - (20px*2));
+        max-width: 360px;
+        background: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    h5 {
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 0.77px;
+        text-align: center;
+        padding: 3% 0;
+        border: 1px solid #e5e5e5;
+    }
+    ul {
+        width: calc(100% - (20px*2));
+        margin: 0 auto;
+        padding: 5% 0 7.5% 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    li {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        flex-shrink: 0;
+        padding: 1% 0;
+        &:nth-child(2) {
+            width: 40%;
+            padding: 3.5% 0;
+        }
+        &:nth-child(3) {
+            width: 60%;
+            padding: 3.5% 0;
+        }
+        &:nth-child(5) {
+            padding-top: 4%;
+        }
+        &:last-child {
+            padding-top: 5%;
+        }
+        span {
+            &:nth-child(1) {
+                font-family: PTSans, 'Noto Sans TC', sans-serif;
+                font-size: 1.2rem;
+                line-height: 1.83;
+                letter-spacing: 1px;
+                color: #ee86a1;
+            }
+            &:nth-child(2) {
+                font-family: PTSans, 'Noto Sans TC', sans-serif;
+                font-size: 12px;
+                letter-spacing: 2px;
+                color: #706b66;
+            }
+        }
+        p {
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.83;
+            letter-spacing: 1px;
+            padding-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            padding-left: 10px;
+            box-sizing: border-box;
+            letter-spacing: 1.5px;
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #e5e5e5;
+            padding-left: 10px;
+            box-sizing: border-box;
+            letter-spacing: 1.5px;
+        }
+        .send_btn {
+            background: #ee86a1;
+            color: #fff;
+            height: 40px;
+            border-radius: 24px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 0 1.2rem;
+        .icon-hamburger {
+            width: 1.7rem;
+            height: 1.3rem;
+        }
+        .logo {
+            width: 3.4rem;
+            padding-bottom: 3.4rem;
+        }
+        .icon-buy {
+            height: 1.7rem;
+        }
+        // hamburger
+        .hamburgerList {
+            width: 30%;
+            .topSpace {
+                padding: 1.2rem;
+                .icon-delete {
+                    width: 0.8rem;
+                    height: 0.8rem;
+                }
+            }
+            .listStyle {
+                &:before {
+                    left: 1.2rem;
+                }
+            }
+        }
+        .shopcart {
+            .checkout-btn {
+                height: 48px; 
+                a {
+                    line-height: 48px;
+                }
+            }
+        }
+    }
+    .member-logIn {
+        ul {
+            width: calc(100% - (206px*2));
+            max-width: 355px;
+            padding: 3% 0;
+        }
+        label {
+            font-size: 1.4rem;
+            line-height: 2.29;
+            letter-spacing: -0.2px;
+        }
+        .signIn_btn {
+            height: 48px;
+        }
+        a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        span {
+            font-size: 1.4rem;
+            line-height: 2.29;
+            letter-spacing: -0.2px;
+        }
+    }
+    .forgetPassword {
+        ul {
+            width: calc(100% - (206px*2));
+            max-width: 355px;
+            padding: 3% 0 6% 0;
+        }
+        ol {
+            li {
+                &:nth-child(1) {
+                    margin-bottom:11.5%;
+                }
+            }
+        }
+        .sendOut_btn {
+            height: 48px;
+        }
+    }
+    .connection {
+        h5 {
+            padding: 6.2% 0;
+        }
+        li {
+            input {
+                height: 48px;
+            }
+            .send_btn {
+                height: 48px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .header {
+        display: flex;
+        padding: 0 8%;
+        height: 90px;
+        .wrap {
+            justify-content: center;
+        }
+        .icon-hamburger {
+            display: none;
+        }
+        .logo {
+            width: 5.9rem;
+            padding-bottom: 5.9rem;
+            cursor: pointer;
+            transition: 0.5s;
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+        .icon-buy {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: 0.5s;
+            width: 1.8rem;
+            height: 1.7rem;
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+        .menuForWeb {
+            display: inline-block;
+            font-size: 1.4rem;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.5s;
+            &:hover {
+                opacity: 0.5;
+            }
+            &.left {
+                margin-right: 7%;
+            }
+            &.right {
+                margin-left: 7%;
+            }
+        }
+        .loginStatusPc {
+            display: none;
+            position: relative;
+            font-size: 1.4rem;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            color: #fff;
+            margin-left: 7%;
+            cursor: pointer;
+            &.active {
+                display: inline-block;
+            }
+            a,p {
+                transition: 0.5s;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
+        .memberZonePc {
+            position: absolute;
+            top: 277%;
+            left: 50%;
+            width: 380%;
+            text-align: center;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.16);
+            background: #ffffff;
+            color: #706b66;
+            border: solid 1px rgba(151, 151, 151, 0.23);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.8s;
+            li {
+                padding: 10% 0;
+                border-top: solid 1px rgba(151, 151, 151, 0.23);
+                &:nth-child(1) {
+                    border: 0;
+                }
+            }
+            &.active {
+                opacity: 1;
+                pointer-events: painted;
+            }
+        }
+    }
+    .member-logIn {
+        ul {
+            padding: 1.7% 0;
+        }
+    }
+    .forgetPassword {
+        ul {
+            padding: 1.7% 0 3.4% 0;
+        }
+    }
+    .header2 {
+        .menuForWeb {
+            color: #706b66;
+        }
+        .loginStatusPc {
+            color: #706b66;
+        }
+    }
+    .header-white {
+        .menuForWeb ,.loginStatusPc {
+            color: #706b66;
+        }
+    }
+}

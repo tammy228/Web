@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<script>
+		$(function() {
+			//所有產品頁
+			//切換館別
+			var w =$(window).width();
+			$('.products_list-ul .list').click(function () {
+				var index = $(this).index();
+				$(this).addClass('active').siblings().removeClass('active');
+				$('.series_list_phone form').eq(index).addClass('active').siblings().removeClass('active');  //form
+				$('.series_list_pc ul').eq(index).addClass('active').siblings().removeClass('active');  //pc
+				$('.dessert-list').eq(index).addClass('active').siblings().removeClass('active');
+			});
+			var leftscroll = $('.products_list-ul').scrollLeft();
+			var maxScrollLeft = $('.products_list-ul')[0].scrollWidth - $('.products_list-ul')[0].clientWidth;
+			var w = $(window).width();
+			var len = $('.products_list-ul li').length;
+			arrowClick()
+			$(window).resize(function () {
+				w = $(window).width();
+				arrowClick();
+			});
+
+			function arrowClick() {
+				if(leftscroll<1) {
+					$('.arrow-pre').hide();
+				} else {
+					$('.arrow-pre').show();
+				}
+				if(leftscroll>= maxScrollLeft) {
+					$('.arrow-next').hide();
+					$('.hide').hide();
+				} else {
+					$('.arrow-next').show();
+					$('.hide').show();
+				}
+				if(w<768) {
+					if(len<4) {
+						$('.arrow-pre').hide();
+						$('.arrow-next').hide();
+						$('.hide').hide();
+					}
+				}
+				if(w>767) {
+					if(len<5) {
+						$('.arrow-pre').hide();
+						$('.arrow-next').hide();
+						$('.hide').hide();
+					}
+				}
+				$('.arrow-pre').click(function () {
+					if(leftscroll>0) {
+						$('.products_list-ul').scrollLeft(leftscroll + -w);
+
+						leftscroll = $('.products_list-ul').scrollLeft();
+						if(leftscroll<1) {
+							$('.arrow-pre').hide();
+						} else {
+							$('.arrow-pre').show();
+						}
+						if(leftscroll>= maxScrollLeft) {
+							$('.arrow-next').hide();
+							$('.hide').hide();
+						} else {
+							$('.arrow-next').show();
+							$('.hide').show();
+						}
+					}
+				});
+				$('.arrow-next').click(function () {
+
+					if(leftscroll<maxScrollLeft) {
+						$('.products_list-ul').scrollLeft(leftscroll + w)
+
+						leftscroll = $('.products_list-ul').scrollLeft()
+						if(leftscroll<0.5) {
+							$('.arrow-pre').hide();
+						} else {
+							$('.arrow-pre').show();
+						}
+						if(leftscroll>= maxScrollLeft) {
+							$('.arrow-next').hide();
+							$('.hide').hide();
+						} else {
+							$('.arrow-next').show();
+							$('.hide').show();
+						}
+					}
+				});
+			}
+
+			//確認是在哪一組 pc
+			$('.series_menu-li').click(function () {
+				var index = $(this).closest('li').index();
+				var index_menu = $(this).closest('.series_menu').index();
+				$(this).closest('li').addClass('active').closest('li').siblings().removeClass('active');
+				$('.dessert-list').eq(index_menu).find('.content-produce').eq(index).addClass('active').siblings().removeClass('active');
+				$('.series_menu-phone').eq(index_menu).find('.series_list_pac').val(index);
+
+			});
+
+			//確認是在哪一組 phone
+			$('.series_list_pac').change(function () {
+				var options = $(this).children('option:selected').val();
+				var options_menu = $(this).closest('.series_menu-phone').index();
+				$('.dessert-list').eq(options_menu).find('.content-produce').eq(options).addClass('active').siblings().removeClass('active');
+				$('.series_menu').eq(options_menu).find('li').eq(options).addClass('active').siblings().removeClass('active');
+			})
+
+		})
+	</script>
+	</head>
+
+	<main class="products activePage" id="products">
+		<div class="background">
+			<p>Store</p>
+		</div>
+		<div class="products_list">
+			<div class="wrap">
+				<div class="arrow arrow-pre"></div>
+				<div class="arrow arrow-next"></div>
+				<div class="hide"></div>
+				<ul class="products_list-ul">
+					{% set fatherCategories = getFatherCategories() %}
+					{% for fatherCategory in fatherCategories %}
+						<li class="list active">
+							<a href="{{ url("user.child-category.list" , {"id": fatherCategory.id}) }}">
+								<div class="dessert icon_pie" style="background: url(/colette/img/icon-pie.svg) no-repeat;background-size: cover;"></div>
+								<div class="title-zh">{{ fatherCategory.zhName }}</div>
+								<div class="title-en">{{ fatherCategory.enName }}</div>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<div class="wrap">
+				<div class="series_list_phone">
+					<form class="series_menu-phone series_menu-phone_cake active" action="">
+						<select name="series_list" class="series_list_pac">
+							{% for childCategory in childCategories %}
+							<option value="0">{{ childCategory.zhName }}</option>
+							{% endfor %}
+						</select>
+					</form>
+				</div>
+				<div class="series_list_pc">
+					<ul class="series_menu series_menu-cake active">
+						{% for childCategory in childCategories %}
+							<li class="active">
+								<a href="{{ url("user.product.list", {"id": childCategory.id}) }}">
+									<p class="series_menu-li">{{ childCategory.zhName }}</p>
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="dessert-list dessert-list-cake active">
+					<ul class="content-produce active">
+						{% for product in products %}
+							<li class="produce-li show active">
+								{% set image = product.thumbNail %}
+								{% if image %}
+									<div class="photo_inside">
+										<a href="{{ url("user.product.fetch",{"uuid": product.uuid}) }}"
+										   class="photo"
+										   style="background: url('{{ image }}') center no-repeat; background-size: 100%">
+										</a>
+									</div>
+								{% else %}
+									<div class="photo_inside">
+										<a href="{{ url("user.product.fetch",{"uuid": product.uuid}) }}"
+										   class="photo"
+										   style="background: url('/img/noPhoto.png') center no-repeat; background-size: 100%">
+										</a>
+									</div>
+								{% endif %}
+								<p class="text-name">{{ product.zhName }}</p>
+								{% set rangePrice = getRangePrice(product.id) %}
+								<span class="text-price">{{ rangePrice }}</span>
+								<div id="addToCart" class="button add-cart">ADD TO CART</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		{#		<div class="morePage">#}
+		{#            <div class="button loadMore">LOAD MORE</div>#}
+		{#        </div>#}
+	</main>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$(document).ready(function() {
+			$('#addToCart').click(function () {
+				console.log("test")
+				$('#product').submit(function () {
+					console.log("test");
+					alert("加入成功");
+					$("#shopcart").load(location.href + " #shopcart");
+				});
+			})
+		})
+	</script>
+{% endblock %}

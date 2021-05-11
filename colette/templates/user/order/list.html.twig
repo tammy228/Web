@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <script>
+        $(function() {
+            var w = $(window).width();
+            $('.checkOrder .loadMore').click(function(e) {
+                e.preventDefault();
+                $('.checkOrder .orderPage').toggleClass('active');
+            });
+            //分頁轉換
+            $('#pagination2').createPage(function(n) {}, {
+                showTurn: false,
+                showSumNum: false
+            }, {
+                "borderColor": "#f00",
+                "currentColor": "#000",
+            });
+        })
+    </script>
+
+    <main class="checkOrder activePage">
+        <div class="orderList">
+            {% for order in orders %}
+            <div class="wrap orderPage">
+                <ul class="order">
+                    <li>
+                        <h4>訂單編號 #{{ order.uuid|slice(0, 8) }}</h4>
+                    </li>
+                    <li>
+                        <p>訂單狀態：<span>{{ status(order.status) }}</span></p>
+                    </li>
+                    <li class="order_list">
+                        <div class="orderProduct">
+                            {% set total = 0 %}
+                            {% set relations = getProductToOrderRelations(order) %}
+                            {% for relation in relations %}
+                            <ol>
+                                <li class="shop_product_photo">
+                                    <a href="{{ url("user.product.fetch", {"uuid": relation.getProduct().uuid}) }}">
+                                        {% if relation.getProduct().getImages() %}
+                                            <img src="{{ relation.getProduct().getImages()[0] }}" alt="">
+                                        {% else %}
+                                            <img src="{{ asset('img/noPhoto.png') }}" alt="">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li class="shop_product_productQuantity">
+                                    <div class="name">
+                                        <a href="{{ url('user.product.fetch',{"uuid": relation.getProduct().uuid}) }}">{{ relation.product.zhName }}</a>
+                                    </div>
+                                    <div class="shop_product_size">
+                                        <p>{{ relation.size }}</p>
+                                    </div>
+                                    <div class="shop_product_quantity">
+                                        <p class="text1">x<span>{{ relation.quantity }}</span></p>
+                                    </div>
+                                </li>
+                                <li class="shop_product_price">
+                                    <div class="price">${{ (relation.getQuantity()|number_format) * (relation.getPrice()|number_format) }}</div>
+                                </li>
+                            </ol>
+                                {% set total = total + relation.quantity|number_format * relation.getProduct().getPrice()|number_format%}
+                            {% endfor %}
+                        </div>
+                        <div class="total">
+                            <span class="tip2">+ 運費</span>
+                            <p class="total_fee">$60</p>
+                            <span class="tip3">=</span>
+                            <p class="total_price">${{ order.totalPrice }}</p>
+                        </div>
+                        <div class="coupon">
+                            {{ order.couponMessage }}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+<style>
+    .coupon{
+        padding: 2.5% 5.5%;
+        text-align: center;
+        font-size: 18px;
+    }
+</style>
+
+
+{% endblock %}

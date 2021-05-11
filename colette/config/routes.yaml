@@ -1,0 +1,11 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+cart_item_add:
+  path: /cart/item/{id}/add
+  controller: App\Controller\CartController::addCartItem
+  requirements:
+    id: '\d+'
+  options:
+    expose: true

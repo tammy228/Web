@@ -1,0 +1,194 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-navy elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ url("user.index") }}" class="brand-link">
+        <img src="/img/logo.png"
+             alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">Colette Console</span><br/>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-bag"></i>
+                        <p>
+                            產品管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/product" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                產品列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/product/create" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i>
+                                創建產品
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>
+                            分類管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/category" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                分類列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/category/create" class="nav-link">
+                                <i class="nav-icon fas fa-folder-plus"></i>
+                                創建分類
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            新聞管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/news" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                新聞列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/news/create" class="nav-link">
+                                <i class="nav-icon fas fa-folder-plus"></i>
+                                創建新聞
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-image"></i>
+                        <p>
+                            橫幅管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/banner" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                橫幅列表
+                            </a>
+                        </li>
+                    </ul>
+{#                    <ul class="nav nav-treeview">#}
+{#                        <li class ="nav-item">#}
+{#                            <a href="/admin/banner/create" class="nav-link">#}
+{#                                <i class="nav-icon fas fa-plus"></i>#}
+{#                                新增橫幅#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-money-bill"></i>
+                        <p>
+                            優惠碼管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/coupon" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                優惠碼列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/coupon/create" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i>
+                                創建優惠碼
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-archive"></i>
+                        <p>
+                            訂單管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/order" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                訂單列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            使用者管理
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/user" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                使用者列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ url('config.general') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            網站基本設定
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

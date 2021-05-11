@@ -1,0 +1,469 @@
+.checkOrder {
+    padding-top: 64px;
+
+    .orderPage {
+        display: none;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+            display: block;
+        }
+
+        &.active {
+            display: block;
+        }
+    }
+
+    .wrap {
+        border-bottom: 2px solid #e5e5e5;
+        padding: 6% 0 12% 0;
+
+        &:nth-child(1) {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
+
+        h4 {
+            font-size: 2rem;
+            line-height: 3.55;
+            letter-spacing: 1.3px;
+        }
+
+        p {
+            font-size: 1.6rem;
+            font-weight: 300;
+            line-height: 3;
+            letter-spacing: 1.2px;
+
+            span {
+                font-weight: 500;
+                color: #ee86a1;
+            }
+        }
+
+        a {
+            display: inline-block;
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            color: #ee86a1;
+            cursor: pointer;
+            border-bottom: 1.5px solid #ee86a1;
+            margin: 3% 0 12% 0;
+        }
+
+        .shop_product_photo {
+            a {
+                border: none;
+                margin: 0;
+            }
+        }
+
+        .name {
+            a {
+                color: #000;
+                border: none;
+                margin: 0;
+                font-size: 1.6rem;
+                font-weight: 300;
+                letter-spacing: 1.2px;
+            }
+        }
+
+        .order {
+            position: relative;
+            width: calc(100% - (31px*2));
+            margin: 0 auto;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            ;
+            color: #000000;
+        }
+
+        .order_list {
+            padding-top: 5%;
+        }
+
+        .orderProduct {
+            border: 1px solid #e5e5e5;
+            border-bottom: none;
+
+            ol {
+                display: flex;
+                padding: 3% 4%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            p,
+            span,
+            .name {
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                ;
+                font-size: 1.2rem;
+                font-weight: 300;
+                letter-spacing: 0.9px;
+                color: #000000;
+
+                &.text1 {
+                    line-height: 0;
+                }
+            }
+
+            .shop_product_photo {
+                width: 21%;
+
+                img {
+                    width: 100%;
+                    max-width: 60px;
+                    max-height: 60px;
+                }
+            }
+
+            .shop_product_productQuantity {
+                width: 55%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                padding-left: 8%;
+                box-sizing: border-box;
+
+                .name {
+                    padding-right: 7px;
+                }
+
+                .shop_product_size {
+                    display: none;
+                }
+
+                .shop_product_quantity {
+                    width: 100%;
+                    flex-shrink: 0;
+                }
+            }
+
+            .shop_product_price {
+                width: 24%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                .price {
+                    font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                    ;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    text-align: right;
+                    color: #000000;
+                }
+            }
+        }
+
+        .total {
+            padding: 5% 5.5%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            ;
+            border: 1px solid #e5e5e5;
+            border-top: none;
+
+            span {
+                font-size: 1.2rem;
+                line-height: 1.83;
+                letter-spacing: 1px;
+                color: #9b9b9b;
+            }
+
+            .total_fee {
+                font-size: 1.4rem;
+                line-height: 1.57;
+                letter-spacing: 1.2px;
+                color: #000000;
+                padding-right: 12%;
+                box-sizing: border-box;
+                font-weight: 400;
+            }
+
+            .total_price {
+                font-size: 1.6rem;
+                font-weight: 600;
+                line-height: 1.38;
+                letter-spacing: 1.3px;
+                color: #000000;
+            }
+        }
+    }
+
+    .morePage {
+        width: calc(100% - (31px*2));
+        height: 36px;
+        margin: 6% auto 15% auto;
+        border-top: 1px solid #d8d8d8;
+        border-bottom: 1px solid #d8d8d8;
+
+        .loadMore {
+            width: 40%;
+            margin: 0 auto;
+            font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+            ;
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 36px;
+            letter-spacing: 1.3px;
+            text-align: center;
+            color: #4a4a4a;
+        }
+
+        .pagination {
+            display: none;
+        }
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    .checkOrder {
+        .orderList {
+            padding-top: 4%;
+        }
+
+        .wrap {
+            .order {
+                width: calc(100% - (41px*2));
+                max-width: 750px;
+            }
+
+            .order_list {
+                border: 1px solid #d8d8d8;
+            }
+
+            .orderProduct {
+                border: none;
+
+                p,
+                span {
+                    line-height: 1.83;
+                    letter-spacing: 1px;
+                    font-weight: normal;
+                }
+
+                ol {
+                    border: 0;
+                }
+
+                .name {
+                    width: 30%;
+                    font-size: 1.6rem;
+                    font-weight: 300;
+                    letter-spacing: 1.2px;
+                }
+
+                .shop_product_photo {
+                    width: 14%;
+                }
+
+                .shop_product_productQuantity {
+                    width: 76%;
+                    justify-content: space-between;
+                    padding: 0 10.5% 0 7%;
+                    box-sizing: border-box;
+
+                    .shop_product_size {
+                        display: block;
+
+                        p {
+                            font-size: 1.2rem;
+                            font-weight: normal;
+                            line-height: 1.83;
+                            letter-spacing: 1px;
+                        }
+                    }
+
+                    .shop_product_quantity {
+                        width: auto;
+                    }
+                }
+
+                .shop_product_price {
+                    width: 10%;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .total {
+                width: 64%;
+                margin: 0 0 0 auto;
+                position: relative;
+                border: none;
+
+                span {
+                    &.tip2 {
+                        position: relative;
+                        left: 10%;
+                    }
+
+                    &.tip3 {
+                        padding-left: 6%;
+                        box-sizing: border-box;
+                    }
+                }
+
+                .total_fee {
+                    padding-right: 0;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 7%;
+                    width: 140%;
+                    height: 1px;
+                    background: #e5e5e5;
+                }
+            }
+        }
+
+        .morePage {
+            width: calc(100% - (41px*2));
+            max-width: 750px;
+            margin: 6% auto 17.5% auto;
+            border-top: 1px solid #d8d8d8;
+            border-bottom: 1px solid #d8d8d8;
+
+            .loadMore {
+                width: 20%;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .checkOrder {
+        padding-top: 90px;
+
+        .orderPage {
+            display: none;
+
+            &:nth-child(3),
+            &:nth-child(4) {
+                display: block;
+            }
+
+            &.active {
+                display: block;
+            }
+        }
+
+        .orderList {
+            padding-top: 7%;
+        }
+
+        .wrap {
+            h4 {
+                font-size: 3rem;
+                line-height: 2.37;
+                letter-spacing: 2px;
+            }
+
+            .orderProduct {
+                ol {
+                    .name {
+                        font-size: 1.6rem;
+                        font-weight: 300;
+                        letter-spacing: 1.2px;
+                    }
+                }
+            }
+
+            .total {
+                .total_fee {
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .morePage {
+            margin: 6% auto 7% auto;
+            width: calc(100% - (148px*2));
+            max-width: 1145px;
+            height: 48px;
+
+            .loadMore {
+                display: none;
+            }
+
+            .pagination {
+                height: 48px;
+                line-height: 36px;
+                margin: 0 auto;
+                font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+                ;
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .pagination_inside {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .tcdNumber,
+            .current {
+                width: 30px;
+                display: block;
+                font-family: PTSans, 'Noto Sans TC', sans-serif;
+                ;
+                font-size: 1.2rem;
+                line-height: 36px;
+                text-align: center;
+                color: #8d8d8d;
+
+                &.current {
+
+                    color: #000000;
+
+                }
+            }
+
+            .icon_set {
+                width: 40%;
+
+                &_next {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            }
+
+            .icon {
+                display: block;
+                width: 40px;
+                height: 12px;
+                cursor: pointer;
+
+                &_pre {
+                    background: url(../images/pre_icon.svg) no-repeat center;
+                    background-size: cover;
+                }
+
+                &_next {
+                    background: url(../images/next_icon.svg) no-repeat center;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+}

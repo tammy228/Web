@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main class="about activePage" id="about">
+        <div class="background">
+            <p>About us</p>
+        </div>
+        <div class="wrapper container-fluid join">
+            <div class="row slideUp wow">
+                <div class="col-12 col-lg-4 offset-lg-4">
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br>
+                        {% endif %}
+                        <label for="inputEmail">信箱</label>
+                        <input type="email" value="{{ last_username }}"
+                               name="email" id="inputEmail"
+                               class="form-control"
+                               placeholder="{{ '輸入信箱' }}"
+                               required autofocus></br>
+                        <label for="inputPassword">密碼</label>
+                        <input type="password" name="password"
+                               id="inputPassword"
+                               class="form-control"
+                               placeholder="{{ '輸入密碼' | trans }}"
+                               required></br>
+                        <div>
+                            {#
+                            <a href="{{ url('auth.forgetPassword') }}">忘記密碼</a>
+                            #}
+                        </div>
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}">
+                        <div class="text-center evenlyDispersed">
+                            <button type="submit">登入</button>
+
+                            <a href="{{ url('auth.register') }}">
+                                <button type="button">註冊</button>
+                            </a>
+                        </div>
+                    </form>
+
+
+                    <p>騰出空間以如果未來有相關法規或是注意事項需要放置提醒。騰出空間以如果未來有相關法規或是注意事項需要放置提醒</p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+

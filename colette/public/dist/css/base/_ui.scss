@@ -1,0 +1,237 @@
+@import "var";
+
+.ui-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: rgba(#000, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  h1, a {
+    color: $major-text-color;
+    font-size: 1.6rem;
+    line-height: 200%;
+    letter-spacing: 2px;
+    padding-left: 2px;
+  }
+  a {
+    color: $major-color;
+    text-decoration: underline;
+  }
+}
+
+.ui-modal.show {
+  display: flex;
+  animation-name: showModal;
+  animation-duration: .2s;
+}
+
+@-moz-keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ui-modal__wrap {
+  position: relative;
+  background-color: #fff;
+  padding: 45px 20px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 500px;
+  max-height: 90%;
+  overflow: scroll;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8);
+}
+
+.ui-modal__wrap.full {
+  width: calc(100% - 60px);
+  height: calc(100% - 80px);
+  max-height: none;
+  max-width: 1200px;
+}
+
+@media (min-width: $screen-p-size) {
+  .ui-modal__wrap {
+    padding: 50px 30px;
+  }
+  .ui-modal__wrap.full {
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+  }
+}
+
+@media (min-width: $screen-d-size) {
+  .ui-modal__wrap {
+    padding: 50px 40px;
+  }
+}
+
+.ui-modal__close {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  display: flex;
+  width: 35px;
+  height: 35px;
+  background: url(../image/icon/times-circle-regular.svg) no-repeat center;
+  background-size: contain;
+  transition: all .2s ease-in;
+}
+
+@media (min-width: $screen-p-size) {
+  .ui-modal__close {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: $screen-d-size) {
+  .ui-modal__close {
+    right: calc((100% - 1200px) / 2 - 50px);
+  }
+}
+
+.ui-modal__close:hover, .ui-modal__close:focus {
+  background: url(../image/icon/times-circle-regular2.svg) no-repeat center;
+  background-size: contain;
+}
+
+.ui-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ui-modal__content.success:before, .ui-modal__content.error:before {
+  content: "";
+  display: flex;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.ui-modal__content.success:before {
+  background: url(../image/icon/check-circle-solid.svg) no-repeat center;
+  background-size: contain;
+}
+
+.ui-modal__content.error:before {
+  background: url(../image/icon/exclamation-circle-solid.svg) no-repeat center;
+  background-size: contain;
+}
+
+.ui-modal__button-wrap {
+  margin-top: 30px;
+  display: flex;
+  .ui-modal__button:first-child {
+    margin-left: 0;
+  }
+  .ui-modal__button:last-child {
+    margin-right: 0;
+  }
+}
+
+.ui-form__button-wrap {
+  margin-top: 30px;
+  display: flex;
+  .ui-form__button:first-child {
+    margin-left: 0;
+  }
+  .ui-form__button:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: $screen-p-size) {
+  .ui-form__button-wrap {
+    justify-content: flex-end;
+  }
+}
+
+.ui-modal__button, .ui-form__button {
+  color: $major-color;
+  background: $minor-color;
+  transition: all .2s ease-in;
+  cursor: pointer;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  padding: 12px 20px;
+  padding-left: 22px;
+  border-radius: 30px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.ui-form__button {
+  width: 100%;
+}
+
+@media (min-width: $screen-p-size) {
+  .ui-modal__button, .ui-form__button {
+    font-size: 1.6rem;
+  }
+  .ui-form__button {
+    width: auto;
+  }
+}
+
+.ui-modal__button:hover, .ui-modal__button:focus, .ui-form__button:hover, .ui-form__button:focus {
+  background: $major-color;
+  color: #fff;
+}
+
+.ui-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .ui-form__row {
+    margin-top: 10px;
+  }
+  label {
+    font-size: 1.4rem;
+    color: $major-text-color;
+  }
+  input {
+    width: 100%;
+    border-bottom: 2px solid $major-color;
+    font-size: 1.4rem;
+    padding: 5px 0;
+    box-sizing: border-box;
+    color: $major-text-color;
+    transition: all .2s ease-in;
+  }
+  input:focus {
+    border-bottom: 2px solid $minor-color;
+  }
+}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<main class="memberProfile memberProfile_edit activePage" id="memberProfile_edit">
+    <ul class="member">
+        <li>
+            <h4>編輯會員資料</h4>
+
+        </li>
+        <form method="post" action="{{ url('user.edit') }}">
+        <li class="information information_edit">
+            <ol>
+                {% set address = splitAddress(user.address) %}
+
+                {% if not user.isEmailValidated() %}
+                    <div>
+                     未驗證信箱
+                        <a href="{{ url('user.verify') }}">
+                            驗證
+                        </a>
+                    </div>
+                {% endif %}
+                <li class="email">
+                    <p>EMAIL</p>
+                    <input type="mail" value="{{ user.email }}" disabled="disabled">
+                </li>
+                <li class="name">
+                    <p>姓名</p>
+                    <input type="text" value="{{user.name}}" name="name">
+                </li>
+                <li class="phone">
+                    <p>電話號碼</p>
+                    <input type="tel" value="{{user.mobile}}" name="mobile">
+                </li>
+                <div id="twzipcode">
+                    <div data-role="county" data-name="county" class="county">
+                        <p>城市</p>
+                    </div>
+                    <div data-role="district" data-name="township" class="township">
+                        <p>鄉鎮市區</p>
+                    </div>
+                    <div data-role="zipcode" data-name="postalCode" class="postalCode">
+                        <p>郵遞區號</p>
+                    </div>
+                </div>
+                <li class="add">
+                    <p>詳細地址</p>
+                    <input type="text" value="{{ user.address ? address[3] : '' }}" name="address">
+                </li>
+                <li class="newpassword">
+                    <p>新密碼</p>
+                    <input id="password" name="password" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? '最少6個字元' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="">
+                </li>
+                <li class="confirm_newpassword">
+                    <p>重複新密碼</p>
+                    <input id="password_two" name="password_two" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? '請輸入相同密碼' : '');" placeholder="">
+                </li>
+            </ol>
+        </li>
+        <li class="tip1">
+            <div class="button cancel_btn">取消</div>
+            <button type="submit" style="background-color: transparent">
+            <div class="button change_btn" >更改</div>
+            </button>
+        </li>
+        </form>
+    </ul>
+</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {% set address = splitAddress(user.address) %}
+<script src="{{ asset('colette/js/jquery.twzipcode.min.js') }}"></script>
+<script>
+    $("#twzipcode").twzipcode({
+        'zipcodeSel' : '{{ user.address ? address[2] : '' }}',
+    });
+</script>
+{% endblock %}

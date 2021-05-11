@@ -1,0 +1,340 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更新產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.product.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">更新產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    產品
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(中文)</label><br>
+                                            {{ form_widget(form.zhName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>產品名稱(英文)</label><br>
+                                            {{ form_widget(form.enName, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>產品敘述(建議字數 36 字以下)</label><br>
+                                            {{ form_widget(form.zhDescription, {'attr': {
+                                                'class': 'form-control',
+                                                'style': 'width:800px; height:200px'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>產品內容(圖片建議大小 700*330)</label><br>
+                                            {{ form_widget(form.enDescription, {'attr': {
+                                                'class': 'summernote'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <table width="500" id="tab">
+                                                <thead>
+                                                <tr>
+                                                    <th>規格</th>
+                                                    <th>單價</th>
+                                                    <th>數量</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in product.size|keys%}
+                                                    <tr>
+                                                        <td><input required type='text'   name='size[]'  value="{{ product.size[i] }}"/></td>
+                                                        <td><input required type='number' name='price[]' value="{{ product.price[i] }}"/></td>
+                                                        <td><input required type='number' name='stock[]' value="{{ product.stock[i] }}"/></td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="more();">新增規格</button>
+                                    <button class="btn btn-danger" onclick="del();">刪除規格</button>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>溫度</label><br>
+                                            {{ form_widget(form.temperature, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': 'EX: 常溫'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-7">
+                                        <label>分類</label><br>
+
+                                        {{ form_widget(form.category) }}
+                                        <select class="form-control" name="product[category][]" style="font-size: 20px;width: auto">
+                                            {% set categories = getFatherCategories() %}
+                                            {% set default =  getCategory(product.id)%}
+                                            {% for fatherCategory in categories %}
+                                                {% if loop.last %}
+                                                    {% if default ==  getUncate()%}
+                                                        <option selected value="{{ getUncate().id }}">{{ getUncate().zhName }}</option>
+                                                    {% else %}
+                                                        <option  value="{{ getUncate().id }}">{{ getUncate().zhName }}</option>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% set childCategories = fatherCategory.getChildren() %}
+                                                    {% for child in childCategories %}
+                                                        {% if default ==  child%}
+                                                            {% if loop.first %}
+                                                                <option selected value="{{ child.id }}">{{ getFather(child.id,0) }}┰{{ child.zhName }}</option>
+                                                            {% elseif loop.last %}
+                                                                <option selected value="{{ child.id }}">{{ getFather(child.id,1)|raw }}┖{{ child.zhName }}</option>
+                                                            {% else %}
+                                                                <option selected value="{{ child.id }}">{{ getFather(child.id,1)|raw }}┠{{ child.zhName }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {% if loop.first %}
+                                                                <option value="{{ child.id }}">{{ getFather(child.id,0) }}┰{{ child.zhName }}</option>
+                                                            {% elseif loop.last %}
+                                                                <option value="{{ child.id }}">{{ getFather(child.id,1)|raw }}┖{{ child.zhName }}</option>
+                                                            {% else %}
+                                                                <option value="{{ child.id }}">{{ getFather(child.id,1)|raw }}┠{{ child.zhName }}</option>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>抬頭圖選擇(僅限一張，建議大小 201*207)</label>
+                                            <div id="dropzoneThumbnail" class="dropzone"></div>
+                                        </div>
+                                        <input type="hidden" name="thumbnail_image">
+                                        <input type="hidden" name="thumbnail_image_name">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>原抬頭圖</label><br>
+                                            {% set image =  product.thumbNail %}
+                                                <img style="width: 200px ;" src="{{ image }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>內容圖選擇(建議大小 560*560)</label>
+                                            <div id="dropzoneContent" class="dropzone"></div>
+                                        </div>
+                                        <input type="hidden" name="content_image">
+                                        <input type="hidden" name="content_image_name">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>原內容圖</label><br>
+                                            {% for image in product.getImages() %}
+                                                <img style="width: 200px ;" src="{{ image }}" />
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <a href="{{ url('admin.product-images.delete', {'uuid': product.getUuid()}) }}">
+                                        <button onclick="return confirm('確定刪除所有內容圖嗎?');" type="button" class="btn btn-danger">刪除所有內容圖</button>
+                                    </a>
+                                    <!-- /.form group -->
+{#                                    <button type="button" onclick="check()">dddd</button>#}
+                                    <button  onclick="if (check()) check().returnValue = false; return false;" type="submit" class="btn btn-info">送出</button></br>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function more(){
+            nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length)
+            tn = nt.insertCell(0);
+            tt = nt.insertCell(1);
+            ta = nt.insertCell(2);
+            tn.innerHTML = "<input required type='text' name='size[]' placeholder=\"Ex: 8吋\"/>";
+            tt.innerHTML = "<input required type='number' name='price[]' placeholder=\"請輸入整數...\"/>";
+            ta.innerHTML = "<input required type='number' name='stock[]' placeholder=\"請輸入整數...\"/>";
+        }
+        function del(){
+            if(document.getElementById('tab').tBodies[0].rows.length > 1)
+                document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-1);
+        }
+
+        function check() {
+            var re = /\s|[ ]/g;  //[]裡面是一個全型空白
+            console.log(document.forms[0].product_zhName.value.replace(/[\s　]+/g, ""));
+            if(document.forms[0].product_zhName.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品名稱(中文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].product_enName.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品名稱(英文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].cke_1_contents.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品敘述(中文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].cke_2_contents.value.replace(/[\s　]+/g, "")==='') {
+                alert("產品敘述(英文)輸入空白");
+                return false;
+            }
+            else if(document.forms[0].product_temperature.value.replace(/[\s　]+/g, "")==='') {
+                alert("溫度輸入空白");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <script>
+        CKEDITOR.replace( 'product[zhDescription]' );
+    </script>
+
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneThumbnail", {
+            url: '{{ path('admin.product.update', {'uuid': product.uuid}) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "點擊此處或將檔案拉至此處上傳",
+            maxFiles : 1,
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=thumbnail_image]').val(dataUrl);
+                    $('[name=thumbnail_image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+                    // console.log("test");
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=thumbnail_image]').val(dataUrl);
+                    $('[name=thumbnail_image_name]').val(name);
+                    // console.log(args);
+                    // console.log(dataUrl);
+                });
+
+            }
+
+        });
+    </script>
+    <script>
+        // init,configure dropzone
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dropzone = false;
+        var dropzone_default = new Dropzone("#dropzoneContent", {
+            url: '{{ path('admin.product.update', {'uuid': product.uuid}) }}' ,
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "點擊此處或將檔案拉至此處上傳",
+            maxFilesize: 3,  // in Mb
+            addRemoveLinks: true,
+            init: function () {
+                var submitButton = document.querySelector('#upload');
+                myDropzone = this;
+                var dataUrl = [];
+                var name = [];
+                this.on("complete",function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    dataUrl.push(args[0]['dataURL']);
+                    name.push(args[0]['name']);
+                    $('[name=content_image]').val(dataUrl);
+                    $('[name=content_image_name]').val(name);
+                    // Look at the output in you browser console, if there is something interesting
+                    // console.log("test");
+
+                });
+                this.on("removedfile",function(){
+                    var args = Array.prototype.slice.call(arguments);
+                    var index = dataUrl.indexOf(args[0]['dataURL']);
+                    dataUrl.splice(index,1);
+                    name.splice(index,1);
+                    $('[name=content_image]').val(dataUrl);
+                    $('[name=content_image_name]').val(name);
+                    // console.log(args);
+                    // console.log(dataUrl);
+                });
+
+            }
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.summernote').summernote(
+                {
+                    height: '300px',
+                    popover: {
+                        image: [],
+                        link: [],
+                        air: []
+                    },
+                }
+            ).replace(/<\/?[^>]+(>|$)/g, "");
+        });
+    </script>
+{% endblock %}

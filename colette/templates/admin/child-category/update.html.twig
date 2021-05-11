@@ -1,0 +1,65 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Edit{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>編輯分類</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">編輯分類</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div calss="row">
+                    <div class="col-md-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    分類
+                                </h3>
+                            </div>
+                            {{ form_start(form) }}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>中文名稱</label>
+                                    {{ form_widget(form.zhName, {'attr': {
+                                        'class': 'form-control ',
+                                    }}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>英文名稱</label>
+                                    {{ form_widget(form.enName, {'attr': {
+                                        'class': 'form-control ',
+                                    }}) }}
+                                    {% for error in form.enName.vars['errors'] %}
+                                        <label class="col-form-label" for="inputError">{{ error.message }}</label>
+                                    {% endfor %}
+                                </div>
+
+                                <button type = "submit" class="btn btn-info">送出</button></br>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+    {{ form_end(form) }}
+{% endblock %}

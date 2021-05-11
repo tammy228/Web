@@ -1,0 +1,77 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>優惠碼列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                            <li class="breadcrumb-item active">優惠碼列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead align="middle">
+                                    <tr>
+                                        <th scope="col">優惠碼</th>
+                                        <th scope="col">到期時間</th>
+                                        <th scope="col">折扣類型</th>
+                                        <th scope="col">折扣對象</th>
+                                        <th scope="col">折扣價格</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody align="middle">
+                                    {% for coupon in coupons %}
+                                        <tr>
+                                            <td style="vertical-align: middle">
+                                                {{ coupon.code }}
+                                            </td>
+                                            <td style="vertical-align: middle">{{ coupon.getExpireAt()|date('Y-m-d H:i:s') }}</td>
+                                            <td style="vertical-align: middle">{{ coupon.type }}</td>
+                                        <td style="vertical-align: middle">{{ coupon.target }}</td>
+                                        <td style="vertical-align: middle">{{ coupon.number }}</td>
+                                            <td style="vertical-align: middle">
+
+                                                <a href="{{ url("admin.coupon.update", {"uuid": coupon.getUuid()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 更新優惠碼
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.coupon.delete", {"uuid": coupon.getUuid()}) }}">
+                                                    <button onclick="return confirm('確定刪除嗎?');" class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-trash"></i> 刪除優惠碼
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+{#                                <a href="{{ url("admin.photo.create",{"newsId": 1 }) }}">#}
+{#                                    <button class="btn btn-info ">上傳相片</button>#}
+{#                                </a>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        .newspages .content img {
+            width: 100%;
+            margin: auto;
+        }
+    </style>
+<main class="newspages activePage">
+    <div class="background">
+        <p>News</p>
+    </div>
+    <ul>
+        <li class="comeback">
+            <a href="{{ url("news.list") }}"><img src="{{ asset('colette/img/pre_icon.svg') }}" alt="pre_icon">回上一頁</a>
+        </li>
+        <li class="title">
+            <h4>{{ news.zhTitle }}</h4>
+        </li>
+        <li>
+            <div class="tip">
+                <div class="dateSide">
+                    <div class="icon icon_date"></div>
+                    <div class="text date">{{news.createAt|date('Y/m/d')}}</div>
+                </div>
+
+                <div class="shareSide">
+                    <div class="icon icon_share"></div>
+                    <div class="text share">Share <span>0</span></div>
+                </div>
+
+            </div>
+        </li>
+        <li class="content">
+            {{ news.zhContent|raw }}
+        </li>
+        {#
+        <li class="socialSide">
+            <div class="social_share">
+                <p>SHARE</p>
+                <ol>
+                    <li class="social social_fb">
+                        <a href="#"></a>
+                    </li>
+                    <li class="social social_twitter">
+                        <a href="#"></a>
+                    </li>
+                    <li class="social social_google">
+                        <a href="#"></a>
+                    </li>
+                </ol>
+            </div>
+        </li>
+        #}
+    </ul>
+</main>
+<script>
+    $(".newspages .content p img").css("width","100%")
+</script>
+
+{% endblock %}

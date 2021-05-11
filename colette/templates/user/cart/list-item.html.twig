@@ -1,0 +1,300 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<style>
+        @media (min-width: 1200px) {
+            .cart .shop_step1 .section1 .cart-item .cart-item-name {
+                width: 56%;
+            }
+
+            .cart .shop_step1 .section1 .shop-cart .cart-list-depict {
+                width: 56%;
+            }
+
+            .cart .shop_step1 .section1 .shop-cart .cart-list-price {
+                width: 16.5%;
+                margin-left: 5.5%;
+            }
+            .cart .shop_step1 .section1 .shop-cart .cart-list-price .subtotal{
+                padding-left: 15px;
+            }
+        }
+        @media (min-width: 768px){
+            .cart .shop_step1 .section1 .cart-item .subtotal-title{
+                width: 7%;
+            }
+        }
+
+		.cart .shop_step1 .section2 .final .final-totalPrice span:last-child {
+			font-size:unset;
+			line-height: 1.22;
+			letter-spacing: 1.5px;
+			color:unset;
+			padding-left: 20px;
+		}
+		.cart .shop_step1 .section2 .final {
+			border-bottom: unset;
+			padding-bottom: unset;
+		}
+		#cd{
+			border-bottom: 1px solid #e5e5e5;
+			display: block;
+			color: red;
+			padding-left: 12px;
+			padding-bottom: 20px;
+		}
+	</style>
+
+	{% if not app.user %}
+		<script>alert('請先登入');window.location = '{{ path('auth.login') }}';</script>
+	{% elseif not app.user.cart  %}
+		<script>window.location.assign("{{ url("user.index") }}");</script>
+	{% else %}
+		<script>
+			$(function() {
+				$('.step_next_btn').click(function() {
+					var index = $(this).closest('.shop_step').index();
+					$('.stepDot li').eq(index - 1).addClass('alredy');
+					$('.stepDot li').eq(index).addClass('active');
+					$('.shop_step').eq(index).addClass('active').siblings().removeClass('active');
+				});
+				$('.comeBack_shopCart_btn').click(function() {
+					var index = $(this).closest('.shop_step').index();
+					$('.stepDot li').eq(index - 2).removeClass('alredy');
+					$('.stepDot li').eq(index - 1).removeClass('active');
+					$('.shop_step').eq(index - 2).addClass('active').siblings().removeClass('active');
+				});
+			})
+		</script>
+
+		<main class="cart activePage" id="cart">
+			<div class="step_dot">
+				<ul class="stepDot">
+					<li class="active">
+						<p>1</p>
+					</li>
+					<li>
+						<p>2</p>
+					</li>
+					<li>
+						<p>3</p>
+					</li>
+				</ul>
+			</div>
+
+			<form method="post" action="{{ url('cart.update') }}" id="form2">
+				{% set count = 0 %}
+				{% set total = 0 %}
+				<div class="shop_step shop_step1 active">
+					<div class="section1">
+						<div class="wrap">
+							<h4>購物車</h4>
+							<div class="cart-item">
+								<ul>
+									<li class="cart-item-photo">
+										<p>ITEM</p>
+									</li>
+									<li class="cart-item-name"></li>
+									<li class="cart-item-size">
+										<p>尺寸</p>
+									</li>
+									<li class="cart-item-amount">
+										<p>數量</p>
+									</li>
+									<li class="cart-item-price">
+										<p>單價</p>
+									</li>
+                                    <li class="cart-item-size subtotal-title">
+                                        <p>總計</p>
+                                    </li>
+								</ul>
+							</div>
+							<div class="shop-cart">
+
+								{% for relation in relations %}
+									<ul class="cart-list">
+										{% set images = relation.getProduct().getImages() %}
+										{% if not images %}
+											<li class="cart-list-photo">
+												<a href="../product/fetch.html.twig">
+													<div class="photo" style=" background: url('/img/noPhoto.png') center no-repeat; background-size: cover;"></div>
+												</a>
+											</li>
+										{% else %}
+											<li class="cart-list-photo">
+												<a href="../product/fetch.html.twig">
+													<div class="photo" style=" background: url('{{ images[0] }}') center no-repeat; background-size: cover;"></div>
+												</a>
+											</li>
+										{% endif %}
+										<li class="cart-list-depict">
+											<a href="{{ url("user.product.fetch", {"uuid": relation.getProduct().getUuid()}) }}">
+												<p>{{ relation.getProduct().getZhName() }}</p>
+											</a>
+											<p class="active">{{ relation.getProduct().getTemperature() }}</p>
+										</li>
+										<li class="cart-list-size">
+											<p>{{ relation.getSize() }}</p>
+										</li>
+										<li class="cart-list-amount">
+											<div class="amount">
+												<div class="amount_btn amount_btn-lessBtn">-</div>
+												<input id="newQuantity"
+													   name="newQuantity-{{ getNewQuantityIndex(relation) }}"
+													   type="number"
+													   value="{{ relation.getQuantity() }}"
+													   onchange="newStandard()">
+												<div class="amount_btn amount_btn-addBtn">+</div>
+											</div>
+										</li>
+										<li class="cart-list-price">
+											<div class="price">
+												<p id="unitPrice">${{ relation.price }}</p>
+											</div>
+                                            <div class="price subtotal">
+												<p id="subtotal-{{ getNewQuantityIndex(relation) }}">${{ relation.price * relation.quantity }}</p>
+                                            </div>
+											<a class="button delet_btn" href="{{ url("cart.item.delete", {"id": relation.getId()}) }}">
+											</a>
+										</li>
+									</ul>
+									{% set count = count + relation.getQuantity() %}
+									{% set temp = relation.price * relation.quantity %}
+									{% set total = total + temp %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="section2">
+						<div class="wrap">
+							{% if count < getConfig(3) %}
+								<p id="outStandard" class="text-right floating">您還缺<span id="standard">{{ getConfig(3) - count }}</span>個小蛋糕，才能成功出貨喔!</p>
+							{% else %}
+								<p id="outStandard" style="visibility: hidden;" class="text-right floating">您還缺<span style="visibility: hidden;" id="standard">{{ getConfig(3) - count }}</span>個小蛋糕，才能成功出貨喔!</p>
+							{% endif %}
+							<ul class="final">
+								<li class="final-offerCode">
+
+									<input name="coupon" id="coupon" type="text" placeholder="輸入優惠碼">
+
+									<div class="button apply_btn active" id="useCoupon">APPLY</div>
+									<!--APPLY輸入優惠碼可用才加入active-->
+								</li>
+								<li class="final-freight">
+									<span>運費</span>
+									<span>$60</span>
+								</li>
+								<li class="final-totalPrice">
+									<span>總價格</span>
+									<span id="finalPrice">${{ total  + 60}}</span>
+									<input name="total" id="total" hidden value = {{ total }}>
+									<input name="car" id="car" hidden value="{{ app.user.cart.uuid }}">
+								</li>
+
+							</ul>
+							<span id="cd"></span>
+						</div>
+					</div>
+					<div class="section3">
+						<div class="wrap">
+							<div class="terms">
+								<p>繼續下一步，表示您已接受網站所有的使用條款及聲明<a href="#">Colette’s Sales and Refunds Policy</a>。</p>
+							</div>
+							<div class="choice-side">
+								<div class="button comeback_shop">
+									<a href="{{ url('user.child-category.list', {"id": 2}) }}">繼續購物</a>
+								</div>
+								<button type="submit" class="button step_next_btn active">下一步</button>
+								<!--下一步要購物條件符合才會加入active-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</main>
+	{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$("#purchase_information_twzipcode").twzipcode();
+		$("#information_recipient_twzipcode").twzipcode();
+
+		$('#useCoupon').click(function(c) {
+			c.preventDefault();
+			var form2 = $('#form2')[0];
+			var formData2 = new FormData(form2);
+			console.log(form2);
+			console.log(formData2.get('car'));
+
+			let h = $('#h');
+			let cd = $('#cd');
+
+			$.ajax({
+				url:'{{ url("cart.use.coupon") }}',
+				type : "POST",
+				data : formData2,
+				contentType: false,
+				cache: false,
+				processData: false,
+				success : function(data)
+				{
+					// if(!data.status) {
+					// 	h.empty().append(`<small>..</small>`);
+					// 	cd.empty();
+					// 	console.log(data);
+					// }
+					// if(data.status){
+
+						document.getElementById("finalPrice").innerHTML ="$" + data.total;
+						h.empty().append('$'+data.total);
+						cd.empty().append(`<small>${data.message}</small>`);
+					// }
+
+				},error: function(data)
+				{
+					console.log('無法送出');
+				}
+			})
+
+			return true;
+		});
+
+		function newStandard() {
+			var elms = document.querySelectorAll("[id='newQuantity']");
+			var priceElms = document.querySelectorAll("[id='unitPrice']");
+			var total = 0;
+			var count = 0;
+
+			for(var i = 0; i < elms.length; i++)
+			{
+				count += parseInt(elms[i].value);
+
+
+				//onchange 物品總計
+				let unitPrice = priceElms[i].innerHTML.split("$")[1];
+				let subtotal = parseInt(elms[i].value) * parseInt(unitPrice);
+				total += subtotal;
+				document.getElementById("subtotal-" + elms[i].name.split("-")[1]).innerHTML = "$" + subtotal;
+			}
+
+			//onchange 警示訊息
+			if({{ getConfig(3) }} - count <= 0){
+				document.getElementById("outStandard").style.visibility = "hidden";
+				document.getElementById("standard").style.visibility = "hidden";
+			}else {
+				document.getElementById("outStandard").style.visibility = "visible";
+				document.getElementById("standard").style.visibility = "visible";
+				document.getElementById("standard").innerHTML = {{ getConfig(3) }} - count;
+			}
+
+
+			//onchange 總金額
+			document.getElementById("total").value = total;
+			console.log(document.getElementById("total").value)
+			total = total + 60;
+			document.getElementById("finalPrice").innerHTML ="$" + total;
+
+
+		}
+	</script>
+{% endblock %}

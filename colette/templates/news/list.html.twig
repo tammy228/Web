@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style>
+    .news .navigation {
+        height: 36px;
+        line-height: 36px;
+        margin: 0 auto;
+        font-family: PingFangTC, 'Noto Sans TC', sans-serif;
+        list-style: none;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .news .page-link, .news .page_turn .current {
+        display: block;
+        font-family: PTSans, 'Noto Sans TC', sans-serif;
+        font-size: 1.2rem;
+        line-height: 36px;
+        text-align: center;
+        color: #ccc;
+    }
+
+    .news .page-item {
+        display: inline-block;
+        padding: 0 15px;
+        font-size: 16px;
+    }
+
+
+
+    .news .page-item a,.news .page-item.active span{
+        font-size: 16px;
+    }
+    .news .page-item.active span{
+
+        color: #000;
+    }
+    /*.pagination .page-item:first-child*/
+    /*{*/
+    /*    font-family: PingFangTC, 'Noto Sans TC', sans-serif;*/
+    /*}*/
+</style>
+
+<main class="news activePage" id="news">
+    <div class="background" style="background: url('{{ getBanner(3)[0] }}')">
+        <p>News</p>
+    </div>
+    <div class="newsList">
+        {% for item in news %}
+        <ul class="news_component">
+            <li>
+                <h5>{{ item.zhTitle }}</h5>
+            </li>
+            <li class="tip1">
+                <div class="date">
+                    <div class="icon icon_date"></div>
+                    <p class="text1">{{ item.createAt|date('Y/m/d')  }}</p>
+                </div>
+
+                <div class="share">
+                    <div class="icon icon_share"></div>
+                    <p class="text1">Share 0</p>
+                </div>
+
+            </li>
+            {% if item.images %}
+                <li class="new_photo">
+                    <div class="photo" style=" background: url({{ item.images[0] }}) center no-repeat;   background-size: cover"></div>
+                </li>
+            {% endif %}
+            <li>
+                <p class="news_text">{{ item.zhContent|length > 50 ? item.zhContent|raw|striptags|slice(0, 50) ~ '...' : item.zhContent|raw  }}</p>
+            </li>
+            <li>
+                <div class="button readMore_btn">
+                    <div class="button readMore_btn">
+                        <a href="{{url('news.fetch',{'uuid':item.uuid})}}">READ MORE</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(news) }}
+    </div>
+{#    <div class="page_turn">#}
+{#        #}
+{#        <div class="button load_btn">LOAD MORE</div>#}
+{#        <ul class="pagination" id="pagination1"></ul>#}
+{#    </div>#}
+
+</main>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function(){
+            $(".pagination .page-item:first-child").text("«");
+            $(".pagination .page-item:last-child").text("»");
+        });
+    </script>
+{% endblock %}

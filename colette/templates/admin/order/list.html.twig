@@ -1,0 +1,71 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>訂單列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">訂單列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead align="middle">
+                                    <tr>
+                                        <th>客戶名</th>
+                                        <th>產品</th>
+                                        <th>創建時間</th>
+                                        <th>狀態</th>
+                                        <th>備註</th>
+                                        <th>動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody align="middle">
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>{{ order.user.name }}</td>
+                                            {% set products = getAllProducts(order) %}
+                                            <td>{{ products|length > 30 ? products|raw|striptags|slice(0, 30) ~ '...' : products|raw }}</td>
+                                            <td>{{ order.createAt ? order.createAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                                            <td>{{ status(order.status) }}</td>
+                                            <td>
+                                                {{  order.remark }}
+                                            </td>
+                                            <td>
+
+                                                <a href="{{ url("admin.order.fetch", {"uuid": order.getUuid()}) }}">
+                                                    <button class="btn btn-primary btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-eye"></i> 訂單內容
+                                                    </button>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

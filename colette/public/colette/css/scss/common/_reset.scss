@@ -1,0 +1,110 @@
+/*----------- reset start -----------*/
+body, div, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, button, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color:transparent;
+}
+
+img {
+  	border: 0;
+}
+
+:focus {
+  	outline: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  	font-weight: normal;
+}
+
+input, button, textarea, select, optgroup, option {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+}
+
+input {
+	background:none;  
+	outline:none;  
+	border:0px;
+  	border-radius: 0;
+}
+
+ol, ul, li {
+  	list-style: none;
+}
+
+:link, :visited, ins {
+  	text-decoration: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  	content: '';
+  	content: none;	
+}
+
+/*HTML5 tag*/
+section, article, aside, footer, header, nav, main {
+  	display: block;
+}
+
+a, a:visited, a:hover, a:active, a:focus {
+  	text-decoration: none;
+}
+
+a {
+  	color: unset;
+}
+
+*:focus, a:focus {
+  	outline: none;
+}
+
+html {
+	font-size: 62.5%;;
+	font-family: Helvetica Neue, Helvetica, Arial, Noto Sans CJK TC, sans-serif;
+}
+
+
+button {
+	font-family: Helvetica Neue, Helvetica, Arial, Noto Sans CJK TC, sans-serif;
+	border: 0;
+	outline: 0;
+}
+.button {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	outline: 0;
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+}
+.main {
+	&.active {
+		position: fixed;
+		top: 0;
+		.bannerAll {
+			display: none;
+		}
+	}
+	&.activePage {
+		position: fixed;
+		top: 0;
+	}
+}
+
+// fonts引入
+@font-face {
+	font-family: 'bakery';
+	src: url(../css/font/bakery.otf);
+}
+@font-face {
+	font-family: 'Helena';
+	src: url(../css/font/Helena.otf);
+	src: url(../css/font/Helena.ttf);
+}
+

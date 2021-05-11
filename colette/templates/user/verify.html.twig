@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="memberProfile memberProfile_edit activePage" id="memberProfile_edit">
+        <ul class="member">
+            <li>
+                <h4>註冊成功，已發出驗證信</h4>
+
+            </li>
+            <li class="information information_edit">
+                <form method="post" action="{{ path('user.verify') }}">
+                    <ol>
+                        <li class="email">
+                            {{ form_row(form._token) }}
+                            <p>
+                                驗證碼:
+                            </p>
+                            {{ form_widget(form.verify, {'attr': {
+                                'class': 'email',
+                            }}) }}
+                        </li>
+                        <li>
+                            <p class="text-center" style="color: red">
+                                {{ message }}
+                            </p>
+                        </li>
+                        <li class="tip1">
+                            <button type="submit" style="background-color: transparent">
+                                <div class="button change_btn" >送出</div>
+                            </button>
+                        </li>
+                    </ol>
+                </form>
+
+            </li>
+        </ul>
+    </main>
+
+{% endblock %}
