@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+        <title></title>
+        <style>
+            label{
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>確認資訊</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">確認資訊</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container-fluid">
+            <form id="idFormAioCheckOut" method="post" action="{{url('ECPay')}}">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>產品圖片</th>
+                        <th>名稱</th>
+                        <th>規格</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>小計</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set total = 0 %}
+                    {% for key, cart in carts %}
+
+                    <tr>
+                        <input hidden value="{{ key }}" name="key">
+                        <td>
+                            {% if cart['image']  %}
+                                <img width="200" height="200" src= "{{ cart['image'] }}">
+                            {% else %}
+                                <img width="200" height="200" src= "/uploads/default/noPhoto.png">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('product.fetch', {'id': cart['productId']}) }}">
+                                {{ cart['name']  }}
+                            </a></td>
+                        <td>{{ cart['format'] }}<input hidden name="newFormat" value="{{ cart['format'] }}"></td>
+                        <td>{{ cart['price'] }}</td>
+
+                        <td>{{ cart['quantity'] }}</td>
+                        <td>{{ cart['subTotal'] }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                {%  set total = total + cart['subTotal'] %}
+
+                {% endfor %}
+                <div>總金額 : {{ total }}</div>
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <label class="col-7">配送地址:
+                            <input required type="text" name="address" value="" class="form-control"/>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info btn-xs">確認</button>
+
+            </form>
+        </div>
+    </div>
+    </body>
+    </html>
+{% endblock %}

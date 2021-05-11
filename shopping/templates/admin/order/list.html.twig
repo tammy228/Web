@@ -1,0 +1,63 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>訂單列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">訂單列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <a href="{{ path('admin.order.list',{'id':0}) }}">全部訂單</a>&emsp;
+        <a href="{{ path('admin.order.list',{'id':1}) }}">已下單</a>&emsp;
+        <a href="{{ path('admin.order.list',{'id':2}) }}">訂單處理中</a>&emsp;
+        <a href="{{ path('admin.order.list',{'id':3}) }}">已出貨</a>&emsp;
+        <a href="{{ path('admin.order.list',{'id':4}) }}">已到貨</a>&emsp;
+        <a href="{{ path('admin.order.list',{'id':5}) }}">已取貨</a>
+        <div class="container-fluid">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>使用者</th>
+                    <th>產品名</th>
+                    <th>狀態</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key,order in orders %}
+                    <tr>
+                        <td>
+                            {{ users[key] }}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin.order.fetch', {'id': order.id}) }}">
+                                {{ order.product|join(',') }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ getStatus(order.status) }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10">沒有訂單</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

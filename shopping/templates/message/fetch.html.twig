@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>私訊</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">私訊</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="box box-primary direct-chat direct-chat-secondary">
+                                {% for message in messages %}
+                                    {% if message.senderId == id %}
+                                        <div class="direct-chat-msg">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-left">Me</span>
+                                                <span class="direct-chat-timestamp pull-right">{{message.createAt|date('Y-m-d H:i:s')}}</span>
+                                            </div>
+                                            <div class="direct-chat-text"> {{ message.content }} </div>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="direct-chat-msg right">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-right">Admin</span>
+                                                <span class="direct-chat-timestamp pull-left">{{message.createAt|date('Y-m-d H:i:s')}}</span>
+                                            </div>
+                                            <div class="direct-chat-text">
+                                                {{ message.content }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="box-footer">
+                                {% if app.user %}
+                                    {{ form_start(form) }}
+                                    {{ form_widget(form.content, {'attr':
+                                        {'class':'form-controller',
+                                            'style': 'width:680px; height:200px'
+                                        }}) }}
+                                    <button type="submit" class="btn btn-outline-info btn-xs">送出</button>
+                                    {{ form_end(form) }}
+                                {% else %}
+                                    <a href="/user/login">login</a></br>
+                                {%  endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

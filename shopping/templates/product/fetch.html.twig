@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="container-fluid">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>產品名稱</th>
+                    <td>{{ product.name }}</td>
+                </tr>
+                <tr>
+                    <th>圖片</th>
+                    <td>
+                        {% for image in product.image %}
+                            <img width="200" height="200" src= "{{ image }}">
+                        {% else %}
+                            <img width="200" height="200" src= "/uploads/default/noPhoto.png">
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>產品敘述</th>
+                    <td>{{ product.description }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>規格</th>
+                    <th>價格</th>
+                    <th>庫存</th>
+                </tr>
+                </thead>
+
+                {% for i in product.format|keys %}
+                    <tr>
+                        <td>{{ product.format[i] }}</td>
+                        <td>{{ product.price[i] }}</td>
+                        <td>{{ product.stock[i] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if app.user %}
+                <div class="row">
+                    <div class="col-1">
+                        <a href="{{ path('user.follow', {'id': product.id}) }}"><button class="btn btn-info" onclick="return confirm('確定追蹤嗎?');">追蹤</button></a>
+                    </div>
+                </div>
+
+
+                <br>
+                <form id="cart" method="post" action="{{ url('cart.put',{'id': product.id}) }}">
+                    <div class="form-group">
+                        <div class="col-1">
+                            規格
+                            <select name="format" id="format" class="form-control">
+                                {% for key, item in getFormats(product.id) %}
+                                    <option value="{{ item }},{{ product.price[key] }},{{ key }},{{ product.stock[key] }}" label="{{ item }}"></option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-1">
+                            數量
+                            <input required class="form-control" type='number' name='quantity' id="quantity" placeholder="請輸入整數..." value="1"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info" onclick="countStock();">加入購物車</button><br>
+                    </div>
+                </form>
+
+
+                <br>評價:<br>
+                {% for evaluation in evaluations %}
+                    <div>&emsp;<a style="color: #2d698c">{{ evaluation.username }}</a>:{{ evaluation.content }}</div>
+                {% endfor %}
+
+                <br>留言:<br>
+                {% for message in messages %}
+                    <div>&emsp;<a style="color: #2d698c">{{ message.username }}</a>:{{ message.content }}</div>
+                {% endfor %}
+                <br>
+                <div class="card-footer">
+
+                    {{ form_start(form) }}
+                    創建留言:<br>
+                    {{ form_widget(form.content, {'attr':
+                        {'class':'form-controller',
+                            'style': 'width:680px; height:200px'
+                        }}) }}<br>
+                    <button type="submit" class="btn btn-outline-info btn-xs">送出</button>
+                    {{ form_end(form) }}
+
+                </div>
+            {%  endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function countStock(){
+            var form = document.getElementById("format").value;
+            var format = form.split(',');
+            var q=document.getElementById("quantity").value;
+            var stock = parseInt(format[3]);
+            var qty = parseInt(q);
+            if(stock < qty)
+            {
+                alert('超過庫存數量');
+            }
+        }
+    </script>
+{% endblock %}

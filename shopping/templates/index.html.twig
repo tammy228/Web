@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% if app.user %}
+                            {% if app.user.emailVerified() == false %}
+                                未驗證信箱
+                                <a href="{{ path('user.verify') }}">驗證</a>
+                            {% endif %}
+                        {% endif %}
+                        <h1>首頁</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

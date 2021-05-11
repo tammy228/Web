@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: floatflower
+ * Date: 2020/2/19
+ * Time: 4:45 PM
+ */
+
+namespace App\ECPay\sdk\einvoice;
+
+abstract class EcpayNotifyType
+{
+    // 簡訊通知
+    const Sms = 'S';
+
+    // 電子郵件通知
+    const Email = 'E';
+
+    // 皆通知
+    const All = 'A';
+}

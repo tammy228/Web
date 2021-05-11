@@ -1,0 +1,252 @@
+<nav class="main-header navbar navbar-white navbar-light navbar-expand">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/index" class="nav-link">首頁</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        {% if app.user == NULL %}
+            <li>
+                <a href="/login">登入</a>
+            </li>
+        {% elseif app.user.roles == ['ROLE_ADMIN'] %}
+            <li>
+                <a href="/admin/index"><button class="btn btn-info" style="margin: 0 10px 0 0;">後台</button></a>
+            </li>
+            <li>
+                <a href="{{logout_path("main") }}"><button class="btn btn-info" style="margin: 0 10px 0 0;">登出</button></a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{logout_path("main") }}"><button class="btn btn-info" style="margin: 0 10px 0 0;">登出</button></a><br>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/index" class="brand-link">
+        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        {% if app.user %}
+            <span class="brand-text font-weight-light">{{ app.user.name }}</span>
+        {% else %}
+            <span class="brand-text font-weight-light">visitor</span>
+        {% endif %}
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            分類
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    {% set categories = getCategories() %}
+                    {% for category in categories %}
+                        {% set count = countCategory(category) %}
+                        {% set sons = category.getChildren() %}
+                        {% set title = '' %}
+                        {% for son in sons %} {% set title = title ~ '  ' ~ son.getName() %}
+                        {% endfor %}
+                        {% if id != category.getId() %}
+                            <ul class="nav nav-treeview" >
+                                <li class ="nav-item">
+                                    <a href="{{ url("product.list.category", {"id": category.getId()}) }}" class="nav-link">
+                                        {{ category.getName() }}[{{ count }}]
+                                    </a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="nav nav-treeview">
+                                <li class ="nav-item">
+                                    <a href="{{ url("product.list.category", {"id": category.getId()}) }}" class="nav-link active">
+                                        {{ category.getName() }}[{{ count }}]
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+                {% if app.user and app.user.name != 'admin' %}
+                    <li class="nav-item">
+                        <a href="/cart" class="nav-link">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>
+                                購物車
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('product.follow.list') }}" class="nav-link">
+                            <i class="nav-icon fas fa-heart"></i>
+                            追蹤
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('message.fetch') }}" class="nav-link">
+                            <i class="nav-icon fas fa-envelope"></i>
+                            私訊
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{path('order.list') }}" class="nav-link">
+                            <i class="nav-icon fas fa-paper-plane"></i>
+                            訂單
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('user.update', {"id": app.user.id}) }}" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            會員資料修改
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+{% block body%}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h4>目前分類:
+                            {{ getParent(category)|raw }}
+
+                        </h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">產品列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        {% for son in sonCategory %}
+            {% if loop.first %}
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h5>分類</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-12">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <tr>
+                                        {% set count = countCategory(son) %}
+                                        <td style="vertical-align: middle"><a href="{{ url("product.list.category", {"id": son.getId()}) }}" >
+                                                {{ son.getName() }}[{{ count }}]<br>
+                                            </a></td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h4>產品</h4>
+                </div>
+            </div>
+        </div>
+        <div class ="container-fluid">
+            <div class ="row">
+                <div class="col-md-12">
+                    <div class="card-columns">
+                    {% for product in products %}
+                        {% if product.image %}
+                            <div class="card" style="width: 200px">
+                            <a href="{{ path('product.fetch', {'id': product.id}) }}">
+                                <img width="200" height="200" src= "{{ product.image[0] }}">
+                            </a>
+                                <div class="card-footer">
+                                    {{ product.name }}
+                                     NT{{ product.price[0] }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card" style="width: 200px">
+                                <a href="{{ path('product.fetch', {'id': product.id}) }}">
+                                    <img width="200" height="200" src= "/uploads/default/noPhoto.png">
+                                </a>
+                                <div class="card-footer">
+                                    {{ product.name }}
+                                    NT{{ product.price[0] }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan="10">沒有產品</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<html>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>BlogPROJECT</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{{ asset("/plugins/fontawesome-free/css/all.min.css") }}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- daterange picker -->
+<link rel="stylesheet" href="{{ asset("/plugins/daterangepicker/daterangepicker.css") }}">
+<!-- Bootstrap Color Picker -->
+<link rel="stylesheet" href="{{ asset("/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css") }}">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet" href="{{ asset("/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset("/plugins/select2/css/select2.min.css") }}">
+<link rel="stylesheet" href="{{ asset("/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">
+<!-- Bootstrap4 Duallistbox -->
+<link rel="stylesheet" href="{{ asset("/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css") }}">
+<!-- icheck bootstrap -->
+<link rel="stylesheet" href="{{ asset("/plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
+<!-- Theme style -->
+<link rel="stylesheet" href="{{ asset("/dist/css/adminlte.min.css") }}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- jQuery -->
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src= "/plugins/jquery/jquery.min.js" ></script>
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+
+<!-- Bootstrap 4 -->
+<script src="{{ asset("/plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset("/plugins/bs-custom-file-input/bs-custom-file-input.min.js") }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset("/dist/js/adminlte.min.js") }}"></script>
+
+</html>

@@ -1,0 +1,138 @@
+footer  {
+    background: #99201D;
+    padding: 3% 0;
+    p {
+        color: #fff;
+        letter-spacing: 1px;
+        padding-left: 10px;
+        width: 20%;
+        max-width: 71px;
+        position: relative;
+        &:after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 14px;
+            background: #F2B0A7;
+            transform: skew(-15deg);
+            position: absolute;
+            right: 1px;
+            top: 0;
+        }
+    }
+    span {
+        color: #fff;
+        letter-spacing: 1px;
+        padding-left: 5px;
+    }
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
+    .wrap {
+        width: calc(100% - (35px*2));
+        margin: 0 auto;
+    }
+    ul {
+        li {
+            display: flex;
+            align-items: center;
+            padding: 2% 0;
+        }
+    }
+    .map {
+        display: none;
+    }
+    .qr {
+        display: none;
+    }
+    &.footer_2 {
+        background:rgba(#818282, 0.1);
+        p, span {
+            color: #000;
+        }
+        ul {
+            svg {
+                .cls-1 {
+                    fill: #a12c20;
+                }
+                .cls-2 {
+                    fill: #fff;
+                }
+            }
+        }
+    }
+    &.footer_3 {
+        background:#231815;
+        p, span {
+            color: #fff;
+        }
+        ul {
+            svg {
+                .cls-1 {
+                    fill: #fff;
+                }
+                .cls-2 {
+                    fill: #231815;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+@media (min-width: 768px) {
+    footer {
+        padding: 2% 0;
+        .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% - (60px*2));
+            max-width: 700px;
+        }
+        ul {
+            width: 45%;
+            li {
+                padding: 1% 0;
+            }
+        }
+        .qr {
+            display: block;
+            background: url(../img/qr.svg) no-repeat center;
+            width: 128px;
+            height: 128px;
+            background-size: cover;
+        }
+        .map {
+            display: block;
+            width: 30%;
+            iframe {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+
+
+@media (min-width: 1280px) {
+    footer {
+        padding: 3.3% 0;
+        .wrap {
+            width: calc(100% - (290px*2));
+            max-width: 800px;
+        }
+        .map {
+            width: 26%;
+            iframe {
+                height: 168px;
+            }
+        }
+    }
+}

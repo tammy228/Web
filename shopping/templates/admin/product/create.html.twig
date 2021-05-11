@@ -1,0 +1,149 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>新建產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.product.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">新建產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    產品
+                                </h3>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{{ url('admin.product.create') }}">
+                                {{ form_row(form._token) }}
+                                <div class="card-body">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>產品名稱</label><br>
+                                            {{ form_widget(form.name, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>產品敘述</label><br>
+                                        {{ form_widget(form.description, {'attr': {
+                                            'class': 'form-control',
+                                            'style': 'width:800px; height:300px'
+                                        }}) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>圖片選擇</label><br>
+                                            {{ form_widget(form.image) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <table width="500" class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>規格</th>
+                                                                <th>單價</th>
+                                                                <th>數量</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td><input required type='text' name='format[]' placeholder="Ex:XL L 綠色..."/></td>
+                                                                <td><input required type='number' name='price[]' placeholder="請輸入整數..."/></td>
+                                                                <td><input required type='number' name='stock[]' placeholder="請輸入整數..."/></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table width="500" id="tab" class="table">
+                                                            <tbody>
+                                                            {% for i in product.format|keys %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <input required type='text' name='format[]' placeholder="Ex:XL L 綠色..." value="{{ product.format[i] }}"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input required type='number' name='price[]' placeholder="請輸入整數..." value="{{ product.price[i] }}"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input required type='number' name='stock[]' placeholder="請輸入整數..." value="{{ product.stock[i] }}"/>
+                                                                    </td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <input type="button" value="新增規格" onclick="more();"/>
+                                            <input type="button" value="刪除規格" onclick="del();"/>
+
+                                        </div>
+                                    </div>
+                                    分類
+                                    <div class="form-group">
+                                        <select name="category" style="font-size: 20px;width: auto">
+                                            　<option value="0">未分類</option>
+                                            {% set categories = getCategories() %}
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                                {{ findChildren(category)|raw }}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <!-- /.form group -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info" onclick="submitXML()">送出</button></br>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    function more(){
+        nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length-1)
+        tn = nt.insertCell(0);
+        tt = nt.insertCell(1);
+        ta = nt.insertCell(2);
+        tn.innerHTML = "<input required type='text' name='format[]'/>";
+        tt.innerHTML = "<input required type='number' name='price[]'/>";
+        ta.innerHTML = "<input required type='number' name='stock[]'/>";
+    }
+    function del(){
+        document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-2);
+    }
+</script>
+{% endblock %}

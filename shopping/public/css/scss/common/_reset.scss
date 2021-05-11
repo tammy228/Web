@@ -1,0 +1,68 @@
+/*----------- reset start -----------*/
+body, div, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, button, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+
+  font-weight: normal;
+}
+
+input, button, textarea, select, optgroup, option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+
+
+body {
+  line-height: 100%;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+:link, :visited, ins {
+  text-decoration: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/*HTML5 tag*/
+section, article, aside, footer, header, nav, main {
+  display: block;
+}
+
+a, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none;
+}
+
+*:focus, a:focus {
+  outline: none;
+}
+
+
+html, body, h4, h5, p, span, div {
+  font-size: 12px;
+  font-family: Helvetica Neue, Helvetica, Arial, serif,'Noto Serif TC';
+}
+
+button {
+  font-family: Helvetica Neue, Helvetica, Arial, serif,'Noto Serif TC';
+  border: 0;
+  outline: 0;
+}

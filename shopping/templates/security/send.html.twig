@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    {% if app.user == NULL %}
+        <a href="{{ path('app.login') }}">請先登入</a>
+    {% else %}
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div calss="row">
+                        <div class="col-md-6">
+                            <div class="card card-info">
+                                已超過時間
+                                重新寄送驗證信
+
+                                <a href="javascript:window.location.reload()">重新整理</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+

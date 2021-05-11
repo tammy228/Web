@@ -1,0 +1,82 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body%}
+    <a href="{{ path('admin.index') }}">Index</a>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>分類列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.category.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">分類列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+                <div class ="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">名稱</th>
+                                        <th scope="col">創建時間</th>
+                                        <th scope="col">最後更新</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for Category in categories %}
+                                        <tr>
+                                            <td style="vertical-align: middle">
+                                                <a href="{{ url("admin.category.fetch", {"id": Category.getId()}) }}">
+                                                {{ Category.getName() }}
+                                                </a>
+                                            </td>
+                                            <td style="vertical-align: middle">{{ Category.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+                                            <td style="vertical-align: middle">{{ Category.getUpdateAt()|date('Y-m-d H:i:s')}}</td>
+                                            <td>
+                                                <a href="{{ url("admin.category.update", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 修改名稱
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.category.delete", {"id": Category.getId()}) }}">
+                                                    <button onclick="return confirm('確定刪除嗎?');" class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 刪除分類
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.soncategory.create", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 創建子分類
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <a href="{{ url("admin.category.create") }}">
+                            <button class="btn btn-info btn" style="margin: 0 10px 0 0;">
+                                <i class="fas fa-edit"></i> 創建分類
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

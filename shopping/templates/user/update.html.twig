@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}會員資料修改{% endblock %}
+
+{% block body %}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>會員資料修改</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="content" style="width: 700px">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-auto">
+                    {{ form_start(form) }}
+                        會員名稱:<br>
+                        {{ form_widget(form.name) }}<br>
+                        手機號碼:<br>
+                        {{ form_widget(form.mobile) }}<br>
+                        {{ form_widget(form.submit,
+                            { "attr":{
+                                'class': "btn btn-m btn-primary",
+                                }}) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

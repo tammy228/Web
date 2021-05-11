@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                        <li class="breadcrumb-item active">產品列表</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="container-fluid">
+        <div class="row-mb-2">
+            {{ form_start(form) }}
+            {{ form_widget(form.query) }}
+            {{ form_widget(form.search , { 'label': '搜尋' }) }}
+            {{ form_end(form) }}
+        </div>
+        {% if query %}
+            搜尋結果 : {{ query }}
+        {% endif %}
+    </div>
+    <div class ="container-fluid">
+        <div class ="row">
+            <div class="col-md-12">
+                <div class="card-columns">
+                    {% for product in products %}
+                        {% if product.image %}
+                            <div class="card" style="width: 200px">
+                                <a href="{{ path('product.fetch', {'id': product.id}) }}">
+                                    <img width="200" height="200" src= "{{ product.image[0] }}">
+                                </a>
+                                <div class="card-footer">
+                                    {{ product.name }}
+                                    NT{{ product.price[0] }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card" style="width: 200px">
+                                <a href="{{ path('product.fetch', {'id': product.id}) }}">
+                                    <img width="200" height="200" src= "/uploads/default/noPhoto.png">
+                                </a>
+                                <div class="card-footer">
+                                    {{ product.name }}
+                                    NT{{ product.price[0] }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan="10">沒有產品</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

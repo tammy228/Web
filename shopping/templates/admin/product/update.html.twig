@@ -1,0 +1,175 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}更改產品{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>更改產品</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.product.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active">更改產品</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    文章
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {{ form_row(form._token) }}
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>產品名稱</label><br>
+                                            {{ form_widget(form.name, {'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': '輸入...'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>產品敘述</label><br>
+                                            {{ form_widget(form.description, {'attr': {
+                                                'class': 'form-control',
+                                                'style': 'width:1000px; height:300px'
+                                            }}) }}
+                                        </div>
+                                    </div>
+                                    {% if product.image %}
+                                        {% for image in product.image %}
+                                            <img width="200" height="200" src= "{{ image }}">
+                                        {% endfor %}
+                                        <button onclick="return confirm('確定刪除嗎?');"><a href="{{ path('admin.product.cleanimage', {'id': product.id}) }}">清空圖片</a></button>
+                                    {% endif %}
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>圖片選擇</label><br>
+                                            {{ form_widget(form.image) }}
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <table width="500" class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>規格</th>
+                                                                <th>單價</th>
+                                                                <th>數量</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <input required type='text' name='format[]' placeholder="Ex:XL L 綠色..." value="{{ product.format[0] }}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input required type='number' name='price[]' placeholder="請輸入整數..." value="{{ product.price[0] }}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input required type='number' name='stock[]' placeholder="請輸入整數..." value="{{ product.stock[0] }}"/>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table width="500" id="tab" class="table">
+                                                            <tbody>
+                                                            {% for i in product.format|keys %}
+                                                                {% if not loop.last %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input required type='text' name='format[]' placeholder="Ex:XL L 綠色..." value="{{ product.format[i+1] }}"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input required type='number' name='price[]' placeholder="請輸入整數..." value="{{ product.price[i+1] }}"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input required type='number' name='stock[]' placeholder="請輸入整數..." value="{{ product.stock[i+1] }}"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            </tbody>
+
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                            <input type="button" value="新增規格" onclick="more();"/>
+                                            <input type="button" value="刪除" onclick="del();"/>
+                                        </div>
+                                    </div>
+                                    分類
+                                    <div class="form-group">
+                                        <select class="form-control" name="category" style="width: auto">
+                                            　<option value="0">未分類</option>
+                                            {% set categories = getCategories() %}
+                                            {% for category in categories %}
+                                                {% if product.category == category %}
+                                                    <option value="{{ category.id }}" selected="selected">{{ category.name }}</option>
+                                                {% else %}
+                                            　       <option value="{{ category.id }}">{{ category.name }}</option>
+                                                {% endif %}
+                                                {{ findChildren(category,product.category)|raw }}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <!-- /.form group -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info" onclick="submitXML()">送出</button></br>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <a href="{{ path('admin.product.list') }}">back to list</a>
+
+    <button onclick="return confirm('確定刪除嗎?');"><a href="{{ path('admin.product.delete', {'id': product.id}) }}">delete</a></button>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function more(){
+            nt = document.getElementById('tab').insertRow(document.getElementById('tab').rows.length)
+            tn = nt.insertCell(0);
+            tt = nt.insertCell(1);
+            ta = nt.insertCell(2);
+            tn.innerHTML = "<input required type='text' name='format[]' placeholder=\"Ex:XL L 綠色...\"/>";
+            tt.innerHTML = "<input required type='number' name='price[]' placeholder=\"請輸入整數...\"/>";
+            ta.innerHTML = "<input required type='number' name='stock[]' placeholder=\"請輸入整數...\"/>";
+        }
+        function del(){
+            document.getElementById('tab').deleteRow(document.getElementById('tab').rows.length-1);
+        }
+    </script>
+{% endblock %}
+
+

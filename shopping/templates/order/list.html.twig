@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm">
+                    <h1>訂單列表</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("index") }}">首頁</a></li>
+                        <li class="breadcrumb-item active">訂單列表</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>產品名</th>
+            <th>狀態</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>
+                    <a href="{{ path('order.fetch', {'id': order.id}) }}">
+                    {{ order.product|join(',') }}
+                    </a>
+                </td>
+                <td>
+                    {{ getStatus(order.status) }}
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">沒有訂單</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+{% endblock %}

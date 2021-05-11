@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Create Category{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>創建分類</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.product.list") }}">首頁</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ url("admin.category.list") }}">分類列表</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div calss="row">
+                    <div class="col-md-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    分類
+                                </h3>
+                            </div>
+                            {{ form_start(form) }}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    名稱<br>
+                                    {{ form_widget(form.name) }}
+                                </div>
+                                <button type = "submit" class="btn btn-info">送出</button></br>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <button type = "submit" class="btn">edit</button></br>
+
+    {{ form_end(form) }}
+{% endblock %}
