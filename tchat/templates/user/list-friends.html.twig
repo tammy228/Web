@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>好友列表</h1>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+                <div class ="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">好友</th>
+                                        <th scope="col">上線狀態</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for friend in friends %}
+                                        <tr>
+                                            <td style="vertical-align: middle">{{ friend.getName() }}</td>
+                                            {% if getLastActivity(friend.getId()) > date("now + 8 hours - 1 minutes") %}
+                                                <td>
+                                                    <span class="badge badge-success">上線</span>
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    <span class="badge badge-danger">下線</span>
+                                                </td>
+                                            {% endif %}
+                                            <td>
+                                                <a href="">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-eye"></i> 查看好友
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("friends.delete", {"friendId": friend.getId()}) }}">
+                                                    <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-trash"></i> 刪除好友
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

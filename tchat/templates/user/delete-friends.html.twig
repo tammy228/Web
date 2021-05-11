@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Tchat</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-cyan">
+                            <!-- form start -->
+                            <div class="card-body">
+                                <div class="album-section">
+                                    <div class="section-content">
+                                        <table class="table">
+                                            <tbody align="middle">
+                                            {{ form_start(form) }}
+                                            <div class="form-group">
+                                                {{ form_widget(form.name, {'attr':{
+                                                    "placeholder": "Please Enter Name"
+                                                }}) }}
+                                                {{ form_errors(form.name) }}
+                                            </div>
+                                            <button type="submit"class="btn btn-info">刪除好友</button>
+                                            {{ form_end(form) }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

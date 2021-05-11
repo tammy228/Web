@@ -1,0 +1,133 @@
+{% extends  "base.html.twig"%}
+
+{% block body %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Tchat</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-cyan">
+
+                        <!-- form start -->
+                        <div class="card-body">
+                            <form method="post"
+                                  action="{{ url('create.chat-room') }}"
+                                  enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                                <div class="form-group">
+                                    <label>群組名稱</label><br>
+                                    {{ form_widget(form.name) }}
+                                    {{ form_errors(form.name) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>群組成員</label><br>
+                                    {{ form_widget(form.members) }}
+                                </div>
+                                <div class="form-group" id="friend_selector">
+                                    <div>
+                                        <button type="button" class="btn btn-default btn-xs" style="margin: 0 12px 12px 0"
+                                                v-for="selectedFriend in selectedFriends"
+                                                @click="removeFromGroup(selectedFriend)">
+                                            <i class="fas fa-times"></i> {{ '{{ selectedFriend.name }}' }}
+                                        </button>
+                                    </div>
+
+                                    <input name="chatRoom[friends][]"
+                                           v-for="selectedFriend in selectedFriends"
+                                           :value="selectedFriend.id" hidden="hidden">
+
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <select id="friends_select" class="form-control">
+                                                {% for friend in friends %}
+                                                    <option value="{{ friend.getId() }}">{{ friend.getName() }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="button" class="btn btn-warning" @click="addToGroup">新增至群組</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info">創建群組</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        new Vue({
+            el: '#friend_selector',
+            data: function() {
+                return {
+                    selectedFriendId: [
+                        {% for user in chatRoom.getUsers() %}
+                        {{ user.getId() }}
+                        {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    selectedFriends: [
+                        {% for user in chatRoom.getUsers() %}
+                        {
+                            "name": "{{ user.getName() }}",
+                            "id": {{ user.getId() }}
+                        }{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                }
+            },
+            methods: {
+                addToGroup: function() {
+
+                    let selectedId = $('#friends_select').val();
+                    let selectedName = $('#friends_select option:selected').text();
+
+                    if (!this.selectedFriendId.includes(selectedId)) {
+
+                        this.selectedFriends.push({
+                            name: selectedName,
+                            id: selectedId
+                        });
+                        this.selectedFriendId.push(selectedId);
+
+                    }
+                    console.log(this.selectedFriends);
+                },
+                removeFromGroup: function(group) {
+                    let index = this.selectedFriends.indexOf(group);
+                    let idIndex = this.selectedFriends.indexOf(group.id);
+                    if(index >= 0) {
+                        this.selectedFriends.splice(index, 1);
+                        this.selectedFriendId.splice(idIndex, 1);
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+    </script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+
+{% endblock %}
+
+

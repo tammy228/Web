@@ -1,0 +1,36 @@
+<aside class="main-sidebar sidebar-dark-gray">
+    <a href="/user" class="brand-link">
+        <img src="/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        {% if app.user %}
+            <span class="brand-text font-weight-light">{{ app.user.name }}</span>
+        {% endif %}
+    </a>
+    <div class="headind_srch">
+        <div class="srch_bar">
+            <span class="input-group-addon">
+            <a href="/chat-rooms/create">
+                <button type="button"> <i class="fa fa-plus" aria-hidden="true"></i> Add Groups</button>
+            </a>
+            </span>
+        </div>
+        <div class="srch_bar">
+            <span class="input-group-addon">
+            <a href="">
+                <button type="button"> <i class="fa fa-plus" aria-hidden="true"></i> Add Friends</button>
+            </a>
+            </span>
+        </div>
+        <div class="srch_bar">
+            <span class="input-group-addon">
+            <a href="">
+                <button type="button" > <i class="fa fa-trash" aria-hidden="true"></i> Delete </button>
+            </a>
+            </span>
+        </div>
+    </div>
+    <div class="inbox_chat">
+
+    </div>
+</aside>
+

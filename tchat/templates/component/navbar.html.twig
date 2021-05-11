@@ -1,0 +1,14 @@
+<nav class="main-header navbar navbar-white navbar-light navbar-expand">
+    <ul class="navbar-nav ml-auto">
+        {% if app.user == NULL %}
+            <li>
+                <a href="/login">Login</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{logout_path("main") }}"><button class="btn btn-info" style="margin: 0 10px 0 0;">登出</button></a><br>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>

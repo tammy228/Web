@@ -1,0 +1,301 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <style>
+
+        .chat_message_area
+        {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            border-radius: 3px;
+        }
+        #form-message
+        {
+            width: 100%;
+            height: auto;
+            min-height: 80px;
+            overflow: auto;
+            padding:6px 24px 6px 12px;
+        }
+
+        .image_upload
+        {
+            position: absolute;
+            top:15px;
+            right:40px;
+        }
+
+        .image_upload img
+        {
+            width: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+<div class="content-wrapper">
+    <section class="content-header">
+        {% set chatRoom = getChatRoom(roomId) %}
+        {% set users = chatRoom.getUsers() %}
+        {% if chatRoom.getName() == NULL %}
+            {% for user in users%}
+                {% if app.user.name != user.getName() %}
+                    {{ user.getName() }}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {{ chatRoom.getName() }}
+        {% endif %}
+    </section>
+    <div class="mesgs">
+        <div class="msg_history" id="message-list">
+            {% for message in messages %}
+                {% if  message.getUser().getName() == app.user.name %}
+                <div class="outgoing_msg">
+                    <div class="sent_msg">
+                        {% if message.getText() != NULL %}
+                            <p>{{ message.getText().getText() }}</p>
+                        {% else %}
+                            <p>
+                                <img src="{{ message.getImage().getUrl() }}">
+                            </p>
+                        {% endif %}
+                        <span class="time_date">
+                            {{ message.getCreateAt()|date("H:m") }}  |  {{ message.getCreateAt()|date("Y/m/d") }}
+                        </span>
+                        {% if multiple %}
+                            {% if message.getReader() > 0 %}
+                                <span class="reader">read {{ message.getReader }}</span>
+                            {% else %}
+                                <span class="reader"></span>
+                            {% endif %}
+                        {% else %}
+                            {% if message.getReader() > 0 %}
+                                <span class="reader">read</span>
+                            {% else %}
+                                <span class="reader"></span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="incoming_msg">
+                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg">
+                        <div class="received_withd_msg">
+                            <span class="sender">{{ message.getUser().getName() }}</span>
+                            {% if message.getText() != NULL %}
+                                <p>{{ message.getText().getText() }}</p>
+                            {% else %}
+                                <p>
+                                    <img src="{{ message.getImage().getUrl() }}">
+                                </p>
+                            {% endif %}
+                            <span class="time_date">{{ message.getCreateAt()|date("H:m") }}  |  {{ message.getCreateAt()|date("Y/m/d") }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="type_msg">
+            <div class="input_msg_write">
+                <div class="chat_message_area">
+                    <div id="form-message"  contenteditable class="form-control"></div>
+                    <div class="image_upload">
+                        <form id="uploadImage" method="post" enctype="multipart/form-data">
+                            <label for="uploadFile"><i class="fa fa-paperclip" aria-hidden="true"></i></label>
+                            <input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .png" hidden="hidden"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <button id="form-submit" class="msg_send_btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var userInfo = {
+        userId: {{ app.user.id }},
+        username: "{{ app.user.name }}",
+        roomId: {{ roomId }},
+        multiple: {{ multiple }}
+    };
+
+    /**
+     * @type WebSocket
+     */
+    var socket = new WebSocket("ws://127.0.0.1:8080/{{ roomId }}/{{ app.user.id }}");
+
+    socket.onopen = function(event) {
+        console.info("Connection status OK!");
+    };
+
+    socket.onmessage = function(event) {
+        if(event.data) {
+            var data = JSON.parse(event.data);
+            ChatController.addMessage(data.username, data.message);
+        }else {
+            $("#message-list").load(location.href + " #message-list>*", "");
+        }
+    };
+
+    /// event 監聽有沒有訊息要send
+    document.getElementById("form-submit").addEventListener("click",function(){
+        var msg = document.getElementById("form-message").innerHTML;
+        if(msg){
+            ChatController.sendMessage(msg);
+        }
+        // Clear out the text field.
+        document.getElementById("form-message").innerText = "";
+    }, false);
+
+    var ChatController = {
+        //把訊息傳到頁面上
+        addMessage: function(username,msg){
+            if(username === "{{ app.user.name }}"){
+                let divMsg = document.getElementById("message-list");
+
+                let divOutgoing = document.createElement("div");
+                divOutgoing.setAttribute("class","outgoing_msg");
+
+                let divSent = document.createElement("div");
+                divSent.setAttribute("class","sent_msg");
+
+                let p = document.createElement("p");
+
+                let span = document.createElement("span");
+                span.setAttribute("class","time_date");
+                let spanReader = document.createElement("span");
+                spanReader.setAttribute("class","reader");
+                spanReader.setAttribute("id","new-read");
+
+                let date = new Date().Format("yyyy/MM/dd");
+                let time = new Date().Format("hh:mm");
+
+
+                divMsg.appendChild(divOutgoing).appendChild(divSent);
+                span.appendChild(document.createTextNode(time+'  |  '+date));
+                spanReader.appendChild(document.createTextNode(""));
+                if(msg.match("img")) {
+                    var tmp = document.createElement('div');
+                    tmp.innerHTML = msg;
+                    var src = tmp.querySelector('img').getAttribute('src');
+                    let img = document.createElement("img");
+                    img.setAttribute("src",src);
+                    p.appendChild(img);
+                }else{
+                    p.appendChild(document.createTextNode(msg));
+                }
+
+                divSent.appendChild(p);
+                divSent.appendChild(span);
+                divSent.appendChild(spanReader);
+
+            }else{
+                let divMsg = document.getElementById("message-list");
+
+                let divInComing = document.createElement("div");
+                divInComing.setAttribute("class","incoming_msg");
+
+                let divInComingImg = document.createElement("div");
+                divInComingImg.setAttribute("class","incoming_msg_img");
+
+                let image = document.createElement("img");
+                image.setAttribute("src","https://ptetutorials.com/images/user-profile.png");
+                image.setAttribute("alt", "sunil");
+
+                let divReceived = document.createElement("div");
+                divReceived.setAttribute("class","received_msg");
+
+                let divReceivedWithd = document.createElement("div");
+                divReceivedWithd.setAttribute("class","received_withd_msg");
+
+                let p = document.createElement("p");
+
+                let span = document.createElement("span");
+                span.setAttribute("class","time_date");
+                let spanSender = document.createElement("span");
+                spanSender.setAttribute("class", "sender");
+
+                let date = new Date().Format("yyyy/MM/dd");
+                let time = new Date().Format("hh:mm");
+
+                divMsg.appendChild(divInComing).appendChild(divInComingImg).appendChild(image);
+                // divMsg.appendChild(divReceived).appendChild(divReceivedWithd);
+
+                spanSender.appendChild(document.createTextNode(username));
+                span.appendChild(document.createTextNode(time+'  |  '+date));
+
+                if(msg.match("img")) {
+                    var tmp = document.createElement('div');
+                    tmp.innerHTML = msg;
+                    var src = tmp.querySelector('img').getAttribute('src');
+                    let img = document.createElement("img");
+                    img.setAttribute("src",src);
+                    p.appendChild(img);
+                }else{
+                    p.appendChild(document.createTextNode(msg));
+                }
+
+                divMsg.appendChild(divInComing).appendChild(divReceived).appendChild(divReceivedWithd).appendChild(spanSender);
+                divMsg.appendChild(divInComing).appendChild(divReceived).appendChild(divReceivedWithd).appendChild(p);
+                divMsg.appendChild(divInComing).appendChild(divReceived).appendChild(divReceivedWithd).appendChild(span);
+
+            }
+        },
+
+        //send訊息到server
+        sendMessage: function(text){
+            userInfo.message = text;
+            socket.send(JSON.stringify(userInfo));
+
+            console.log(userInfo);
+            this.addMessage(userInfo.username, userInfo.message);
+        }
+    };
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+</script>
+<script>
+    $('#uploadFile').on('change', function(e){
+        var formData = new FormData();
+        formData.append("uploadFile",e.target.files[0]);
+        console.log(e.target.files[0]);
+        $.ajax({
+            url: "/json/images/create",
+            type: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            datatype: "json",
+            success:function(response){
+                $('#form-message').html('<img src=' + "'" + response + "'" + '>');
+            }
+        });
+
+    });
+</script>
+{% endblock %}
+
