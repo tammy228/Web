@@ -1,0 +1,63 @@
+{% extends 'admin/base.html.twig' %}
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>使用者列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">使用者列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+                <div class ="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">使用者</th>
+                                        <th scope="col">電子信箱</th>
+                                        <th scope="col">角色</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td style="vertical-align: middle">{{ user.getName() }}</td>
+                                            <td style="vertical-align: middle">{{ user.getEmail() }}</td>
+                                            <td style="vertical-align: middle">{% if user.getRole() == 'ROLE_ADMIN' %}管理者{% else %}用戶{% endif %}</td>
+                                            <td>
+                                                {% if user.getRole() != 'ROLE_ADMIN' %}
+                                                <a href="{{ url("admin.users.delete", {"id": user.getId()}) }}">
+                                                    <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-trash"></i> 刪除使用者
+                                                    </button>
+                                                </a>
+                                                {% endif %}
+
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "admin/base.html.twig" %}
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>分類:{{ category.getName() }}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                            <li class="breadcrumb-item active">分類內容</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">名稱</th>
+                                        <th scope="col">創建時間</th>
+                                        <th scope="col">最後更新</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for Category in sonCategory %}
+                                        <tr>
+                                            <td style="vertical-align: middle">{{ Category.getName() }}</td>
+                                            <td style="vertical-align: middle">{{ Category.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+                                            <td style="vertical-align: middle">{{ Category.getUpdateAt()|date('Y-m-d H:i:s')}}</td>
+                                            <td>
+                                                <a href="{{ url("admin.category.update", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 修改名稱
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.soncategory.create", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 創建子分類
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.category.list_article", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-info btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-file"></i> 子分類&文章
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.category.delete", {"id": Category.getId()}) }}">
+                                                    <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 刪除分類
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <a href="{{ url("admin.soncategory.create", {"id": category.getId()}) }}">
+                            <button class="btn btn-info btn-sm" style="margin: 0 10px 0 0;">
+                                <i class="fas fa-edit"></i> 創建分類
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section><br>
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h2>文章</h2>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">標題</th>
+                                        <th scope="col">文章內容</th>
+                                        <th scope="col">創建時間</th>
+                                        <th scope="col">最後更新</th>
+                                        <th scope="col">下線時間</th>
+                                        <th scope="col">草稿</th>
+                                        <th scope="col">觀看人數</th>
+                                        <th scope="col">動作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for article in articles %}
+                                        <tr>
+                                            <td style="vertical-align: middle"><a href="{{ url("admin.article.fetch", {"id": article.getId()}) }}">{{ article.getTitle() }}</a></td>
+                                            <td style="vertical-align: middle">{{ article.getContent()|length > 45 ? article.getContent()|striptags|slice(0, 20) ~ '...' : article.getContent()|raw}}</td>
+                                            <td style="vertical-align: middle">{{ article.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+                                            <td style="vertical-align: middle">{{ article.getUpdateAt()|date('Y-m-d H:i:s')}}</td>
+                                            <td style="vertical-align: middle">{{ article.getOfflineAt()|date('Y-m-d H:i:s')}}</td>
+                                            <td style="vertical-align: middle">{% if article.getDraft() == 0 %}已上傳{% else %}草稿{% endif %}</td>
+                                            <td style="vertical-align: middle">{{ article.getVisitor() }}</td>
+                                            <td >
+                                                <a href="{{ url("admin.article.update", {"id": article.getId()}) }}">
+                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-edit"></i> 更新文章
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url("admin.article.delete", {"id": article.getId()}) }}">
+                                                    <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                        <i class="fas fa-trash"></i> 刪除文章
+                                                    </button>
+                                                </a></td>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

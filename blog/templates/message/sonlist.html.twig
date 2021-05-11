@@ -1,0 +1,61 @@
+
+<h1>message:</h1>
+<h3>{{ parentMessage.getUser() }}</h3><br>
+<h2>{{ parentMessage.getContent() }}</h2><br>
+{{ parentMessage.getCreateAt()|date('Y-m-d H:i:s') }}<br>
+
+
+<table border="1">
+    <h2>message:</h2>
+    <tr>
+        <th scope="col">{{ "message Owner"}}</th>
+        <th scope="col">{{ "message Content"}}</th>
+        <th scope="col">{{ "message Created_At"}}</th>
+        <th scope="col">{{ "message action"}}</th>
+
+    </tr>
+    {% for message in sonMessage %}
+        <tr>
+            <td style="vertical-align: middle">
+                <a href="{{ url("user.message.fetch", {"id": message.getId()}) }}">{{ message.getUser() }}</a>
+            </td>
+            <td style="vertical-align: middle">{{ message.getContent() }}</td>
+            <td style="vertical-align: middle">{{ message.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+            <td>
+                <a href="{{ url("user.message.create", {"id": message.getId()}) }}">
+                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                        <i class="fas fa-edit"></i> {{ "Create Message" | trans }}
+                    </button>
+                </a>
+                {% if message.getUser() == app.user.username %}
+                    <a href="{{ url("user.message.edit", {"id": message.getId()}) }}">
+                        <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                            <i class="fas fa-edit"></i> {{ "Edit Message" | trans }}
+                        </button>
+                    </a>
+                    <a href="{{ url("user.message.delete", {"id": message.getId()}) }}">
+                        <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                            <i class="fas fa-edit"></i> {{ "Delete Message" | trans }}
+                        </button>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+{% if app.user %}
+    {{ form_start(form) }}
+    create message:<br>
+    {{ form_widget(form.content) }}<br>
+    <button type="submit">submit</button>
+    {{ form_end(form) }}
+{% else %}
+    <a href="/user/login">login</a></br>
+{%  endif %}
+
+
+
+<a href = "/user/article">article</a><br>
+<a href="/user">index</a></br>

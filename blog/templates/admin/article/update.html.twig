@@ -1,0 +1,172 @@
+{% extends  "admin/base.html.twig"%}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>編輯文章</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                            <li class="breadcrumb-item active">編輯照片</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-9">
+                        <!-- general form elements -->
+                        <div class="card card-cyan">
+                            <div class="card-header">
+                                <h3 class="card-title">文章資訊</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <div class="card-body">
+                                <form method="post" action="{{ url('admin.article.update', {'id': article.getId()}) }}">
+                                    {{ form_row(form._token) }}
+                                <div class="form-group">
+                                    <label>文章標題</label><br>
+                                    {{ form_widget(form.title, {'attr': {
+                                        'class': 'form-control'
+                                    }}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>文章內容</label><br>
+                                    {{ form_widget(form.content, {'attr': {
+                                        'class': 'form-control'
+                                    }}) }}
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>草稿選擇</label><br>
+                                        {{ form_widget(form.draft, {'attr': {
+                                            'class': 'form-control'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>下線時間</label><br>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        {% set date = article.offlineAt|date("Ymd") %}
+                                        <input name="article[offlineAt]"
+                                               type="text"
+                                               class="form-control"
+                                               data-inputmask-alias="datetime"
+                                               data-inputmask-inputformat="yyyy/mm/dd"
+                                               value= {{ date }}
+                                               data-mask>
+
+                                    </div>
+                                    {{ form_errors(form.offlineAt) }}
+                                </div>
+
+                                <div class="form-group" >
+                                    <label>所屬分類</label><br>
+                                </div>
+                                <div class="form-group" id="category_selector">
+                                    <div>
+                                        <button type="button" class="btn btn-default btn-xs" style="margin: 0 12px 12px 0"
+                                                v-for="selectedCategory in selectedCategories"
+                                                @click="removeFromGroup(selectedCategory)">
+                                            <i class="fas fa-times"></i> {{ '{{ selectedCategory.name }}' }}
+                                        </button>
+                                    </div>
+                                    <input name="article[categories][]"
+                                           v-for="selectedCategory in selectedCategories"
+                                           :value="selectedCategory.id" hidden="hidden">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            {% set categories = getCategories() %}
+                                            <select id="categories_select" class="form-control">
+                                                {% for category in categories %}
+                                                    <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="button" class="btn btn-success" @click="addToGroup">新增至分類</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info">更新文章</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        new Vue({
+            el: '#category_selector',
+            data: function() {
+                return {
+                    selectedCategoryId: [
+                        {% for category in article.getCategories() %}
+                        {{ category.getId() }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    selectedCategories: [
+                        {% for category in article.getCategories() %}
+                        {
+                            "name": "{{ category.getName() }}",
+                            "id": {{ category.getId() }}
+                        }{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                }
+            },
+            methods: {
+                addToGroup: function() {
+
+                    let selectedId = $('#categories_select').val();
+                    let selectedName = $('#categories_select option:selected').text();
+
+                    if (!this.selectedCategoryId.includes(selectedId)) {
+
+                        this.selectedCategories.push({
+                            name: selectedName,
+                            id: selectedId
+                        });
+                        this.selectedCategoryId.push(selectedId);
+
+                    }
+                    console.log(this.selectedCategories);
+                },
+                removeFromGroup: function(group) {
+                    let index = this.selectedCategories.indexOf(group);
+                    let idIndex = this.selectedCategories.indexOf(group.id);
+                    if(index >= 0) {
+                        this.selectedCategories.splice(index, 1);
+                        this.selectedCategoryId.splice(idIndex, 1);
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+    </script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+{% endblock %}

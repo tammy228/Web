@@ -1,0 +1,96 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>新增照片</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                        <li class="breadcrumb-item active">新增照片</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-9">
+                    <!-- general form elements -->
+                    <div class="card card-cyan">
+                        <div class="card-header">
+                            <h3 class="card-title">相片資訊</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="card-body">
+                            <form method="post"
+                                  action="{{ url('admin.photo.create', {"albumId": albumId}) }}"
+                                  enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                            <div class="form-group">
+                                <label>相片</label><br>
+                                {{ form_widget(form.content) }}
+                            </div>
+                            <div class="form-group">
+                                <label>下線時間</label><br>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input name="photo[offlineAt]"
+                                           type="text"
+                                           class="form-control"
+                                           data-inputmask-alias="datetime"
+                                           data-inputmask-inputformat="yyyy/mm/dd"
+                                           data-mask>
+                                </div>
+                                {{ form_errors(form.offlineAt) }}
+                            </div>
+                            <div class="form-group">
+                                <label>相簿</label><br>
+                                {{ form_widget(form.albums) }}
+                                {% set albums = getAlbums() %}
+                                <select name="photo[albums][]">
+                                    {% for album in albums %}
+                                        {% set selected = '' %}
+                                        {% set selectedAlbum = getAlbum(albumId) %}
+                                        {% if  selectedAlbum == album %}
+                                            {% set selected = 'selected' %}
+                                        {% endif %}
+                                        <option value="{{ album.getId() }}" {{ selected }}>{{ album.getName() }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-info">上傳照片</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+    </script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+{% endblock %}
+

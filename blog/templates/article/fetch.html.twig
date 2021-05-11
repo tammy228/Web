@@ -1,0 +1,175 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">文章列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+                <div class ="row">
+                    <div class="col-md">
+                        <div align="right">發表於 {{ article.getCreateAt()|date('Y-m-d H:i:s') }}</div>
+                        <div class="card">
+                            <div class="card-header bg-gradient-navy">
+                                <div class="card-title">
+                                    <h2>{{ article.getTitle() }}</h2>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div style="vertical-align: middle">
+                                    <span>{{ article.getContent|raw}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% set visit = article.getVisitor() %}
+                        {% set id = article.getId() %}
+                        {{ addVisitor(visit,id) }}
+
+                        <div class="col-md-12">
+                            <h3>留言:</h3>
+                            {% for message in messagelist %}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 style="vertical-align: middle">
+                                        <a style="color:blue"> {{ message.getUser() }}</a>
+                                        於
+                                        {{ message.getCreateAt()|date('Y-m-d H:i:s') }}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5 style="vertical-align: middle">{{ message.getContent()|nl2br }}</h5>
+
+                                    <div style="text-align: right">
+                                        {% if app.user %}
+                                            <a href="{{ url("user.message.create", {"id": message.getId()}) }}">
+                                                <button class="btn btn-info btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 留言
+                                                </button>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if message.getUser() == app.user.username %}
+                                            <a href="{{ url("user.message.edit", {"id": message.getId()}) }}">
+                                                <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 編輯留言
+                                                </button>
+                                            </a>
+                                            <a href="{{ url("user.message.delete", {"id": message.getId()}) }}">
+                                                <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 刪除留言
+                                                </button>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    {% set i = 0 %}
+                                    {% set son = '' %}
+                                    {% set space = '&emsp;&emsp;&emsp;' %}
+                                    <br>
+                                    {% if haveChildren(message) > 0 %}
+                                        <div style="text-align: right">
+
+                                            <div class='spoiler' title='留言:{{ haveChildren(message) }}' style="text-align: center">
+                                                {% for sonmessage in sonmessagelist %}
+                                                    {% if sonmessage.getParent() == message %}
+                                                        <hr size="5px">
+                                                        <h6 style="vertical-align: middle">
+                                                            <a style="color:blue"> {{ sonmessage.getUser() }}</a>
+                                                            於
+                                                            {{ sonmessage.getCreateAt()|date('Y-m-d H:i:s') }}
+                                                        </h6>
+                                                        <h6 style="vertical-align: middle">{{ sonmessage.getContent()|nl2br }}</h6>
+
+                                                        <div style="text-align: right">
+
+                                                            {% if sonmessage.getUser() == app.user.username %}
+                                                                <a href="{{ url("user.message.edit", {"id": sonmessage.getId()}) }}">
+                                                                    <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                                        <i class="fas fa-edit"></i> 編輯留言
+                                                                    </button>
+                                                                </a>
+                                                                <a href="{{ url("user.message.delete", {"id": sonmessage.getId()}) }}">
+                                                                    <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                                        <i class="fas fa-edit"></i> 刪除留言
+                                                                    </button>
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="card-footer">
+                                {% if app.user %}
+                                    {{ form_start(form) }}
+                                    創建留言:<br>
+                                    {{ form_widget(form.content) }}<br>
+                                    <button type="submit" class="btn btn-outline-info btn-xs">送出</button>
+                                    {{ form_end(form) }}
+                                {% else %}
+                                    <a href="/user/login">login</a></br>
+                                {%  endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <head>
+        <style>
+            .slide_toggle {
+                text-align: center;
+                cursor: pointer;
+                font-weight: bold;
+                line-height: 170%;
+                background-color: #eed;
+                border-radius: 7px;
+            }
+            .slide_toggle + div {
+                display: none;
+                margin-top: 10px;
+            }
+            .spoiler[title]:before {
+                content:attr(title)" : ";
+            }
+            .spoiler {
+                margin:10px;
+            }
+        </style>
+        <script>
+            $(".slide_toggle").click(function(){
+                $(this).next().slideToggle();
+            });
+            $(".spoiler").each(function () {
+
+                var a = this,
+                    b = $(this).attr("title") || "";
+                $(this).before($("<div>" + b + "[\u986f\u793a]</div>").click(function () {
+                    $(a).slideToggle();
+                }).css("cursor", "pointer")).hide();
+            }).css("margin-left", "20px").attr("title", "").removeClass("spoiler");
+        </script>
+    </head>
+
+{% endblock %}
+

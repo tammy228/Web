@@ -1,0 +1,169 @@
+{% extends  "admin/base.html.twig"%}
+
+{% block body %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>編輯照片</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                        <li class="breadcrumb-item active">編輯照片</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-9">
+                    <!-- general form elements -->
+                    <div class="card card-cyan">
+                        <div class="card-header">
+                            <h3 class="card-title">照片資訊</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="card-body">
+                            <form method="post"
+                                  action="{{ url('admin.photo.update', {"id": photo.getId()}) }}"
+                                  enctype="multipart/form-data">
+                                {{ form_row(form._token) }}
+                            <div class="form-group">
+                                <label>相片</label><br>
+                                {{ form_widget(form.content) }}
+                            </div>
+
+                            <div class="form-group">
+                                <img style="width: 50%;" src="{{ photo.getContentName()}}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>下線時間</label><br>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    {% set date = photo.offlineAt|date("Ymd") %}
+                                    <input name="photo_edit[offlineAt]"
+                                           id="photo_edit_offlineAt"
+                                           type="text"
+                                           class="form-control"
+                                           data-inputmask-alias="datetime"
+                                           data-inputmask-inputformat="yyyy/mm/dd"
+                                           value= {{ date }}
+                                           data-mask>
+                                </div>
+                                {{ form_errors(form.offlineAt) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>相簿</label><br>
+                                {{ form_widget(form.albums) }}
+                            </div>
+                            <div class="form-group" id="album_selector">
+                                <div>
+                                    <button type="button" class="btn btn-default btn-xs" style="margin: 0 12px 12px 0"
+                                            v-for="selectedAlbum in selectedAlbums"
+                                            @click="removeFromGroup(selectedAlbum)">
+                                        <i class="fas fa-times"></i> {{ '{{ selectedAlbum.name }}' }}
+                                    </button>
+                                </div>
+
+                                <input name="photo[albums][]"
+                                       v-for="selectedAlbum in selectedAlbums"
+                                       :value="selectedAlbum.id" hidden="hidden">
+
+                                <div class="row">
+                                    <div class="col-9">
+                                        {% set albums = getAlbums() %}
+                                        <select id="albums_select" class="form-control">
+                                            {% for album in albums %}
+                                                <option value="{{ album.getId() }}">{{ album.getName() }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-success" @click="addToGroup">新增至相簿</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info">更新照片</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        new Vue({
+            el: '#album_selector',
+            data: function() {
+                return {
+                    selectedAlbumId: [
+                        {% for album in photo.getAlbums() %}
+                        {{ album.getId() }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    selectedAlbums: [
+                        {% for album in photo.getAlbums() %}
+                        {
+                            "name": "{{ album.getName() }}",
+                            "id": {{ album.getId() }}
+                        }{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                }
+            },
+            methods: {
+                addToGroup: function() {
+
+                    let selectedId = $('#albums_select').val();
+                    let selectedName = $('#albums_select option:selected').text();
+
+                    if (!this.selectedAlbumId.includes(selectedId)) {
+
+                        this.selectedAlbums.push({
+                            name: selectedName,
+                            id: selectedId
+                        });
+                        this.selectedAlbumId.push(selectedId);
+
+                    }
+                    console.log(this.selectedAlbums);
+                },
+                removeFromGroup: function(group) {
+                    let index = this.selectedAlbums.indexOf(group);
+                    let idIndex = this.selectedAlbums.indexOf(group.id);
+                    if(index >= 0) {
+                        this.selectedAlbums.splice(index, 1);
+                        this.selectedAlbumId.splice(idIndex, 1);
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+    </script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+
+{% endblock %}
+
+

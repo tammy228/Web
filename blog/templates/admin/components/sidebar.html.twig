@@ -1,0 +1,121 @@
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/admin/index" class="brand-link">
+        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        <span class="brand-text font-weight-light">AdminLTE</span>
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            文章
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/article" class="nav-link">
+                                <i class = "nav-icon"></i>
+                                <p>文章列表</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url("admin.article.create")}}"  class="nav-link">
+                                <i class = "nav-icon"></i>
+                                <p>創建文章</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>
+                            相簿
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/albums" class="nav-link">
+                                <i class = "nav-icon"></i>
+                                <p>相簿列表</p>
+                            </a>
+                        </li>
+                        <li class ="nav-item">
+                            <a href="/admin/albums/create" class="nav-link">
+                                <i class = "nav-icon"></i>
+                                <p>創建相簿</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            留言
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/message" class="nav-link">
+                                留言列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            分類
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/category" class="nav-link">
+                                分類列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <i class="nav-icon fas fa-user-plus"></i>
+                            <a href="/admin/category/create" class="nav-link">
+                                創建分類
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            使用者
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class ="nav-item">
+                            <a href="/admin/users" class="nav-link">
+                                <i class = "nav-icon"></i>
+                                <p>使用者列表</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                </ul>
+            </ul>
+        </nav>
+    </div>
+</aside>

@@ -1,0 +1,58 @@
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/user" class="brand-link">
+        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        {% if app.user %}
+            <span class="brand-text font-weight-light">{{ app.user.username }}</span>
+        {% endif %}
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="/user/article" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            全部文章列表
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            分類
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    {% set categories = getCategories() %}
+
+
+                    {% for category in categories %}
+                        {% set count = countArticles(category.getArticles()) %}
+                        {% set sons = category.getChildren() %}
+                        {% set title = '' %}
+                        {% for son in sons %} {% set title = title ~ '  ' ~ son.getName() %}
+                            {% endfor %}
+                        <ul class="nav nav-treeview">
+                            <li class ="nav-item">
+                                <a href="{{ url("category.list_articles", {"id": category.getId()}) }}" class="nav-link">
+                                    {{ category.getName() }}[{{ count }}]
+                                </a>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </li>
+                <li class="nav-item">
+                    <a href="/user/albums" class="nav-link">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            相簿
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

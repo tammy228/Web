@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>文章列表</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">文章列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+                <div class ="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">標題</th>
+                                        <th scope="col">發表時間</th>
+                                        <th scope="col">觀看人數</th>
+                                        <th scope="col">留言</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for article in articles %}
+                                        {% if article.getOfflineAt() > now %}
+                                            {% if article.getDraft == false %}
+                                            <tr>
+                                                <td style="vertical-align: middle"><a href="{{ url("user.article.fetch", {"id": article.getId()}) }}">{{ article.getTitle() }}</a></td>
+                                                <td style="vertical-align: middle">{{ article.getCreateAt()|date('Y-m-d') }}</td>
+                                                <td style="vertical-align: middle">{{ article.getVisitor() }}</td>
+                                                <td style="vertical-align: middle">{{ getMessages(article.getId()) }}</td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+{% endblock %}
+

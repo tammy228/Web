@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}choose category{% endblock %}
+
+{% block body %}
+    <h1>Choose category</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.category) }}
+        <div class="form-group" id="group_selector">
+            {% set categorys = getCategorys() %}
+            <select id="product_groups_select" name="article[category][]" class="form-control">
+                {% for category in categorys %}
+                    <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+                {% endfor %}
+            </select>
+        </div><br>
+        <button id="submit">submit</button>
+    {{ form_end(form) }}
+    <a href = "/admin/article">article</a><br>
+    <a href="/admin/index">index</a></br>
+{% endblock %}

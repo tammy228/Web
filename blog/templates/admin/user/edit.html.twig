@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Edit{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    User Role
+    <select id="user_role" name="user[role]" class="form-control">
+        <option value="ROLE_USER" {% if user.getRole() == "ROLE_USER" %}selected="selected"{% endif %}>Normal User</option>
+        <option value="ROLE_ADMIN" {% if user.getRole() == "ROLE_ADMIN" %}selected="selected"{% endif %}>Admin User</option>
+    </select>
+    <br>
+
+    <button type = "submit" class="btn">edit</button></br>
+    
+{{ form_end(form) }}
+
+
+    <a href="/admin/users">list</a></br>
+{% endblock %}
+

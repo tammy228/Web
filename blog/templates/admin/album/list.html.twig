@@ -1,0 +1,95 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>相簿列表</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                        <li class="breadcrumb-item active">相簿列表</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead align="middle">
+                                <tr>
+                                    <th scope="col">相簿</th>
+                                    <th scope="col">相簿描述</th>
+                                    <th scope="col">創建時間</th>
+                                    <th scope="col">最後更新</th>
+                                    <th scope="col">下線時間</th>
+                                    <th scope="col">動作</th>
+                                </tr>
+                                </thead>
+
+                                <tbody align="middle">
+                                {% for album in albums %}
+                                    <tr>
+                                    <tr>
+                                        <td style="vertical-align: middle">
+                                            {% set photos = album.getPhotos() %}
+                                            {% if photos[0].getContentName() is not defined %}
+                                                <img style="vertical-align: middle" width="100px" src= "{{ asset("img/defaultThumbnail.png")}}" />
+                                            {% else %}
+                                                <img style="vertical-align: middle" width='100px' src="{{ photos[0].getContentName() }}" />
+                                            {% endif %}
+                                        </td>
+                                        <td style="vertical-align: middle">
+                                            {{ album.getDescription()|length > 30 ?
+                                            album.getDescription()|striptags|slice(0, 20) ~ '...' :
+                                            album.getDescription()|raw }}
+                                        </td>
+                                        <td style="vertical-align: middle">{{ album.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+                                        <td style="vertical-align: middle">{{ album.getUpdateAt()|date('Y-m-d H:i:s')}}</td>
+                                        <td style="vertical-align: middle">{{ album.getOfflineAt()|date('Y-m-d')}}</td>
+                                        <td style="vertical-align: middle">
+                                            <a href="{{ url("admin.albums.list_photos", {"albumId": album.getId()}) }}">
+                                                <button class="btn btn-primary btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-eye"></i> 管理相簿內容
+                                                </button>
+                                            </a>
+                                            <a href="{{ url("admin.album.update", {"id": album.getId()}) }}">
+                                                <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 更新相簿
+                                                </button>
+                                            </a>
+                                            <a href="{{ url("admin.album.delete", {"id": album.getId()}) }}">
+                                                <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-trash"></i> 刪除相簿
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <td rowspan="2">{{ album.getName() }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="{{ url("admin.album.create") }}">
+                                <button class="btn btn-info ">新增相簿</button>
+                            </a>
+                            <a href="{{ url("admin.photo.create",{"albumId": 1 }) }}">
+                                <button class="btn btn-info ">上傳相片</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

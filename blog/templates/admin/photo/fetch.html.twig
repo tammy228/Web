@@ -1,0 +1,50 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>相片資訊</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">Home Page</a></li>
+                        <li class="breadcrumb-item active">相片資訊</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-cyan">
+
+                        <!-- form start -->
+                        <div class="card-body">
+                            <li class="list-group-item">相片名稱: {{ photo.name }}</li>
+                            <li class="list-group-item">下線時間: {{ photo.getOfflineAt|date("Y-m-d") }}</li>
+
+                            {% for album in photo.getAlbums() %}
+                                <li class="list-group-item">所屬相簿: {{ album.getName() }}</li>
+                            {% endfor %}
+
+                            <li class="list-group-item">照片:<br>
+                                <img style="width: 50%;" src="{{ photo.getContentName()}}" />
+                            </li>
+                            <br>
+                            <a href="{{ url('admin.photo.update', {'id': photo.getId()}) }}">
+                                <button class="btn btn-info">更新照片</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+

@@ -1,0 +1,137 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block body %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <h1>創建文章</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">文章列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    文章
+                                </h3>
+                            </div>
+                            <form method="post" action="{{ url('admin.article.create') }}">
+                                {{ form_row(form._token) }}
+                            <div class="card-body">
+                                <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>文章標題</label><br>
+                                    {{ form_widget(form.title, {'attr': {
+                                        'class': 'form-control',
+                                        'placeholder': '輸入...'
+                                    }}) }}
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>文章內容</label><br>
+                                    {{ form_widget(form.content, {'attr': {
+                                        'class': 'form-control'
+                                    }}) }}
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>草稿選擇</label><br>
+                                        {{ form_widget(form.draft, {'attr': {
+                                            'class': 'form-control'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>下線時間</label><br>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input name="article[offlineAt]"
+                                                   type="text"
+                                                   class="form-control"
+                                                   data-inputmask-alias="datetime"
+                                                   data-inputmask-inputformat="yyyy/mm/dd"
+                                                   data-mask>
+                                        </div>
+                                        {{ form_errors(form.offlineAt) }}
+                                    </div>
+                                </div>
+                                <!-- /.form group -->
+
+                                <div class="form-group">
+                                    <label>所屬分類</label><br>
+                                    {{ form_widget(form.categories) }}
+                                    {% set categories = getCategories() %}
+                                    <select name="article[categories][]">
+                                        {% for category in categories %}
+                                            <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">送出</button></br>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+            <!-- jQuery -->
+    <script src="{{ asset("/plugins/jquery/jquery.min.js") }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset("/plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset("/plugins/select2/js/select2.full.min.js") }}"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="{{ asset("/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js") }}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/moment/moment.min.js") }}../.."></script>
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+    <!-- date-range-picker -->
+    <script src="{{ asset("/plugins/daterangepicker/daterangepicker.js") }}"></script>
+    <!-- bootstrap color picker -->
+    <script src="{{ asset("/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js") }}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset("/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js") }}"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{{ asset("/plugins/bootstrap-switch/js/bootstrap-switch.min.js") }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset("/dist/js/adminlte.min.js") }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset("/dist/js/demo.js") }}"></script>
+    <!-- Page script -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+    </script>
+    <!-- InputMask -->
+    <script src="{{ asset("/plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+{% endblock %}

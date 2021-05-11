@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BlogPROJECT</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset("/plugins/fontawesome-free/css/all.min.css") }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("/dist/css/adminlte.min.css") }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src= "{{ asset("/plugins/jquery/jquery.min.js") }}" ></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+
+    {% block before_scripts %}{% endblock %}
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    {% include "/admin/components/sidebar.html.twig" %}
+    {% include "/admin/components/navbar.html.twig" %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+
+</div>
+
+
+<!-- Bootstrap 4 -->
+<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset("plugins/bs-custom-file-input/bs-custom-file-input.min.js") }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+
+<script src="{{ asset("plugins/moment/moment.min.js") }}"></script>
+<script src="{{ asset("plugins/inputmask/min/jquery.inputmask.bundle.min.js") }}"></script>
+
+</body>
+</html>

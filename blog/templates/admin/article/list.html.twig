@@ -1,0 +1,103 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>文章列表</h1>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+
+                        <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                        <li class="breadcrumb-item active">文章列表</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class ="container-fluid">
+            <div class ="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">所屬分類</th>
+                                    <th scope="col">標題</th>
+                                    <th scope="col" style="width: auto">文章內容</th>
+                                    <th scope="col">創建時間</th>
+                                    <th scope="col">最後更新</th>
+                                    <th scope="col">下線時間</th>
+                                    <th scope="col">草稿</th>
+                                    <th scope="col">觀看人數</th>
+                                    <th scope="col">留言數</th>
+                                    <th scope="col" style="width: 150px">動作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for article in articles %}
+                                    <tr>
+                                        {% set categories = article.getCategories() %}
+                                        <td style="vertical-align: middle">
+                                            {% set cate = '' %}
+                                            {% for category in categories %}
+                                                {% set cate = cate ~ category.name ~ ' ' %}
+                                            {% endfor %}
+                                            {{ cate |length > 6 ? cate|striptags|slice(0, 7) ~ '...' : cate|raw}}
+                                        </td>
+                                        {% set content = article.getContent()|replace({'&nbsp;' : ''}) %}
+                                        <td style="vertical-align: middle"><a href="{{ url("admin.article.fetch", {"id": article.getId()}) }}">{{ article.getTitle() }}</a></td>
+                                        <td style="vertical-align: middle">{{ content|length > 30 ? content|raw|striptags|slice(0, 30) ~ '...' : article.getContent()|raw}}</td>
+                                        <td style="vertical-align: middle">{{ article.getCreateAt()|date('Y-m-d H:i:s') }}</td>
+                                        <td style="vertical-align: middle">{{ article.getUpdateAt()|date('Y-m-d H:i:s')}}</td>
+                                        <td style="vertical-align: middle">{{ article.getOfflineAt()|date('Y-m-d')}}</td>
+                                        <td style="vertical-align: middle">{% if article.getDraft() == 0 %}已上傳{% else %}草稿{% endif %}</td>
+                                        <td style="vertical-align: middle">{{ article.getVisitor() }}</td>
+                                        <td style="vertical-align: middle">{{ getMessages(article.getId()) }}</td>
+                                        <td >
+                                            <a href="{{ url("admin.article.fetch", {"id": article.getId()}) }}">
+                                                <button class="btn btn-primary btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-eye"></i> 文章內容
+                                                </button>
+                                            </a>
+                                            <a href="{{ url("admin.article.update", {"id": article.getId()}) }}">
+                                                <button class="btn btn-warning btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 更新文章
+                                                </button>
+                                            </a>
+                                            <a href="{{ url("admin.article.delete", {"id": article.getId()}) }}">
+                                                <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-trash"></i> 刪除文章
+                                                </button>
+                                            </a></td>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href = "/admin/article">
+            <button class="btn btn-info" style="margin: 0 10px 0 0;">
+                全部顯示
+            </button></a>
+        <a href = "/admin/article/listdraft">
+            <button class="btn btn-info" style="margin: 0 10px 0 0;">
+                顯示草稿
+            </button></a>
+        <a href="{{ url("admin.article.create") }}"><button class="btn btn-warning" style="margin: 0 10px 0 0;">創建文章</button></a>
+    </section>
+</div>
+{% endblock %}

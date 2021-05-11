@@ -1,0 +1,120 @@
+
+{% extends 'admin/base.html.twig' %}
+{% block body %}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>文章</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">文章列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class ="container-fluid">
+
+                <div class ="row">
+                    <div class="col-md">
+                        <div align="right">發表於 {{ article.getCreateAt()|date('Y-m-d H:i:s') }}</div>
+                        <div class="card">
+                            <div class="card-header bg-gradient-navy">
+                                <div class="card-title">
+                                    <h2>{{ article.getTitle() }}</h2>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div style="vertical-align: middle">
+                                    <span>{{ article.getContent|raw}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h2>留言:</h2>
+                            <div class="card">
+                                {% for message in messagelist %}
+                                <div class="card-header">
+                                    <h5 style="vertical-align: middle">
+                                        <a style="color:blue"> {{ message.getUser() }}</a>
+                                        於
+                                        {{ message.getCreateAt()|date('Y-m-d H:i:s') }}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5 style="vertical-align: middle">{{ message.getContent()|nl2br }}</h5>
+
+                                    <div style="text-align: right">
+                                        {% if app.user %}
+                                            <a href="{{ url("user.message.create", {"id": message.getId()}) }}">
+                                                <button class="btn btn-info btn-xs" style="margin: 0 10px 0 0;">
+                                                    <i class="fas fa-edit"></i> 留言
+                                                </button>
+                                            </a>
+                                        {% endif %}
+                                        <a href="{{ url("user.message.delete", {"id": message.getId()}) }}">
+                                            <button class="btn btn-danger btn-xs" style="margin: 0 10px 0 0;">
+                                                <i class="fas fa-edit"></i> 刪除留言
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-footer"
+                                {% set i = 0 %}
+                                {% set son = '' %}
+                                {% set space = '&emsp;&emsp;&emsp;' %}
+                                {% for sonmessage in sonmessagelist %}
+                                    {% if sonmessage.getParent() == message %}
+                                        {% set son = son ~ '<a style="color:blue">' ~ sonmessage.getUser() ~ '</a>於' ~ sonmessage.getCreateAt()|date('Y-m-d H:i:s') ~ space ~ '<br>' ~ space ~ sonmessage.getContent() ~ '<br>-------------------------------------<br>' %}
+                                        {% set i = i + 1 %}
+                                        </span>
+                                    {% endif %}
+                                {% endfor %}
+                                <div style="text-align: right">
+                                    {% if i != 0 %}
+                                    留言 : {{ i }}
+                                    <input id={{ message.getUser() }} type="button" class="btn btn-outline-info btn-xs" value="展開留言" onclick="if(document.getElementById('{{ message.getId() }}').style.display=='none'){document.getElementById('{{ message.getId() }}').style.display = 'table';}else{document.getElementById('{{ message.getId() }}').style.display='none'}" />
+                                </div>
+                                <span id={{ message.getId() }} style="display:none;">
+                                        <br>{{ son|raw }}  <br>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    </div>
+    <head>
+        <style>
+            .slide_toggle {
+                text-align: center;
+                cursor: pointer;
+                font-weight: bold;
+                line-height: 170%;
+                background-color: #eed;
+                border-radius: 7px;
+            }
+            .slide_toggle + div {
+                display: none;
+                margin-top: 10px;
+            }
+        </style>
+        <script>
+            $(".slide_toggle").click(function(){
+                $(this).next().slideToggle();
+            });
+        </script>
+    </head>
+
+{% endblock %}
+

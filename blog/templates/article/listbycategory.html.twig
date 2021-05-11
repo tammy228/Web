@@ -1,0 +1,212 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/user" class="brand-link">
+        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .9">
+        {% if app.user %}
+            <span class="brand-text font-weight-light">{{ app.user.username }}</span>
+        {% endif %}
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="/user/article" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            全部文章列表
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            分類
+                            <i class = "right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    {% set categories = getCategories() %}
+
+
+                    {% for category in categories %}
+                        {% set count = countArticles(category.getArticles()) %}
+                        {% set sons = category.getChildren() %}
+                        {% set title = '' %}
+                        {% for son in sons %} {% set title = title ~ '  ' ~ son.getName() %}
+                        {% endfor %}
+                        {% if id != category.getId() %}
+                            <ul class="nav nav-treeview" >
+                                <li class ="nav-item">
+                                    <a href="{{ url("category.list_articles", {"id": category.getId()}) }}" class="nav-link">
+                                        {{ category.getName() }}[{{ count }}]
+                                    </a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="nav nav-treeview">
+                                <li class ="nav-item">
+                                    <a href="{{ url("category.list_articles", {"id": category.getId()}) }}" class="nav-link active">
+                                        {{ category.getName() }}[{{ count }}]
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+                <li class="nav-item">
+                    <a href="/user/albums" class="nav-link">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            相簿
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+{% block body%}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h4>分類名稱:{{ category.getName() }}</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url("admin.index") }}">{{ "Home Page" | trans }}</a></li>
+                            <li class="breadcrumb-item active">文章列表</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5>子分類</h5>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <div class="card ">
+                            {% set i = 0 %}
+                            {% for son in sonCategory %}
+                                {% if i % 2 == 0 %}
+                                    <div class="card-body">
+                                            <tr>
+                                                <td style="vertical-align: middle"><a href="{{ url("category.list_articles", {"id": son.getId()}) }}" >
+                                                        {{ son.getName() }}<br>
+                                                    </a></td>
+                                            </tr>
+                                    </div>
+                                    {% set i = i + 1 %}
+                                {% else %}
+                                    <div class="card-body">
+                                        <tr>
+                                            <td style="vertical-align: middle"><a href="{{ url("category.list_articles", {"id": son.getId()}) }}">
+                                                    {{ son.getName() }}<br>
+                                                </a></td>
+                                        </tr>
+                                    </div>
+                                    {% set i = i + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h4>文章</h4>
+                </div>
+            </div>
+        </div>
+            <section class="content">
+
+                <div class ="container-fluid">
+
+                    <div class ="row">
+
+                        <div class="col-md-12">
+                            {% for article in articles %}
+
+                            {% if article.getOfflineAt() > now and article.getDraft == false %}
+
+                            <div class="card card-dark">
+                                <div class="card-header">
+                                    <h3 class="card-title ">
+                                        <a href="{{ url("user.article.fetch", {"id": article.getId()}) }}">
+                                            <i class="fas fa-book mr-1" ></i></a>
+                                        <td style="vertical-align:middle"><a href="{{ url("user.article.fetch", {"id": article.getId()}) }}">{{ article.getTitle() }}</a></td>
+                                    </h3>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <div style="vertical-align: middle">{{ article.getContent()|length > 150 ? article.getContent()|replace({'&nbsp;' : ''})|striptags|slice(0, 150)|raw ~ '...' : article.getContent()|raw}}</div>
+
+                                    <div style="text-align: right">發表時間:{{ article.getCreateAt()|date('Y-m-d') }}|人氣:{{ article.getVisitor() }} |留言數:{{ getMessages(article.getId()) }}</div>
+                                    {% endif %}
+                                </div><!-- /.card-body -->
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+    </div>
+{% endblock %}
+
+<html>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BlogPROJECT</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset("/plugins/fontawesome-free/css/all.min.css") }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset("/plugins/daterangepicker/daterangepicker.css") }}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css") }}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset("/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset("/plugins/select2/css/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="{{ asset("/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css") }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset("/plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("/dist/css/adminlte.min.css") }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src= "/plugins/jquery/jquery.min.js" ></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+
+<!-- Bootstrap 4 -->
+<script src="{{ asset("/plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset("/plugins/bs-custom-file-input/bs-custom-file-input.min.js") }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset("/dist/js/adminlte.min.js") }}"></script>
+
+</html>
